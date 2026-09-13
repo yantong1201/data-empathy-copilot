@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>数据共情者 · 客服 Copilot 原型</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%23256fe8'/%3E%3Cpath d='M6 7h12M6 12h12M6 17h8' stroke='white' stroke-width='2'/%3E%3C/svg%3E" />
+  <style>
+    :root{--blue:#256fe8;--blue-soft:#eaf2ff;--ink:#172033;--muted:#6d7b90;--line:#e5eaf2;--bg:#f5f7fb;--red:#c94650;--red-bg:#fff1f2;--amber:#a96813;--amber-bg:#fff6e5;--green:#177553;--green-bg:#ecf9f2}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 Inter,"PingFang SC","Microsoft YaHei",sans-serif}.app{height:100vh;min-height:680px;display:flex;overflow:hidden}.rail{width:68px;flex:0 0 68px;background:#2f73e7;color:#fff;display:flex;flex-direction:column;align-items:center;padding:17px 0 14px;gap:15px}.brand{width:38px;height:38px;display:grid;place-items:center;border-radius:12px;background:#fff;color:var(--blue);font-size:18px;font-weight:800}.rail-item{width:52px;min-height:50px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border-radius:10px;color:#dce9ff;cursor:pointer}.rail-item.active{background:rgba(255,255,255,.18);color:#fff}.rail-item span{font-size:10px}.rail-bottom{margin-top:auto;display:flex;flex-direction:column;gap:12px;align-items:center}.avatar-sm{width:29px;height:29px;display:grid;place-items:center;border-radius:50%;background:#dceaff;color:#2f73e7;font-size:12px;font-weight:700}
+    .workspace{width:272px;flex:0 0 272px;background:#fbfcff;border-right:1px solid var(--line);display:flex;flex-direction:column}.shopbar{height:75px;padding:16px 17px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}.shopname{font-weight:750}.shopname small{display:block;margin-top:3px;color:var(--muted);font-size:12px;font-weight:400}.search{margin:13px 13px 10px;padding:9px 10px;display:flex;gap:7px;align-items:center;border:1px solid #edf0f5;border-radius:9px;background:#f2f5f9;color:#93a0b0}.search input{width:100%;border:0;outline:0;background:transparent;font:12px inherit;color:var(--ink)}.tabs{display:flex;gap:4px;padding:0 13px 8px}.tab{border:0;border-radius:7px;padding:7px 8px;background:transparent;color:#7d8a9d;cursor:pointer}.tab.active{background:var(--blue-soft);color:var(--blue);font-weight:700}.queue{display:flex;justify-content:space-between;padding:12px 14px 8px;color:var(--muted);font-size:12px}.queue-filter{border:0;background:transparent;color:#758399;cursor:pointer}.sessions{overflow:auto;padding:0 8px}.session{display:flex;gap:10px;margin-bottom:4px;padding:12px 10px;border-radius:10px;cursor:pointer}.session:hover,.session.active{background:#eaf0f9}.face{width:34px;height:34px;display:grid;place-items:center;flex:0 0 auto;border-radius:50%;background:#dce9ff;color:#3b78e1;font-weight:750}.session-main{min-width:0;flex:1}.session-top{display:flex;justify-content:space-between;font-weight:700}.session-top time{font-size:11px;color:#98a3b3;font-weight:400}.preview{margin-top:3px;overflow:hidden;color:#8a97a9;font-size:12px;text-overflow:ellipsis;white-space:nowrap}.badge{display:inline-flex;align-items:center;gap:3px;border-radius:999px;padding:3px 7px;font-size:10px;font-weight:750}.badge.red{background:var(--red-bg);color:var(--red)}.badge.amber{background:var(--amber-bg);color:var(--amber)}.badge.green{background:var(--green-bg);color:var(--green)}
+    .main{display:flex;min-width:0;flex:1;flex-direction:column;background:#fff}.topbar{height:75px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;border-bottom:1px solid var(--line)}.breadcrumb{color:var(--muted);font-size:12px}.title{margin-top:2px;font-size:16px;font-weight:750}.top-actions{display:flex;align-items:center;gap:7px}.pill{border:1px solid var(--line);border-radius:8px;padding:6px 9px;background:#fff;color:#637186;font-size:11px;white-space:nowrap}.pill.online{border-color:#cbeedc;background:var(--green-bg);color:var(--green)}.pill.degraded{border-color:#ffe0a5;background:var(--amber-bg);color:var(--amber)}.content{display:flex;min-height:0;flex:1}
+    .chat{display:flex;min-width:410px;flex:1;flex-direction:column;background:#fbfcfe}.snapshotbar{display:flex;align-items:center;gap:7px;padding:10px 20px;border-bottom:1px solid var(--line);background:#f8faff;color:#697890;font-size:12px}.snap{border:1px solid #dce5f2;border-radius:7px;padding:5px 8px;background:#fff;color:#6d7c90;cursor:pointer}.snap.active{border-color:#bdd3fa;background:var(--blue-soft);color:var(--blue);font-weight:700}.snapshot-note{margin-left:auto;color:#8b97a8;font-variant-numeric:tabular-nums}.product{display:flex;justify-content:space-between;align-items:center;margin:13px 21px 4px;padding:11px 13px;border:1px solid #e8edf4;border-radius:10px;background:#fff}.product b{font-size:13px}.product p{margin:3px 0 0;color:var(--muted);font-size:12px}.price{color:#ef702a;font-weight:750}.stepbar{display:flex;align-items:center;gap:9px;padding:8px 23px;border-bottom:1px solid #edf0f5;color:#748195;font-size:12px}.stepbar input{min-width:40px;flex:1;accent-color:var(--blue)}.snap:disabled{opacity:.4;cursor:not-allowed}.stepbar{flex-wrap:wrap}.link-button{border:0;background:transparent;color:#3976d1;cursor:pointer}.messages{overflow:auto;flex:1;padding:18px 24px}.msg{max-width:76%;margin:0 0 17px}.msg.agent{margin-left:auto}.meta{margin-bottom:4px;color:#98a4b3;font-size:11px}.bubble{border:1px solid #e7ebf1;border-radius:11px;padding:10px 12px;background:#fff;box-shadow:0 2px 5px rgba(34,46,60,.03)}.agent .bubble{border-color:#d6e5fe;background:#ebf3ff}.msg-risk{border-left:3px solid var(--red);padding-left:9px}.media-status{display:flex;align-items:center;gap:6px;margin-top:7px;border-radius:7px;padding:6px 7px;background:#f3f6fa;color:#5f7598;font-size:11px}.composer{padding:11px 18px;border-top:1px solid var(--line);background:#fff}.composer textarea{width:100%;height:55px;resize:none;border:0;outline:0;color:var(--ink);font:14px inherit}.composer-bottom{display:flex;align-items:center;justify-content:space-between}.tools{display:flex;align-items:center;gap:12px;color:#758397}.tools span{font-size:11px}.send{border:0;border-radius:8px;padding:8px 15px;background:var(--blue);color:#fff;cursor:pointer}
+    .copilot{width:420px;flex:0 0 420px;display:flex;flex-direction:column;border-left:1px solid var(--line);background:#f7f9fd}.copilot-head{display:flex;align-items:center;justify-content:space-between;height:75px;padding:14px 18px;background:linear-gradient(90deg,#2f73e7,#4d8bf1);color:#fff}.copilot-head h2{margin:0;font-size:15px}.copilot-head small{opacity:.84}.copilot-scroll{overflow:auto;padding:13px}.section{margin-bottom:10px;border:1px solid #e5eaf3;border-radius:11px;background:#fff;box-shadow:0 3px 12px rgba(30,53,85,.04)}.section-head{display:flex;align-items:center;justify-content:space-between;width:100%;border:0;border-bottom:1px solid #edf0f5;padding:11px 12px;background:#fff;color:var(--ink);font-weight:750;text-align:left}.section-head.collapsible{cursor:pointer}.section-body{padding:11px 12px}.section-body.is-collapsed{display:none}.trace{display:flex;gap:9px}.trace-axis{display:flex;flex-direction:column;align-items:center}.dot{width:10px;height:10px;flex:0 0 auto;border-radius:50%;background:#4e88ed}.dot.muted{background:#c3cedd}.trace-line{width:2px;min-height:27px;flex:1;margin:3px 0;background:#dbe5f3}.trace-item{padding-bottom:10px;font-size:12px}.trace-item b{display:block}.trace-item span{display:block;color:var(--muted)}.notice{margin-top:5px;border-left:3px solid #f1a844;border-radius:6px;padding:6px 8px;background:#fff7e9;color:#8a641d;font-size:11px}.fact-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}.fact{border-radius:8px;padding:8px;background:#f6f8fc}.fact label{display:block;color:#8793a4;font-size:11px}.fact strong{display:block;margin-top:2px;font-size:12px}.riskbox{border:1px solid #ffd5d8;border-radius:9px;padding:10px;background:#fff4f5;color:#a73943}.riskbox.warn{border-color:#ffe0a5;background:#fff9ec;color:#926317}.risk-title{display:flex;justify-content:space-between;font-weight:750}.riskbox p{margin:4px 0 0;font-size:12px}.chips{display:flex;flex-wrap:wrap;gap:5px}.chip{border-radius:999px;padding:3px 7px;background:#edf3ff;color:#3c70bd;font-size:11px}.evidence{border-left:3px solid #94b7f1;border-radius:7px;padding:8px;background:#f8fafc;color:#506075;font-size:12px}.evidence small{color:#8996a7}.draft{border:1px dashed #aec5ed;border-radius:8px;padding:9px;background:#fbfdff;color:#4d5d70;font-size:12px}.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}.action{border:1px solid #dce5f2;border-radius:8px;padding:8px;background:#fff;color:#3e70b2;font-weight:700;cursor:pointer}.action.primary{border-color:#cfe0ff;background:var(--blue-soft)}
+    .tool-intro{margin-bottom:8px;color:var(--muted);font-size:11px}.tooltrace{display:grid;gap:6px}.tool-row{display:flex;align-items:center;gap:7px;width:100%;border:1px solid #e8edf5;border-radius:8px;padding:8px;background:#fff;color:#3e5068;text-align:left;cursor:pointer}.tool-row:hover{border-color:#aac6f4;background:#f8fbff}.tool-check{display:grid;place-items:center;width:17px;height:17px;border-radius:50%;background:var(--green-bg);color:var(--green);font-size:11px;font-weight:800}.tool-name{flex:1;font:600 11px ui-monospace,SFMono-Regular,Consolas,monospace}.tool-time{color:#8c98a8;font-size:11px}.tool-more{color:#6792d0}.auditbar{display:flex;gap:6px;margin-top:9px;color:#718198;font-size:11px}.auditbar span{padding:3px 6px;border-radius:5px;background:#f3f6fa}
+    .drawer{position:fixed;top:0;right:0;z-index:8;display:flex;width:min(520px,100vw);height:100vh;transform:translateX(100%);flex-direction:column;border-left:1px solid #dce5f2;background:#fff;box-shadow:-12px 0 35px rgba(18,38,70,.15);transition:transform .22s ease}.drawer.open{transform:translateX(0)}.drawer-head{display:flex;align-items:center;justify-content:space-between;padding:17px 18px;border-bottom:1px solid var(--line)}.drawer-head h3{margin:0;font-size:15px}.icon-button{display:grid;place-items:center;width:30px;height:30px;border:0;border-radius:7px;background:#f1f4f8;color:#536174;cursor:pointer}.drawer-body{overflow:auto;padding:16px 18px}.call-meta{display:flex;flex-wrap:wrap;gap:6px;margin:9px 0 15px}.call-meta span{border-radius:5px;padding:4px 6px;background:#f2f5fa;color:#68778b;font-size:11px}.call-label{margin:16px 0 6px;color:#65748a;font-size:11px;font-weight:750;text-transform:uppercase;letter-spacing:.05em}.json{overflow:auto;margin:0;border-radius:9px;padding:12px;background:#152238;color:#dbe8ff;font:11px/1.55 ui-monospace,SFMono-Regular,Consolas,monospace;white-space:pre-wrap}.drawer-note{margin-top:12px;border-radius:8px;padding:9px;background:#f1f7ff;color:#4671aa;font-size:12px}.overlay{position:fixed;inset:0;z-index:7;display:none;background:rgba(20,34,54,.25)}.overlay.show{display:block}.modal{position:fixed;inset:0;z-index:10;display:none;align-items:center;justify-content:center;background:rgba(20,34,54,.28)}.modal.show{display:flex}.modal-card{width:350px;border-radius:14px;padding:20px;background:#fff;box-shadow:0 20px 60px rgba(20,40,80,.18)}.modal-card h3{margin:0 0 8px}.modal-card p{color:var(--muted);font-size:13px}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}.toast{pointer-events:none;visibility:hidden;position:fixed;right:22px;bottom:22px;z-index:11;border-radius:8px;padding:10px 13px;background:#1e2a3d;color:#fff;opacity:0;transform:translateY(10px);transition:.2s}.toast.show{visibility:visible;opacity:1;transform:translateY(0)}
+    @media(max-width:1120px){.workspace{width:230px;flex-basis:230px}.copilot{width:365px;flex-basis:365px}.top-actions .metric{display:none}}@media(max-width:850px){.rail,.workspace{display:none}.copilot{width:350px;flex-basis:350px}.chat{min-width:330px}.snapshotbar{padding:8px 12px}.snapshot-note,.provider-detail{display:none}.topbar{padding:0 14px}}
+    /* Decisions and actions first; complete evidence and tool requests on demand. */
+    [hidden]{display:none!important}
+    .msg[role="button"]{cursor:pointer;scroll-margin:12px}.msg:focus-visible,.msg.source-focus{outline:2px solid var(--blue);outline-offset:5px;border-radius:10px}
+    .history-note{display:block;margin-top:4px;color:#83520f;font-size:12px}.history-note button{font-size:11px}
+    .draft-context{display:block;margin-bottom:5px;color:#697890;font-size:11px}
+    .local-icon{display:inline-block;flex-shrink:0;vertical-align:middle}
+    .copilot-head{height:62px;flex-shrink:0;padding:12px 16px}
+    .copilot-mode{font-size:11px;padding:3px 7px;border:1px solid #8eb5fa;border-radius:6px}
+    .copilot-scroll{flex:1;min-height:0;padding:12px;scrollbar-gutter:stable}
+    .decision-card{padding:12px;border-top:3px solid var(--blue)}
+    .decision-card[data-level="P0"]{border-top-color:var(--red)}
+    .decision-card[data-level="待定级"]{border-top-color:var(--amber)}
+    .decision-heading{display:flex;align-items:center;gap:7px;font-size:13px}
+    .decision-heading .badge{font-size:12px}
+    .decision-status{margin-left:auto;font-size:11px;color:#617188;white-space:nowrap}
+    .decision-summary{margin:8px 0 6px;font-size:13px;font-weight:650;line-height:1.65}
+    .decision-context{font-size:12px;line-height:1.65;color:#5c6e86}
+    .conflict-alert{margin-top:9px;padding:8px;border:1px solid #efd299;border-radius:7px;background:var(--amber-bg);font-size:12px;color:#83520f}
+    .conflict-alert p{margin:3px 0}
+    .conflict-alert button{padding:2px 0;color:#815111;text-decoration:underline}
+    .change-note{margin:0 1px 10px;padding:6px 9px;border-radius:6px;background:#eaf2ff;color:#3c649b;font-size:11px;line-height:1.6}
+    .copilot-tabs{display:flex;border-bottom:1px solid #dce5f1;margin-bottom:10px}
+    .copilot-tabs button{flex:1;border:0;border-bottom:2px solid transparent;background:none;padding:9px 6px;color:#65758d;cursor:pointer;font-size:13px;font-weight:600}
+    .copilot-tabs button[aria-selected="true"]{color:var(--blue);border-bottom-color:var(--blue)}
+    .copilot-tabs span{font-size:10px;font-weight:400;margin-left:4px}
+    .section-caption{font-size:11px;color:#66788f;font-weight:400}
+    .next-action{margin:0 0 10px;font-size:13px;line-height:1.75}
+    .missing-inline{padding:8px 0;border-top:1px solid var(--line)}
+    .missing-inline .chips{margin-top:5px}
+    .missing-inline .chip{background:#f5f7fb;color:#5b6c81;font-size:11px}
+    .reply-preview{border-left:2px solid #82adf0;background:#f6f9ff;padding:8px 10px;margin-top:2px;border-radius:5px}
+    .reply-preview p{font-size:12px;line-height:1.7;margin:5px 0 0;color:#41536b}
+    .key-evidence{display:flex;align-items:start;gap:8px;width:100%;padding:7px 0;background:none;border:0;text-align:left;cursor:pointer;color:#41536b}
+    .key-evidence+.key-evidence{border-top:1px solid #edf0f5}
+    .key-evidence .source-tag{font-size:10px;white-space:nowrap;border-radius:4px;background:#edf3ff;color:#3b6bb1;padding:2px 5px}
+    .key-evidence .source-copy{min-width:0;flex:1;font-size:12px;line-height:1.6}
+    .key-evidence .excerpt{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+    .key-evidence small{display:block;color:#6e7f96;font-size:10px;margin-top:2px}
+    .detail-group summary{padding:12px;cursor:pointer;font-size:13px;font-weight:650}
+    .detail-group summary span{float:right;color:#65758d;font-weight:400;font-size:11px}
+    .detail-group[open] summary{border-bottom:1px solid var(--line)}
+    .details-intro{font-size:12px;color:#65758d;margin:4px 0 12px}
+    #factsGroup .riskbox{margin:10px 0}
+    .evidence-entry{padding:10px 0;border-top:1px solid var(--line);overflow-wrap:anywhere;scroll-margin:12px}
+    .evidence-entry:focus{outline:2px solid #7ba9ed;outline-offset:4px}
+    .copilot-footer{flex-shrink:0;border-top:1px solid #dce5f1;padding:11px 12px 9px;background:#fff}
+    .footer-actions{display:grid;grid-template-columns:1.15fr 1fr 1fr;gap:7px}
+    .footer-actions .primary{background:var(--blue);border-color:var(--blue);color:#fff}
+    .copilot-footer small{display:block;text-align:center;margin-top:7px;color:#6a7b90;font-size:10px}
+    button:focus-visible,summary:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+    .drawer:not(.open){visibility:hidden}
+    @media(max-width:700px){.app{height:auto;min-height:100vh;overflow:visible}.content{flex-direction:column}.chat{min-width:0;min-height:560px}.copilot{width:100%;flex-basis:auto;border-left:0}.copilot-scroll{max-height:740px}.topbar{min-height:86px;height:auto;flex-wrap:wrap;gap:6px;padding:12px}.top-actions{flex-wrap:wrap}.snapshotbar{flex-wrap:wrap}.messages{max-height:340px}.stepbar{padding:8px 12px}.copilot-footer{position:sticky;bottom:0;z-index:2}}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="rail"><div class="brand">数</div><div class="rail-item active"><i data-lucide="layout-dashboard" size="18"></i><span>工作台</span></div><div class="rail-item"><i data-lucide="message-square" size="18"></i><span>消息</span></div><div class="rail-item"><i data-lucide="clipboard-list" size="18"></i><span>工单</span></div><div class="rail-item"><i data-lucide="bar-chart-3" size="18"></i><span>评测</span></div><div class="rail-bottom"><div class="avatar-sm">美</div><i data-lucide="settings" size="18"></i></div></aside>
+    <section class="workspace"><div class="shopbar"><div class="shopname">美妆旗舰店<small>人工客服工作台</small></div><i data-lucide="more-horizontal"></i></div><label class="search"><i data-lucide="search" size="15"></i><input id="searchInput" placeholder="昵称、会话ID、订单号、工单号" /></label><div class="tabs"><button class="tab active" data-queue="all">接待中 3</button><button class="tab" data-queue="follow">待跟进 2</button></div><div class="queue"><span>风险队列</span><button class="queue-filter" id="riskFilter">全部风险⌄</button></div><div class="sessions"><div class="session active" data-case="S00015"><div class="face"></div><div class="session-main"><div class="session-top"></div><div class="preview"></div><span class="badge"></span></div></div><div class="session" data-case="S00024"><div class="face"></div><div class="session-main"><div class="session-top"></div><div class="preview"></div><span class="badge"></span></div></div><div class="session" data-case="S00001"><div class="face"></div><div class="session-main"><div class="session-top"></div><div class="preview"></div><span class="badge"></span></div></div></div></section>
+    <main class="main"><header class="topbar"><div><div class="breadcrumb">工作台 / 风险队列 / 当前会话</div><div class="title" id="caseTitle"></div></div><div class="top-actions"><span class="pill online">● 静态 Mock · 3 例硬编码</span><span class="pill degraded provider-detail">Qwen / 自动降级待接入</span><span class="pill" id="asOfPill"></span><span class="pill metric" id="metricsPill"></span></div></header><div class="content">
+      <section class="chat"><div class="snapshotbar"><span>时间快照</span><button class="snap active" data-snap="message">当前消息</button><button class="snap" data-snap="created">工单创建后</button><button class="snap" data-snap="completed">工单完成后</button><span class="snapshot-note" id="snapshotNote"></span></div><div class="product"><div><b id="productName"></b><p id="orderLine"></p></div><div class="price">¥ 89.00</div></div><div class="stepbar"><span>消息推进</span><button class="snap" id="prevStep" aria-label="上一条消息">上一条</button><input id="stepRange" type="range" min="1" max="4" value="4" /><span id="stepLabel" aria-live="polite"></span><button class="snap" id="nextStep" aria-label="下一条消息">下一条</button><button class="link-button" id="resetStep">回到首条</button></div><div class="messages" id="messages"></div><div class="composer"><small class="draft-context" id="draftContext"></small><textarea id="composer" placeholder="输入或编辑回复草稿…"></textarea><div class="composer-bottom"><div class="tools"><i data-lucide="paperclip" size="16"></i><i data-lucide="image" size="16"></i><i data-lucide="sparkles" size="16"></i><span>草稿可编辑</span></div><button class="send" id="sendBtn">使用此回复</button></div></div></section>
+      <aside class="copilot" aria-label="客服辅助">
+        <div class="copilot-head"><div><h2>智能客服 Copilot</h2><small id="copilotTime"></small></div><span class="copilot-mode">Mock 演示</span></div>
+        <div class="copilot-scroll" id="copilotScroll">
+          <section class="section decision-card" aria-label="当前判断">
+            <div class="decision-heading"><span class="badge red" id="riskBadge"></span><strong id="decisionTitle"></strong><span class="decision-status" id="statusBadge"></span></div>
+            <p class="decision-summary" id="decisionSummary"></p>
+            <div class="decision-context" id="decisionContext"></div><div class="history-note" id="historyNote" hidden></div>
+            <div class="conflict-alert" id="conflictAlert" hidden></div>
+          </section>
+          <div class="change-note" id="changeNote" role="status" aria-live="polite"></div>
+          <div class="copilot-tabs" role="tablist" aria-label="辅助信息">
+            <button id="adviceTab" role="tab" aria-selected="true" aria-controls="advicePanel" tabindex="0">处理建议</button>
+            <button id="detailTab" role="tab" aria-selected="false" aria-controls="detailPanel" tabindex="-1">分析详情 <span id="detailCount"></span></button>
+          </div>
+          <div id="advicePanel" role="tabpanel" aria-labelledby="adviceTab">
+            <section class="section action-card">
+              <div class="section-head">建议下一步 <span class="section-caption">需人工确认</span></div>
+              <div class="section-body">
+                <p class="next-action" id="actionDraft"></p>
+                <div class="missing-inline"><span class="section-caption">待补充 / 核验 <span id="missingCount"></span></span><div class="chips" id="missingFields"></div></div>
+                <div class="reply-preview"><div class="section-caption">建议回复 · 可填入中间编辑框</div><p id="replyPreview"></p></div>
+              </div>
+            </section>
+            <section class="section evidence-card">
+              <div class="section-head">判断依据 <button class="link-button" id="allEvidenceBtn">全部证据</button></div>
+              <div class="section-body" id="keyEvidence"></div>
+            </section>
+          </div>
+          <div id="detailPanel" role="tabpanel" aria-labelledby="detailTab" hidden>
+            <div class="details-intro">当前快照的完整依据与演示工具请求，不影响上方处理建议。</div>
+            <details class="section detail-group" id="fullEvidenceGroup"><summary>完整证据 <span id="evidenceCount"></span></summary><div class="section-body"><div class="evidence" id="evidence"></div></div></details>
+            <details class="section detail-group" id="timelineGroup"><summary>服务轨迹</summary><div class="section-body" id="timeline"></div></details>
+            <details class="section detail-group" id="factsGroup"><summary>事实与风险规则</summary><div class="section-body"><div class="fact-grid" id="facts"></div><div class="riskbox" id="riskbox"></div><div class="chips" id="riskChips"></div></div></details>
+            <details class="section detail-group" id="toolsGroup"><summary>Agent 工具链 <span>8 个节点</span></summary><div class="section-body"><div class="tool-intro">点击节点查看当前快照的 Request JSON 与返回摘要。耗时为 Mock 演示值。</div><div class="tooltrace" id="toolTrace"></div><div class="auditbar" id="auditBar"></div></div></details>
+          </div>
+        </div>
+        <div class="copilot-footer">
+          <div class="footer-actions"><button class="action primary" id="applyReplyBtn">填入回复</button><button class="action" id="workorderBtn">工单草稿</button><button class="action" id="escalateBtn">人工升级</button></div>
+          <small>仅生成草稿 · 不发送、不执行外部业务动作</small>
+        </div>
+      </aside>
+    </div></main>
+  </div>
+  <div class="overlay" id="overlay"></div><aside class="drawer" id="drawer"><div class="drawer-head"><div><div class="breadcrumb">Agent 工具调用详情</div><h3 id="drawerTitle"></h3></div><button class="icon-button" id="drawerClose" aria-label="关闭详情"><i data-lucide="x" size="17"></i></button></div><div class="drawer-body"><div class="call-meta" id="callMeta"></div><div class="call-label">Request JSON</div><pre class="json" id="requestJson"></pre><div class="call-label">Response summary</div><pre class="json" id="responseJson"></pre><div class="drawer-note">工具只读取快照或生成草稿；不会发送回复、退款、赔偿、打款或直接升级。</div></div></aside>
+  <div class="modal" id="confirmModal"><div class="modal-card"><h3 id="modalTitle"></h3><p id="modalText"></p><div class="modal-actions"><button class="action" id="modalCancel">取消</button><button class="action primary" id="modalConfirm">确认生成草稿</button></div></div></div><div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script>
+    const cases={
+      S00015:{title:'S00015 · 不良反应与就医风险',product:'测试B5多效修护面膜20片',price:'¥ 199.00',order:'6920797553890280371',baseDate:'2026-05-05',time:'16:42:39',created:'17:13:33',completed:'23:56:33',workorder:'BLFY61738711',queueClass:'red',intent:'不良反应反馈',emotion:'negative_signal: present · escalation: yes',level:'P0',riskType:'adverse_reaction',riskText:'买家明确表示已在医院；规则命中后须即时人工介入，Provider 不能降低等级。',rule:'R-REACTION-001',missing:['门诊病历','医生诊断','产品批次'],draft:'您好，您的情况我们高度重视。请先遵医嘱治疗，并保留门诊病历和医生诊断；我会为您生成专项处理草稿，等待人工确认。',action:'收集就医凭证，生成不良反应工单草稿，并建议人工升级。',messages:[['customer','16:33:33','必须给我个说法！用了你们面膜脸过敏，红肿刺痛，我人现在在医院！'],['agent','16:36:20','亲亲，非常抱歉！您的情况我们高度重视，请先遵医嘱治疗。方便的话请把门诊病历和医生诊断拍照发给岚岚，马上为您上报专项处理'],['customer','16:37:21','资料给你，咋赔偿说个方案，不行我就走12315'],['agent','16:38:49','收到资料，已为您建立不良反应专项工单并升级处理。方案：①商品全额退款；②凭医疗票据报销本次门诊费用；③专员24小时内电话回访跟进恢复情况。您看可以吗？'],['customer','16:39:24','那个，能，动作快点点，别让我再跑一趟医院'],['agent','16:40:17','好的亲，请提供支付宝账号用于医疗费打款，退款走原路退回。也麻烦告知医生开的用药，方便回访时跟进~'],['customer','16:40:47','支付宝就是我手机号，医生开了氯雷他定和一支药膏哦'],['agent','16:41:52','都登记好了亲，打款1-3个工作日内到账。祝您早日康复，专员明天上午会致电回访，请留意接听'],['customer','16:42:39','好，等钱到账就行！']],evidence:'“必须给我个说法！用了你们面膜脸过敏，红肿刺痛，我人现在在医院！”',evidenceRef:'chat:S00015:1'},
+      S00024:{title:'S00024 · 空包裹退款待核实',product:'【预售】测试修护精华双支装30ml*2',price:'¥ 799.00',order:'6920681898386530047',baseDate:'2026-05-05',time:'21:46:58',created:'22:15:52',completed:null,workorder:'KOC3195289',queueClass:'amber',intent:'异常仅退款',emotion:'negative_signal: present · escalation: unclear',level:'待定级',riskType:'abnormal_refund',riskText:'当前只有买家自述，没有开箱、称重或出库证据；返回 needs_verification，不断言空包裹或欺诈已证实。',rule:'R-REFUND-001',missing:['外箱六面照片','面单照片','出库/揽收重量'],draft:'您好，我先为您核实订单和仓配记录。请保留外箱和面单，并补充六面照片；核实后我们会同步处理进展。',action:'收集外箱、面单和重量证据，创建“异常仅退款待核实”工单草稿。',messages:[['customer','21:38:52','你们发的啥玩意儿，箱子打开里面是空的！我要仅退款，不退货啊，货都没有退什么退'],['agent','21:41:36','亲亲您先别急，这边非常重视~麻烦您先别丢弃外箱和快递面单，拍一下外箱六面、面单和内件的照片给薇薇核实好吗？'],['customer','21:42:20','在吗，哪那多事，我一个老客户还能骗你这点钱？麻利点退呀'],['agent','21:42:59','理解您的心情亲~按流程空包裹需要核实出库称重记录和物流揽收重量，这边已提交核实工单，有结果第一时间联系您，请您配合提供下照片哦~'],['customer','21:43:56','搞这复杂，那算了，我平台申请仅退款，你们等着，急'],['agent','21:46:23','亲亲平台申请我们也会如实举证的哦~若核实确为漏发，一定第一时间给您补发或退款，绝不让您吃亏；若记录显示正常出库，也请您理解我们需按规处理~'],['customer','21:46:58','随便你们，反正我钱要定了']],evidence:'“你们发的啥玩意儿，箱子打开里面是空的！”',evidenceRef:'chat:S00024:1'},
+      S00001:{title:'S00001 · 泵头破损换货',product:'测试轻透粉底液30ml #N02自然色',price:'¥ 259.00',order:'6920185815517983396',baseDate:'2026-05-05',time:'10:27:37',created:'10:29:45',completed:null,workorder:'BH919209358357',queueClass:'green',intent:'破损补发 / 换货',emotion:'negative_signal: present · escalation: no',level:'P2',riskType:'aftersales_damage',riskText:'图片消息包含 image_path，但原始图片文件缺失；视觉分析标为扩展，不影响标准换货流程。',rule:'R-AFTERSALE-003',missing:['图片内容分析（扩展能力）','商品批次'],draft:'您好，我已为您记录泵头破损情况。请保留商品和外包装；我会生成换货工单草稿，等待人工确认后处理。',action:'生成换货工单草稿；由人工确认后再进入售后流程。',messages:[['customer','10:18:45','你好，收到的粉底液泵头是坏的，按不出来东西，急'],['agent','10:20:59','亲亲抱歉！麻烦拍下破损部位的照片发给测试客服，为您核实换货哈~'],['customer','10:21:38','喏，图发你了','image_path: mock_images/broken_pump/S00001_03.jpg · 原始图片文件缺失，视觉分析为扩展'],['agent','10:24:13','收到亲，确认属包装破损，为您登记换货：先给您发全新的，收到后用包裹里的面单把坏的寄回就好，运费我们出~'],['customer','10:25:13','行，那尽快哈'],['agent','10:27:37','换货单已创建，48小时内发出，给您带来不便啦~']],evidence:'“喏，图发你了”',evidenceRef:'chat:S00001:3'}
+    };
+    let current='S00015',mode='message',step=1,pendingAction='',activeTool=null;const $=id=>document.getElementById(id),pretty=v=>JSON.stringify(v,null,2),c=()=>cases[current];
+    const escapeHtml=value=>String(value).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+    const riskNames={adverse_reaction:'不良反应与就医风险',abnormal_refund:'异常仅退款待核实',aftersales_damage:'商品到手破损售后'};
+    const statusName=value=>({no_workorder:'当前暂无工单',needs_verification:'待核实',needs_human_confirmation:'须人工确认'}[value]||value);
+    const orderSources={
+      S00015:{created:'2026-04-19T14:03:33',paid:'2026-04-19T14:15:33',shipped:'2026-04-21T03:15:33',carrier:'申通快递',tracking:'773742029650001'},
+      S00024:{created:'2026-04-29T17:33:52',paid:'2026-04-29T17:55:52',shipped:'2026-05-01T13:55:52',carrier:'顺丰速运',tracking:'SF1608199997186'},
+      S00001:{created:'2026-04-29T08:27:45',paid:'2026-04-29T08:50:45',shipped:'2026-04-30T08:50:45',carrier:'中通快递',tracking:'773478190943155'}
+    };
+    const buyerNames={S00015:'芝g**',S00024:'王**',S00001:'邓e**'};
+    const sessionViews=new Map();
+    function orderAtPoint(){
+      const x=c(),o=orderSources[current],asOf=x.baseDate+'T'+point().time;
+      if(o.created>asOf)return{order_id:x.order,visibility:'not_visible'};
+      return{order_id:x.order,visibility:'visible',created_at:o.created,product:x.product,
+        paid_at:o.paid<=asOf?o.paid:null,paid_amount:o.paid<=asOf?x.price:null,
+        shipped_at:o.shipped<=asOf?o.shipped:null,shipment_status:o.shipped<=asOf?'已发货':'暂无可见发货记录',
+        carrier:o.shipped<=asOf?o.carrier:null,tracking_number:o.shipped<=asOf?o.tracking:null,
+        order_status:null,order_status_reason:'源表未提供交易状态生效时间，不能断言当前交易状态'};
+    }
+    function workorderFields(){
+      if(!workorderState().visible)return{};
+      if(current==='S00015')return{'来源表':'不良反应工单','症状描述':'面部红肿刺痛，买家自述已就医（脱敏登记）','是否停用':'停用','产品批次号':'26A05'};
+      if(current==='S00024')return{'来源表':'售后退货工单','包裹类型':'风控核实','退货原因':'仅退款-空包裹(待核实)','是否异常':'是','证据边界':'工单待核实登记，不代表空包裹或欺诈已证实'};
+      return{'来源表':'补发换货工单','工单类型':'换货','售后原因':'换货-到手破损','证据边界':'售后登记，不作物流损坏归因；补发物流号无发货时间，不断言已经发出'};
+    }
+    function workorderAtPoint(){
+      const x=c(),w=workorderState();
+      if(!w.visible)return{workorder_id:null,status:w.text,reason:w.detail};
+      return{workorder_id:x.workorder,status:w.text,created_at:x.baseDate+'T'+x.created,
+        ...(w.text==='已完结'?{completed_at:x.baseDate+'T'+x.completed}:{}),fields:workorderFields()};
+    }
+    function historySignals(){
+      return visibleMessages().filter(m=>m[0]==='customer'&&/12315|投诉|你们等着|钱要定了/.test(m[2]))
+        .map(m=>({source:'chat:'+current+':'+(c().messages.indexOf(m)+1),text:m[2]}));
+    }
+    function visibleMessages(){return c().messages.filter(m=>m[1]<=point().time);}
+    function hasConflict(){return !workorderState().visible&&visibleMessages().some(m=>m[0]==='agent'&&/已为您建立|已提交核实工单|换货单已创建/.test(m[2]));}
+    function analysisAtPoint(){
+      const x=c(),messages=visibleMessages(),buyers=messages.filter(m=>m[0]==='customer'),last=buyers[buyers.length-1],text=last?last[2]:'',w=workorderState();
+      // 三案例的本地演示分析，只依据当前可见文本；不是模型推理或评测标签。
+      const negative=/急|必须|过敏|坏|啥玩意|空的|赔偿|12315|骗|麻利|钱要定|等着/.test(text)?'present':/^(行|好)|资料给你|图发你/.test(text)?'none':'unclear';
+      const escalation=/12315|你们等着|钱要定了/.test(text)?'yes':buyers.length===1&&current==='S00024'?'unclear':'no';
+      const image=messages.some(m=>m[3]),supplied=messages.some(m=>m[0]==='customer'&&/资料给你/.test(m[2]));
+      let missing=[...x.missing],draft=x.draft,action=x.action,intent=x.intent;
+      if(current==='S00015'){
+        missing=supplied?['就医资料内容核验（聊天称已提供）','医疗票据与金额核验','产品批次']:['门诊病历','医生诊断','产品批次'];
+        if(supplied){draft='已记录您提供资料的说明，资料内容及费用仍需人工核验。我们会继续跟进专项处理，请以人工确认的方案为准。';action='核验已提供资料及医疗票据，整理处理方案草稿；保留就医与投诉历史，持续人工跟进。';}
+        if(messages.some(m=>m[0]==='customer'&&/等钱到账/.test(m[2]))){intent='不良反应后续款项跟进';draft='已记录您等待款项到账的诉求，我会请人工核实退款及费用处理进度后同步，当前不承诺到账时间。';action='核实退款和医疗费用处理进度，生成回访草稿；不依据聊天承诺断言已打款。';}
+      } else if(current==='S00024'){
+        if(escalation==='yes'){draft='理解您希望尽快退款的诉求。目前空包情况尚待核实，请保留外箱、面单和照片，我们会请人工核查出库与揽收重量后反馈。';action='记录退款争议，收集外箱与面单照片、出库及揽收重量；人工核实前不定责、不承诺退款。';}
+      } else {
+        missing=image?['图片内容核验（文件缺失，视觉分析为扩展）','商品批次']:['破损部位照片','商品批次'];
+        draft=image?'已看到您发送图片的记录，但当前无法读取图片内容。我会请人工核验破损情况，并整理换货处理草稿。':'您好，已记录您反馈泵头损坏。请补充破损部位照片并保留商品与外包装，方便人工核实后处理。';
+        action=image?'请人工核验图片及聊天中的换货承诺，生成换货处理草稿。':'补充破损照片，核实问题后生成换货工单草稿。';
+        if(messages.some(m=>m[0]==='agent'&&/48小时/.test(m[2]))){intent='换货发出进度跟进';draft='客服记录中已承诺换货及发出时限，我会请人工核实换货单和实际发货进度后反馈，不将聊天承诺视为已经发出。';}
+      }
+      if(w.visible){action+=' 当前工单已可见，优先核实已有工单进度，避免重复建单。';if(current==='S00015')missing=missing.filter(field=>field!=='产品批次');}
+      if(w.text==='已完结'){draft='工单记录显示已完结。我们会请人工确认您是否仍有后续诉求，款项到账情况需另行核实。';action='对照已完结工单核验处理结果并生成回访草稿，不将工单完结等同于款项到账。';}
+      return{intent,emotion:{negative_signal:negative,escalation,evidence_refs:last?['chat:'+current+':'+(x.messages.indexOf(last)+1)]:[]},missing,draft,action,image};
+    }
+    // Small local SVG icons keep this single-file prototype fully offline.
+    const iconPaths={
+      'layout-dashboard':'M3 3h7v7H3z M14 3h7v7h-7z M3 14h7v7H3z M14 14h7v7h-7z',
+      'message-square':'M3 4h18v13H8l-5 4z',
+      'clipboard-list':'M8 4H4v18h16V4h-4 M8 2h8v4H8z M8 11h8 M8 16h8',
+      'bar-chart-3':'M4 3v18h18 M8 16V9 M13 16V5 M18 16v-4',
+      'more-horizontal':'M4 12h2 M11 12h2 M18 12h2',
+      'search':'M16 16l5 5 M18 10a8 8 0 1 0-16 0 8 8 0 0 0 16 0',
+      'settings':'M12 2v3 M12 19v3 M2 12h3 M19 12h3 M5 5l2 2 M17 17l2 2 M5 19l2-2 M17 7l2-2 M19 12a7 7 0 1 0-14 0 7 7 0 0 0 14 0 M15 12a3 3 0 1 0-6 0 3 3 0 0 0 6 0',
+      'paperclip':'M8 14l7-7a2 2 0 0 1 3 3L9 19a4 4 0 0 1-6-6L14 2a5 5 0 0 1 7 7L10 20',
+      'image':'M3 3h18v18H3z M3 18l6-7 5 5 3-3 4 5 M7 7h1',
+      'sparkles':'M12 2l3 7 7 3-7 3-3 7-3-7-7-3 7-3z',
+      'x':'M5 5l14 14 M5 19L19 5','chevron-right':'M9 5l7 7-7 7'
+    };
+    function safeIcons(){document.querySelectorAll('[data-lucide]').forEach(el=>{
+      const name=el.dataset.lucide,path=iconPaths[name];if(!path)return;
+      const svg=document.createElementNS('http://www.w3.org/2000/svg','svg'),p=document.createElementNS(svg.namespaceURI,'path');
+      for(const [k,v] of Object.entries({viewBox:'0 0 24 24',width:el.getAttribute('size')||20,height:el.getAttribute('size')||20,fill:'none',stroke:'currentColor','stroke-width':1.7,'stroke-linecap':'round','stroke-linejoin':'round','aria-hidden':'true',class:'local-icon '+el.className}))svg.setAttribute(k,v);
+      p.setAttribute('d',path);svg.appendChild(p);el.replaceWith(svg);
+    });}
+    function point(){const x=c();if(mode==='created'&&x.created)return{time:x.created,label:'工单创建后'};if(mode==='completed'&&x.completed)return{time:x.completed,label:'工单完成后'};const m=x.messages[Math.max(0,step-1)];return{time:m[1],label:'消息 '+step+' / '+x.messages.length};}
+    function workorderState(){const x=c(),p=point();if(!x.workorder)return{visible:false,text:'no_workorder',detail:'当前案例尚无可关联工单'};if(p.time<x.created)return{visible:false,text:'no_workorder',detail:'当前时点工单系统暂无可见记录'};if(x.completed&&p.time>=x.completed)return{visible:true,text:'已完结',detail:'完成时间 '+x.completed};return{visible:true,text:current==='S00001'?'进行中':current==='S00015'?'未完结':'处理中',detail:'工单 '+x.workorder+' 已可见'};}
+    function riskAtPoint(){const x=c(),visible=visibleMessages().filter(m=>m[0]==='customer').map(m=>m[2]).join('');if(x.riskType==='adverse_reaction'&&/医院|就医|12315/.test(visible))return{level:'P0',text:x.riskText};if(x.riskType==='abnormal_refund')return{level:'待定级',text:workorderState().visible?'工单登记风控核实、是否异常=是，退货原因为仅退款-空包裹(待核实)；登记不等于核实结果，仍不能断言空包或欺诈。':x.riskText};if(x.riskType==='aftersales_damage')return{level:'P2',text:analysisAtPoint().image?x.riskText:'买家自述泵头损坏，尚未出现图片消息；先补充破损照片并人工核实。'};return{level:'待定级',text:'当前可见证据不足，等待更多买家信息。'};}
+    function makeTools(){const x=c(),p=point(),w=workorderState(),risk=riskAtPoint(),a=analysisAtPoint(),asOf=x.baseDate+'T'+p.time,snapshot={session_id:current,as_of_time:asOf,order_id:x.order,visible_message_count:visibleMessages().length,workorder_status:w.text},msgs=visibleMessages().map((m,i)=>({message_no:i+1,role:m[0],message_time:m[1],content:m[2]}));return[
+      ['get_conversation_until',{session_id:current,as_of_time:asOf},{visible_messages:msgs},16],
+      ['get_order_snapshot',{session_id:current,order_id:x.order,as_of_time:asOf},orderAtPoint(),8],
+      ['get_workorder_snapshot',{session_id:current,order_id:x.order,as_of_time:asOf},workorderAtPoint(),11],
+      ['get_service_timeline',{session_id:current,as_of_time:asOf},{events:['聊天','订单'].concat(w.visible?['工单']:[]),source_inconsistency:hasConflict(),evidence:evidenceAtPoint()},9],
+      ['check_risk_rules',{snapshot},{risk:{type:x.riskType,level:risk.level,status:risk.level==='待定级'?'needs_verification':'open'},rule_ids:[x.rule]},12],
+      ['retrieve_policy',{query:x.intent,as_of_time:asOf},{policy_id:x.riskType==='abnormal_refund'?'POL-REFUND-001':'POL-SERVICE-001',version:'demo-v0.1'},7],
+      ['draft_reply',{snapshot,evidence:evidenceAtPoint(),emotion:a.emotion,history_signals:historySignals(),policy:'matched',risk:{level:risk.level,type:x.riskType}},{reply_draft:a.draft,needs_human_confirmation:true},33],
+      ['create_workorder_draft',{snapshot,action:a.action,evidence_refs:evidenceAtPoint().map(e=>e.source)},{draft_status:'generated',needs_human_confirmation:true,external_side_effect:false},18]
+    ];}
+    function renderMessages(){
+      const visible=visibleMessages();
+      $('messages').innerHTML=visible.map((m,i)=>'<div id="message-'+(i+1)+'" data-message="'+(i+1)+'" role="button" tabindex="0" aria-label="查看消息 '+(i+1)+' 时点" class="msg '+m[0]+' '+(m[0]==='agent'&&/已为您建立|已提交核实工单|换货单已创建/.test(m[2])?'msg-risk':'')+'"><div class="meta">'+(m[0]==='customer'?escapeHtml(buyerNames[current]):'客服')+' · '+m[1]+'</div><div class="bubble">'+escapeHtml(m[2])+(m[3]?'<div class="media-status"><i data-lucide="image" size="13"></i>'+escapeHtml(m[3])+'</div>':'')+'</div></div>').join('');
+      document.querySelectorAll('[data-message]').forEach(el=>{
+        const jump=()=>{const n=Number(el.dataset.message);setStep(n);highlightMessage(n);};
+        el.onclick=jump;el.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();jump();}};
+      });safeIcons();
+    }
+    function highlightMessage(n){
+      document.querySelectorAll('.source-focus').forEach(el=>el.classList.remove('source-focus'));
+      const el=$('message-'+n);if(el){el.classList.add('source-focus');el.scrollIntoView({block:'nearest'});}
+    }
+    function renderTimeline(){const x=c(),p=point(),w=workorderState(),conflict=hasConflict();$('timeline').innerHTML='<div class="trace"><div class="trace-axis"><div class="dot"></div><div class="trace-line"></div><div class="dot '+(w.visible?'':'muted')+'"></div></div><div><div class="trace-item"><b>'+p.label+' · '+p.time+'</b><span>聊天与订单按 as_of_time 可见</span>'+(conflict?'<div class="notice">来源存在冲突：客服称已建工单，但工单系统在此时点暂无记录。</div>':'')+'</div><div class="trace-item"><b>'+(w.visible?'工单已可见 · '+x.workorder:'工单快照 · 当前暂无工单')+'</b><span>'+w.detail+'</span></div></div></div>';}
+    function renderFacts(){const a=analysisAtPoint(),w=workorderState(),r=riskAtPoint(),negative={present:'有负面信号',none:'未见明显负面信号',unclear:'负面信号不明确'},escalation={yes:'有升级信号',no:'未见升级信号',unclear:'升级信号不明确'};$('facts').innerHTML='<div class="fact"><label>意图</label><strong>'+a.intent+'</strong></div><div class="fact"><label>近期买家信号 · 本地演示</label><strong>'+negative[a.emotion.negative_signal]+' · '+escalation[a.emotion.escalation]+'</strong></div><div class="fact"><label>工单状态</label><strong>'+statusName(w.text)+'</strong></div><div class="fact"><label>风险状态</label><strong>'+(r.level==='待定级'?'待核实':'规则已定级')+'</strong></div>';}
+    function renderRisk(){const x=c(),r=riskAtPoint(),warn=r.level==='待定级';$('riskBadge').textContent=r.level;$('riskBadge').className='badge '+(r.level==='P0'?'red':warn?'amber':'green');$('riskbox').className='riskbox '+(warn?'warn':'');$('riskbox').innerHTML='<div class="risk-title"><span>'+riskNames[x.riskType]+'</span><span>'+r.level+'</span></div><p>'+r.text+'</p>';$('riskChips').innerHTML='<span class="chip">'+x.rule+'</span><span class="chip">'+(warn?'待核实':'须人工确认')+'</span>';}
+    function evidenceAtPoint(){
+      const x=c(),w=workorderState(),visible=visibleMessages();
+      const refs=visible.map(m=>({source:'chat:'+current+':'+(x.messages.indexOf(m)+1),time:x.baseDate+'T'+m[1],label:m[0]==='customer'?'买家自述 / 情绪依据':'客服表述 / 非执行凭证',text:m[2]}));
+      const o=orderSources[current];
+      if(o.created<=x.baseDate+'T'+point().time){refs.push({source:'order:'+x.order,time:o.created,label:'订单字段 · 精确关联',text:'商品：'+x.product});}
+      if(o.paid<=x.baseDate+'T'+point().time)refs.push({source:'order:'+x.order+':付款时间',time:o.paid,label:'订单付款字段',text:'实付金额：'+x.price+'；付款时间：'+o.paid});
+      if(o.shipped<=x.baseDate+'T'+point().time){refs.push({source:'order:'+x.order+':发货时间',time:o.shipped,label:'订单物流字段 · 不代表物流签收',text:'已发货（据发货时间）；'+o.carrier+'；运单号 '+o.tracking+'。交易状态缺生效时间，不作快照断言。'});}
+      refs.push({source:'workorder_snapshot:'+current,time:x.baseDate+'T'+point().time,label:'工单系统快照',text:w.visible?'工单 '+x.workorder+'；创建时间 '+x.baseDate+' '+x.created+'；状态 '+w.text+(w.text==='已完结'?'；完成时间 '+x.completed:''): '当前时点暂无可见工单，不能据此认定后续也没有工单。'});
+      if(w.visible&&current==='S00015')refs.push({source:'workorder:'+x.workorder+':症状/产品批次',time:x.baseDate+'T'+x.created,label:'不良反应工单字段 · 就医为买家自述登记',text:'症状：面部红肿刺痛，买家自述已就医（脱敏登记）；是否停用：停用；产品批次：26A05。'});
+      if(w.visible&&current!=='S00015')refs.push({source:'workorder:'+x.workorder+':业务字段',time:x.baseDate+'T'+x.created,label:workorderFields()['来源表']+' · 待人工核验',text:Object.entries(workorderFields()).filter(([k])=>k!=='来源表').map(([k,v])=>k+'：'+v).join('；')});
+      return refs;
+    }
+    function renderEvidence(){
+      const refs=evidenceAtPoint(),visible=visibleMessages(),lastBuyer=[...visible].reverse().find(m=>m[0]==='customer');
+      const conflictMessage=hasConflict()?visible.find(m=>m[0]==='agent'&&/已为您建立|已提交核实工单|换货单已创建/.test(m[2])):null;
+      const keyRefs=[refs[0]];
+      const supportingMessage=conflictMessage||lastBuyer;
+      if(supportingMessage){const ref=refs.find(e=>e.source==='chat:'+current+':'+(c().messages.indexOf(supportingMessage)+1));if(ref&&!keyRefs.includes(ref))keyRefs.push(ref);}
+      keyRefs.push(refs.find(e=>e.source==='workorder:'+c().workorder+':业务字段')||refs.find(e=>e.source==='workorder_snapshot:'+current));
+      if(keyRefs.length<3)keyRefs.push(refs.find(e=>e.source==='order:'+c().order));
+      $('evidenceCount').textContent=refs.length+' 条';
+      $('detailCount').textContent=refs.length+' 条依据';
+      $('allEvidenceBtn').textContent='全部 '+refs.length+' 条';
+      $('evidence').innerHTML='<div>截止 '+point().time+' 的完整来源<br><small>聊天原文与系统记录分别保留；客服承诺不等于业务动作已执行。</small></div>'+refs.map((e,i)=>'<div class="evidence-entry" id="evidence-'+i+'" tabindex="-1"><b>'+escapeHtml(e.label)+'</b><br>'+escapeHtml(e.text)+'<br><small>'+escapeHtml(e.source)+' · '+e.time+'</small></div>').join('');
+      $('keyEvidence').innerHTML=keyRefs.filter(Boolean).slice(0,3).map(e=>{
+        const index=refs.indexOf(e),source=e.source.startsWith('chat:')?(e.label.startsWith('买家')?'买家':'客服'):e.source.startsWith('order:')?'订单':'工单';
+        const locator=source==='买家'||source==='客服'?'消息 '+e.source.split(':').pop():e.time.slice(0,10);
+        return '<button class="key-evidence" data-evidence="'+index+'" aria-label="查看'+source+'依据：'+escapeHtml(e.text)+'"><span class="source-tag">'+source+'</span><span class="source-copy"><span class="excerpt">'+escapeHtml(e.text)+'</span><small>'+locator+' · '+e.time.slice(11)+' · 查看原始依据</small></span></button>';
+      }).join('');
+      document.querySelectorAll('[data-evidence]').forEach(button=>button.onclick=()=>showEvidence(Number(button.dataset.evidence)));
+    }
+    let previousView=null;
+    const editedDrafts=new Map();
+    const snapshotKey=()=>current+':'+point().time;
+    function selectCopilotPanel(panel){
+      const details=panel==='detail';
+      $('advicePanel').hidden=details;$('detailPanel').hidden=!details;
+      for(const [id,selected] of [['adviceTab',!details],['detailTab',details]]){$(id).setAttribute('aria-selected',String(selected));$(id).tabIndex=selected?0:-1;}
+    }
+    function showEvidence(index=0){
+      selectCopilotPanel('detail');$('fullEvidenceGroup').open=true;
+      const entry=$('evidence-'+index);
+      if(entry){entry.focus({preventScroll:true});entry.scrollIntoView({block:'nearest'});}
+      const source=evidenceAtPoint()[index]?.source;if(source?.startsWith('chat:'))highlightMessage(Number(source.split(':').pop()));
+    }
+    function renderDecision(){
+      const a=analysisAtPoint(),risk=riskAtPoint(),w=workorderState(),p=point(),count=visibleMessages().length,conflict=hasConflict();
+      $('copilotTime').textContent='消息 '+count+' / '+c().messages.length+' · 截止 '+p.time;
+      document.querySelector('.decision-card').dataset.level=risk.level;
+      $('decisionTitle').textContent=risk.level==='P0'?'须即时人工介入':risk.level==='待定级'?'先核实，再处理':'按标准售后处理';
+      $('decisionSummary').textContent=a.intent;
+      const emotion=a.emotion.escalation==='yes'?'当前有升级信号':a.emotion.negative_signal==='present'?'当前有负面信号':a.emotion.negative_signal==='none'?'当前未见明显负面信号':'当前情绪信号不明确';
+      const guard=risk.level==='P0'?'已有就医风险仍需跟进':risk.level==='待定级'?'自述尚未证实':'';
+      $('decisionContext').textContent=emotion+(guard?'；'+guard:'')+'。'+statusName(w.text)+'。';
+      const history=historySignals();
+      $('historyNote').hidden=history.length===0;
+      $('historyNote').innerHTML=history.length?'历史投诉 / 升级表述仍需跟进 <button class="link-button" id="historyEvidenceBtn">查看原话</button>':'';
+      if(history.length)$('historyEvidenceBtn').onclick=()=>showEvidence(evidenceAtPoint().findIndex(e=>e.source===history[0].source));
+      $('conflictAlert').hidden=!conflict;
+      $('conflictAlert').innerHTML=conflict?'<b>来源冲突 · 需核验建单情况</b><p>客服称已建单，但当前工单系统暂无记录。</p><button class="link-button" id="conflictEvidenceBtn">对照聊天原文与系统快照</button>':'';
+      if(conflict)$('conflictEvidenceBtn').onclick=()=>{
+        const message=visibleMessages().find(m=>m[0]==='agent'&&/已为您建立|已提交核实工单|换货单已创建/.test(m[2]));
+        showEvidence(c().messages.indexOf(message));
+      };
+      $('replyPreview').textContent=a.draft;
+      const next={session:current,time:p.time,count,conflict,workorder:w.text,emotion:pretty(a.emotion),missing:pretty(a.missing),action:a.action,draft:a.draft,image:a.image};
+      let changes=[];
+      if(!previousView||previousView.session!==current){
+        $('changeNote').textContent='已按当前快照整理 · 完整来源与工具请求可在分析详情查看';
+        selectCopilotPanel('advice');document.querySelectorAll('.detail-group').forEach(group=>group.open=false);$('copilotScroll').scrollTop=0;
+      }else if(p.time<previousView.time){
+        $('changeNote').textContent='已回退至 '+p.label+' · 分析与依据已按此时点重算';
+      }else{
+        if(conflict!==previousView.conflict)changes.push(conflict?'新增来源冲突':'当前工单记录已可见');
+        if(w.text!==previousView.workorder)changes.push(w.text==='已完结'?'工单已完结':'工单状态更新');
+        if(a.image!==previousView.image)changes.push('新增图片消息，文件仍待核验');
+        // Evidence reference changes alone do not imply a change in emotion.
+        const oldEmotion=JSON.parse(previousView.emotion);
+        if(a.emotion.negative_signal!==oldEmotion.negative_signal||a.emotion.escalation!==oldEmotion.escalation)changes.push('情绪信号更新');
+        if(next.missing!==previousView.missing)changes.push('待核验字段更新');
+        if(next.action!==previousView.action||next.draft!==previousView.draft)changes.push('处理建议更新');
+        $('changeNote').textContent=changes.length?'本次变化 · '+changes.join('；'):'已同步至 '+p.label+' · '+(count>previousView.count?'新增 '+(count-previousView.count)+' 条消息，处理建议未变':'处理建议未变');
+      }
+      previousView=next;
+    }
+    function renderTools(){const tools=makeTools();$('toolTrace').innerHTML=tools.map((t,i)=>'<button class="tool-row" data-tool="'+i+'"><span class="tool-check">示</span><span class="tool-name">'+t[0]+'</span><span class="tool-time">'+'演示 '+t[3]+'ms</span><i class="tool-more" data-lucide="chevron-right" size="14"></i></button>').join('');$('auditBar').innerHTML='<span>静态 Mock</span><span>demo-v0.3</span><span>契约示意 · 未接校验器</span>';document.querySelectorAll('[data-tool]').forEach(el=>el.onclick=()=>openTool(Number(el.dataset.tool)));safeIcons();}
+    function renderAll(){const x=c(),p=point(),r=riskAtPoint(),a=analysisAtPoint();$('caseTitle').textContent=x.title;$('asOfPill').textContent='as_of '+p.time;$('metricsPill').textContent='Mock 演示 · 8 节点（非实测）';$('snapshotNote').textContent=p.label+' · as_of '+x.baseDate+'T'+p.time;$('productName').textContent=x.product;$('orderLine').textContent='订单 '+x.order+' · '+orderAtPoint().shipment_status+'（据发货时间）';$('orderLine').title=orderAtPoint().order_status_reason+'；'+orderSources[current].carrier+'；发货 '+orderSources[current].shipped;document.querySelector('.price').textContent=x.price;$('stepRange').max=x.messages.length;$('stepRange').value=visibleMessages().length;$('stepLabel').textContent=visibleMessages().length+' / '+x.messages.length;$('prevStep').disabled=mode==='message'&&step<=1;$('nextStep').disabled=visibleMessages().length>=x.messages.length;$('composer').value=editedDrafts.get(snapshotKey())??a.draft;$('statusBadge').textContent=workorderState().text==='已完结'?'已完结 · 待回访':r.level==='P0'?'须人工跟进':r.level==='待定级'?'待核实':'标准流程';$('statusBadge').className='decision-status';$('missingCount').textContent=a.missing.length+' 项';$('missingFields').innerHTML=a.missing.map(v=>'<span class="chip">'+v+'</span>').join('');$('actionDraft').textContent=a.action;renderMessages();renderTimeline();renderFacts();renderRisk();renderEvidence();renderTools();renderDecision();renderSessions();$('draftContext').textContent='草稿随快照切换 · '+p.time+(editedDrafts.has(snapshotKey())?' 手工草稿已保留':' 建议草稿')+' · 回到原时点可恢复';document.querySelectorAll('.snap').forEach(b=>b.classList.toggle('active',b.dataset.snap===mode));if(activeTool!==null)openTool(activeTool); }
+    function showToast(text){$('toast').textContent=text;$('toast').classList.add('show');clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>$('toast').classList.remove('show'),2500);}
+    function openTool(index){activeTool=index;const t=makeTools()[index];$('drawerTitle').textContent=t[0];$('callMeta').innerHTML='<span>✓ 演示结果</span><span>'+'演示 '+t[3]+'ms</span><span>as_of '+point().time+'</span>';$('requestJson').textContent=pretty(t[1]);$('responseJson').textContent=pretty(t[2]);$('drawer').classList.add('open');$('overlay').classList.add('show');}
+    function closeTool(){activeTool=null;$('drawer').classList.remove('open');$('overlay').classList.remove('show');}
+    document.querySelectorAll('.session').forEach(el=>el.onclick=()=>{closeTool();current=el.dataset.case;mode='message';step=sessionViews.get(current)?.step||1;mode=sessionViews.get(current)?.mode||'message';document.querySelectorAll('.session').forEach(s=>s.classList.toggle('active',s===el));renderAll();showToast('已按当前会话与时间快照重算分析');});
+    document.querySelectorAll('.snap').forEach(el=>el.onclick=()=>{const next=el.dataset.snap;if(next==='created'&&!c().created){showToast('该案例暂无可见工单创建时间');return}if(next==='completed'&&!c().completed){showToast('该案例暂无工单完成快照');return}closeTool();mode=next;renderAll();showToast('已切换到 '+el.textContent+' 快照');});
+    function setStep(value){closeTool();step=Math.max(1,Math.min(c().messages.length,value));mode='message';renderAll();}$('prevStep').onclick=()=>setStep(visibleMessages().length-1);$('nextStep').onclick=()=>setStep(visibleMessages().length+1);$('stepRange').oninput=e=>setStep(Number(e.target.value));$('resetStep').onclick=()=>{mode='message';step=1;renderAll();showToast('已回到首条消息，未来工单已过滤');};
+    function renderSessions(){
+      sessionViews.set(current,{step,mode,time:point().time});
+      document.querySelectorAll('.session').forEach(el=>{
+        const id=el.dataset.case,x=cases[id],view=sessionViews.get(id),time=view?.time||x.messages[0][1],messages=x.messages.filter(m=>m[1]<=time),last=messages[messages.length-1];
+        el.querySelector('.face').textContent=buyerNames[id][0];
+        el.querySelector('.session-top').innerHTML=escapeHtml(buyerNames[id])+' <time>'+last[1].slice(0,5)+'</time>';
+        el.querySelector('.preview').textContent=last[2];el.querySelector('.preview').title=last[2];
+        const badge=el.querySelector('.badge');badge.className='badge '+x.queueClass;
+        badge.textContent=x.level+' · '+(x.completed&&time>=x.completed?'工单已完结':id==='S00015'?'须人工跟进':id==='S00024'?'待核实':'普通售后');
+      });filterSessions();
+    }
+    function filterSessions(){
+      const q=$('searchInput').value.trim().toLowerCase(),only=$('riskFilter').dataset.only==='yes',follow=document.querySelector('.tab.active')?.dataset.queue==='follow';
+      document.querySelectorAll('.session').forEach(el=>{
+        const id=el.dataset.case,x=cases[id];
+        // Backfilled IDs are potential search keys only; selecting a result never reveals future workorder fields.
+        const hay=[buyerNames[id],id,x.order,x.workorder,el.querySelector('.preview').textContent].join(' ').toLowerCase();
+        el.hidden=!!((q&&!hay.includes(q))||(only&&!['P0','P1'].includes(x.level))||(follow&&id==='S00001'));
+      });
+    }
+    $('searchInput').oninput=filterSessions;
+    $('riskFilter').onclick=()=>{const only=$('riskFilter').dataset.only!=='yes';$('riskFilter').dataset.only=only?'yes':'no';$('riskFilter').textContent=only?'仅 P0/P1⌄':'全部风险⌄';filterSessions();};
+    document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===t));filterSessions();});
+    document.querySelectorAll('.collapsible').forEach(h=>h.onclick=()=>h.nextElementSibling.classList.toggle('is-collapsed'));
+    document.querySelectorAll('.rail-item').forEach(item=>item.onclick=()=>{
+      const name=item.querySelector('span').textContent;
+      if(name==='工单')confirmAction('创建工单草稿');
+      else if(name==='评测')showToast('评测待接入：尚无冻结测试集真实运行结果');
+      else if(name==='消息')$('messages').scrollIntoView({block:'nearest'});
+      else selectCopilotPanel('advice');
+    });
+    $('adviceTab').onclick=()=>selectCopilotPanel('advice');$('detailTab').onclick=()=>selectCopilotPanel('detail');$('allEvidenceBtn').onclick=()=>showEvidence();$('applyReplyBtn').onclick=()=>confirmAction('填入建议回复');$('composer').oninput=()=>editedDrafts.set(snapshotKey(),$('composer').value);document.querySelector('.copilot-tabs').onkeydown=e=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)){e.preventDefault();const target=e.key==='Home'?'adviceTab':e.key==='End'?'detailTab':document.activeElement.id==='adviceTab'?'detailTab':'adviceTab';$(target).click();$(target).focus();}};$('drawerClose').onclick=closeTool;$('overlay').onclick=closeTool;$('workorderBtn').onclick=()=>confirmAction('创建工单草稿');$('escalateBtn').onclick=()=>confirmAction('建议人工升级');$('sendBtn').onclick=()=>confirmAction('使用此回复');function confirmAction(title){pendingAction=title;$('modalTitle').textContent=title;$('modalText').textContent='此操作只生成或写入可编辑草稿，不会直接发送回复、升级、退款、赔偿或更新外部工单。';$('confirmModal').classList.add('show');}$('modalCancel').onclick=()=>$('confirmModal').classList.remove('show');$('modalConfirm').onclick=()=>{$('confirmModal').classList.remove('show');if(pendingAction==='填入建议回复'){$('composer').value=analysisAtPoint().draft;editedDrafts.set(snapshotKey(),$('composer').value);$('composer').focus();showToast('建议回复已填入，可继续编辑；尚未发送');}else if(pendingAction==='使用此回复'){
+      editedDrafts.set(snapshotKey(),$('composer').value);showToast('当前回复草稿已保留，尚未发送');
+    }else{
+      activeTool=null;$('drawerTitle').textContent=pendingAction+' · 本地模拟';
+      $('callMeta').textContent='仅生成草稿 · as_of '+c().baseDate+'T'+point().time;
+      $('requestJson').textContent=pretty({session_id:current,as_of_time:c().baseDate+'T'+point().time,action:pendingAction});
+      $('responseJson').textContent=pretty({draft_status:'generated',note:analysisAtPoint().action,risk:riskAtPoint().level,evidence_refs:evidenceAtPoint().map(e=>e.source),needs_human_confirmation:true,external_side_effect:false});
+      $('drawer').classList.add('open');$('overlay').classList.add('show');
+    }};
+    safeIcons();renderAll();
+  </script>
+</body>
+</html>
