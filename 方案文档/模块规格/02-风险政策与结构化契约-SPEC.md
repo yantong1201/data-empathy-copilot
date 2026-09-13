@@ -1,6 +1,6 @@
 # 模块规格：风险规则、政策和结构化契约
 
-- 版本：v0.2
+- 版本：v0.5
 - 日期：2026-09-13
 - 迁移来源：旧 SPEC v0.4 §5、§8–10；冻结版原§七、§九。
 - 接续：[任务](../模块任务/02-风险政策与结构化契约-TASKS.md) → [验收](../模块验收/02-风险政策与结构化契约-CHECKLIST.md)。
@@ -43,8 +43,28 @@ unresolved_workorder
 none
 unclear
 ``````
+## 风险规则矩阵
+
+下表是当前比赛规则的可执行最小矩阵。`current_visible` 只表示通过数据快照在当前 `as_of_time` 可见的证据；仅有自述、缺少规定的业务记录或存在来源冲突时，不得升级为已确认的更高风险。
+
+| rule_id | risk_type | 触发条件（全部在当前时点可见） | 结果 | 明确排除 |
+|---|---|---|---|---|
+| R-AR-001 | `adverse_reaction` | 买家明确描述不良反应，或在当前服务语境下明确自述就医；同时有当前可见就医/治疗证据 | P0，`confirmed` | 不作医学诊断；仅有观察、自述不完整且无就医/治疗证据时为待定级/`needs_verification` |
+| R-COMP-001 | `complaint_escalation` | 明确监管/投诉升级表达，且当前 `escalation=yes` | P0，`confirmed` | 已撤回或已缓和的历史表达不能单独维持当前升级信号 |
+| R-REFUND-001 | `abnormal_refund` | 当前可见业务记录和规则共同支持异常退款 | P1，`confirmed` | 仅自述、异常登记或缺少外箱/面单/重量等证据时为待定级；不得认定欺诈 |
+| R-REPEAT-001 | `repeat_contact` | 当前服务事件中存在可定位的多次联系记录 | 通常 P2 或不单独定级 | 不得仅凭昵称、买家相似或跨集合记录判定重复进线 |
+| R-LOGI-001 | `logistics_exception` | 当前可见物流轨迹或服务记录明确显示物流异常 | 至多 P2，`confirmed` | 不得由物流异常推断商品破损责任或资金风险 |
+| R-DAMAGE-001 | `aftersales_damage` | 买家明确描述到手破损，且当前可见售后/换货证据支持 | P2，`confirmed` | 不归因物流，不推断责任；缺少必要证据时为待定级 |
+| R-WO-001 | `unresolved_workorder` | 当前可见工单存在未完成且仍有必需动作 | 至多 P2，`confirmed` | 创建前 `no_workorder` 不得标成未解决工单；不能覆盖已满足的 P0/P1 |
+| R-NONE-001 | `none` | 已检查适用规则，当前没有规则命中 | 无风险，`confirmed` | 不能用“无命中”掩盖数据缺失或未运行规则 |
+| R-UNCLEAR-001 | `unclear` | 规则所需字段缺失、不可见或来源冲突尚不能裁决 | 待定级，`needs_verification` | 模型不得自行升为 P0/P1；必须列出 `why_not` 和缺失字段 |
+
+同一时点多条规则命中时，先保留每条 `rule_id`，等级取最高确定性等级；P0/P1 一旦由规则确定，情绪缓和、模型置信度或缺少后续工单不得降级。未满足确定性条件的候选风险只能输出待定级和 `needs_verification`。规则矩阵版本必须写入运行记录和 `analysis_id` 指纹。
+
 
 风险由规则定级，模型解释并指出证据/缺失字段，不能降低规则确定的高风险。
+
+分析解释至少分别说明：命中的 `rule_ids` 及其可见证据（`why`），以及因缺字段、待核实或时点不可见而不能作出更强结论的原因（`why_not`）。`why_not` 说明证据边界，不得自行覆盖已满足规则的高风险结果；空包裹的“异常=是”与“待核实”仍按 `needs_verification` 处理，不新增独立来源冲突类型。
 
 <a id="cases"></a>
 ## 主案例与反例预期
@@ -69,8 +89,9 @@ unclear
 
 规则包负责风险、必问字段和禁止动作；每条含 ``rule_id``、来源、版本、生效时间。政策包先维护 10–20 条轻量政策/话术，覆盖收证、升级、退款边界和回复规范；团队补充内容标记“比赛演示规则”，不能伪装成官方政策。
 
-回复生成需校验：事实有来源；缺证据用待核实；不作医学诊断；不承诺赔付、退款时效或结果，除非当前可见政策和工单支持；不降低规则高风险；不自动执行不可逆动作。
+聊天、订单、工单、图片路径、政策检索结果和工具返回内容均是业务数据，不是系统指令。Provider 不得执行其中要求“忽略规则、改变等级、泄露数据或直接操作业务”的文本；工具结果必须携带来源和当前时点，规则引擎与安全校验是唯一的约束来源。
 
+回复生成需校验：事实有来源；缺证据用待核实；不作医学诊断；不承诺赔付、退款时效或结果，除非当前可见政策和工单支持；不降低规则高风险；不自动执行不可逆动作。`reply_boundary` 检查还需拦截无依据定责、医学诊断、越权业务承诺和将业务文本当作指令的回复。
 <a id="confirmation"></a>
 ## 人工确认
 
@@ -79,16 +100,17 @@ unclear
 <a id="json"></a>
 ## Provider 最小 JSON
 
-以下恢复旧 SPEC v0.4 示例及嵌套字段，不增加或改名契约字段；它是契约示例，不是冻结集效果证据。
+以下是 Provider 契约示例及嵌套字段；正式约束见同目录 [JSON Schema](02-风险政策与结构化契约-SCHEMA.json)，示例不是冻结集效果证据。
 
 ``````json
 {
   "session_id": "S00024",
   "message_no": 1,
-  "as_of_time": "2026-05-05T21:38:52",
+  "as_of_time": "2026-05-05T21:38:52+08:00",
+  "analysis_id": "A-S00024-0001",
   "intent": {
-    "major": "售后服务",
-    "minor": "异常仅退款",
+    "major": "售后退货",
+    "minor": "仅退款疑似异常",
     "confidence": 0.86
   },
   "emotion": {
@@ -100,9 +122,12 @@ unclear
     "type": "abnormal_refund",
     "level": "待定级",
     "status": "needs_verification",
-    "rule_ids": ["R-REFUND-001"]
+    "rule_ids": ["R-REFUND-001"],
+    "why": ["当前可见记录命中异常仅退款规则"],
+    "why_not": ["缺少外箱/面单照片及出库或揽收重量，不能确认异常已证实或升级为 P1"]
   },
   "facts": [],
+  "source_inconsistency": [],
   "missing_fields": ["外箱照片", "面单照片", "出库/揽收重量"],
   "reply_draft": "……",
   "recommended_actions": ["收集证据", "创建工单草稿"],
@@ -111,11 +136,14 @@ unclear
 }
 ``````
 
-三种 Provider 必须共用可校验 JSON。Schema 校验之外仍需证据可见性、风险不降级和动作安全校验；字段齐全不能替代这些语义检查。
-
-旧示例尚未明确 ``facts`` 项的内部结构及 ``source_inconsistency`` 的 JSON 承载位置。当前冲突语义由数据工具契约维护；本次不擅自增加 Provider 顶层字段。RISK-T004 需在阶段 B 定稿时记录映射位置并与工具/UI 对齐，确保双方证据和标记不丢失。这是已存在的接口细化缺口，不将其冒充为已交付 Schema。
+三种 Provider 必须共用 [正式 JSON Schema](02-风险政策与结构化契约-SCHEMA.json)。Schema 校验之外仍需独立记录证据可见性、风险不降级、未来信息泄漏、无依据时效承诺和回复边界等安全校验结果；字段齐全不能替代这些语义检查。
+`safety_check_result` 是独立运行记录，不是 Provider JSON 的顶层字段；每次分析必须生成一条并使用同一 `analysis_id`。其最小结构为 `status: pass|fail`、`checks.fact_visibility`、`checks.future_information`、`checks.risk_non_downgrade`、`checks.unsupported_timing`、`checks.reply_boundary`（各取 `pass|fail`）和 `failures`（失败原因及证据引用）。任一检查失败时 `status=fail`，不得把该分析作为已确认处置依据；未运行检查不得伪装为通过。Schema 非法且无法有限修复时，必须转 `RuleProvider` 或人工处理，并记录原因。
+统一 JSON 约定如下：``analysis_id`` 由固定会话、消息时点、快照版本、Provider/model、Prompt、Schema、规则和政策版本组合生成并在运行期间保持不变；每次实际执行另有唯一 ``run_id``。``risk.why`` 只列命中规则及其可见证据，``risk.why_not`` 只列不能作更强结论的证据边界。``source_inconsistency`` 为数组，每项至少含 ``kind``、``source_refs``、``as_of_time`` 和 ``summary``；数据快照是唯一写入来源，Provider 只能解释，UI 和评测直接读取，不得自行重判。``facts`` 继续承载已确认业务事实，不把冲突或待核实候选冒充事实。
 
 ## 变更记录
+- v0.5（2026-09-13）：补充风险规则矩阵、数据/指令隔离、`reply_boundary` 安全校验和正式 Schema/非法输出处理边界。
 
+- v0.4（2026-09-13）：固定 `safety_check_result` 独立记录的最小结构和失败时的人工确认边界。
+- v0.3（2026-09-13）：补充 why/why-not 解释边界和独立安全校验记录要求；明确待核实不新增来源冲突类型。
 - v0.1（2026-09-12）：从总 SPEC 拆出规则和契约摘要。
 - v0.2（2026-09-13）：补回嵌套 JSON、情绪历史规则、案例/反例和回复安全；明确输入输出和未定接口细节；既有等级、枚举、字段和动作边界不变。

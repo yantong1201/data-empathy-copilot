@@ -2,10 +2,10 @@
 
 | ID | 阶段 | 规格 | 目标/产物 | 前置 | 完成条件与证据 | 状态 |
 |---|---|---|---|---|---|---|
-| RISK-T001 | B | [风险 SPEC](../模块规格/02-风险政策与结构化契约-SPEC.md) | 编写规则包和版本登记 | DATA-T004 | 覆盖类型、P0/P1/P2/待定级、反例；规则可追溯 | 待实现 |
+| RISK-T001 | B | [风险 SPEC](../模块规格/02-风险政策与结构化契约-SPEC.md) | 编写规则包、风险规则矩阵和版本登记 | DATA-T004 | 覆盖全部风险类型、P0/P1/P2/待定级、证据条件、反例、优先级和缓和规则；规则可追溯 | 待实现 |
 | RISK-T002 | B | 风险 SPEC §情绪 | 定义情绪信号与必问/禁止动作 | RISK-T001 | 医生词边界、缓和信号、`unclear` 样例有标注依据 | 待实现 |
 | RISK-T003 | B | 风险 SPEC §政策 | 建立 10–20 条政策包 | RISK-T001 | 每条有 ID、来源、版本、生效时间；演示规则有标记 | 待实现 |
-| RISK-T004 | B | 风险 SPEC §Provider JSON | 定义 Schema 和校验器 | RISK-T001 | 三 Provider 同一 JSON Schema；非法风险降级/拒绝有日志 | 待实现 |
+| RISK-T004 | B | [风险 SPEC §Provider JSON](../模块规格/02-风险政策与结构化契约-SPEC.md#json)、[正式 Schema](../模块规格/02-风险政策与结构化契约-SCHEMA.json) | 定义统一 Schema、`why/why_not` 承载和独立安全校验记录 | RISK-T001 | 三 Provider 使用同一正式 Schema；非法输出按有限修复/RuleProvider/人工处理路径记录；`risk.why/why_not`、顶层 `source_inconsistency` 可追溯；五项安全检查覆盖事实、未来信息、风险降级、时效承诺和回复边界，失败不能进入人工确认 | 待实现 |
 
 ## 对应检查
 

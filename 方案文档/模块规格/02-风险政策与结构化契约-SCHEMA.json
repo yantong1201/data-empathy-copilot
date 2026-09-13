@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:data-empathy:provider-analysis:v0.5",
+  "title": "Data Empathy Provider Analysis",
+  "description": "Offline/provider-neutral analysis contract. Business actions remain human-confirmed.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "session_id",
+    "message_no",
+    "as_of_time",
+    "analysis_id",
+    "intent",
+    "emotion",
+    "risk",
+    "facts",
+    "source_inconsistency",
+    "missing_fields",
+    "reply_draft",
+    "recommended_actions",
+    "needs_human_confirmation",
+    "source_refs"
+  ],
+  "properties": {
+    "session_id": { "type": "string", "minLength": 1 },
+    "message_no": { "type": "integer", "minimum": 1 },
+    "as_of_time": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "[+-][0-9]{2}:[0-9]{2}$"
+    },
+    "analysis_id": { "type": "string", "minLength": 1 },
+    "intent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["major", "minor", "confidence"],
+      "properties": {
+        "major": { "type": "string", "minLength": 1 },
+        "minor": { "type": "string", "minLength": 1 },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+    "emotion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["negative_signal", "escalation", "evidence_refs"],
+      "properties": {
+        "negative_signal": { "enum": ["none", "present", "unclear"] },
+        "escalation": { "enum": ["no", "yes", "unclear"] },
+        "evidence_refs": { "$ref": "#/$defs/sourceRefs" }
+      }
+    },
+    "risk": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "level", "status", "rule_ids", "why", "why_not"],
+      "properties": {
+        "type": {
+          "enum": [
+            "adverse_reaction",
+            "complaint_escalation",
+            "abnormal_refund",
+            "repeat_contact",
+            "logistics_exception",
+            "aftersales_damage",
+            "unresolved_workorder",
+            "none",
+            "unclear"
+          ]
+        },
+        "level": { "enum": ["P0", "P1", "P2", "待定级"] },
+        "status": { "enum": ["confirmed", "needs_verification"] },
+        "rule_ids": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "why": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "why_not": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+      }
+    },
+    "facts": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "source_inconsistency": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/sourceInconsistency" }
+    },
+    "missing_fields": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "reply_draft": { "type": "string" },
+    "recommended_actions": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "needs_human_confirmation": { "const": true },
+    "source_refs": { "$ref": "#/$defs/sourceRefs" }
+  },
+  "$defs": {
+    "sourceRefs": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "sourceInconsistency": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "source_refs", "as_of_time", "summary"],
+      "properties": {
+        "kind": { "type": "string", "minLength": 1 },
+        "source_refs": { "$ref": "#/$defs/sourceRefs" },
+        "as_of_time": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "[+-][0-9]{2}:[0-9]{2}$"
+        },
+        "summary": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}
