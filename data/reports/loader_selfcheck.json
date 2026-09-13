@@ -1,0 +1,1346 @@
+{
+  "association": {
+    "method": "session_id preferred; nonempty chat backfill keys cross-checked",
+    "nonempty_order_keys": 819,
+    "nonempty_workorder_keys": 629,
+    "order_key_hits": 819,
+    "order_link_rate": "819/819",
+    "sessions_with_order": 113,
+    "sessions_with_workorder": 80,
+    "workorder_key_hits": 629,
+    "workorder_link_rate": "629/629"
+  },
+  "expected_input_audit": {
+    "chat_buyers": 112,
+    "chat_rows": 998,
+    "chat_sessions": 138,
+    "image_messages": 29,
+    "order_link_hits": "819/819",
+    "order_rows": 113,
+    "workorder_link_hits": "629/629",
+    "workorder_rows": {
+      "不良反应工单": 10,
+      "售后退货工单": 18,
+      "物流工单": 15,
+      "线下打款工单": 13,
+      "补发换货工单": 24
+    },
+    "workorder_total": 80
+  },
+  "field_mapping": {
+    "business_sheets": [
+      "聊天记录",
+      "订单",
+      "补发换货工单",
+      "线下打款工单",
+      "物流工单",
+      "不良反应工单",
+      "售后退货工单"
+    ],
+    "chat": {
+      "fields": [
+        {
+          "canonical": "session_id",
+          "source": "会话ID",
+          "string_id": true,
+          "type": "string_id"
+        },
+        {
+          "canonical": "message_no",
+          "source": "消息序号",
+          "string_id": false,
+          "type": "int"
+        },
+        {
+          "canonical": "message_id",
+          "source": "message_id",
+          "string_id": true,
+          "type": "string_id"
+        },
+        {
+          "canonical": "message_time",
+          "source": "发送时间",
+          "string_id": false,
+          "type": "time"
+        },
+        {
+          "canonical": "role",
+          "source": "角色",
+          "string_id": false,
+          "type": "string"
+        },
+        {
+          "canonical": "buyer_nick",
+          "source": "买家昵称",
+          "string_id": true,
+          "type": "string_id"
+        },
+        {
+          "canonical": "sender",
+          "source": "发送方",
+          "string_id": false,
+          "type": "string"
+        },
+        {
+          "canonical": "shop",
+          "source": "店铺",
+          "string_id": false,
+          "type": "string"
+        },
+        {
+          "canonical": "scene_major",
+          "source": "scene_major",
+          "string_id": false,
+          "type": "string"
+        },
+        {
+          "canonical": "scene_minor",
+          "source": "scene_minor",
+          "string_id": false,
+          "type": "string"
+        },
+        {
+          "canonical": "is_target_buyer_message",
+          "source": "is_target_buyer_message",
+          "string_id": false,
+          "type": "bool"
+        },
+        {
+          "canonical": "message_text",
+          "source": "message_text",
+          "string_id": false,
+          "type": "string"
+        },
+        {
+          "canonical": "content_type",
+          "source": "内容类型",
+          "string_id": false,
+          "type": "string"
+        },
+        {
+          "canonical": "chat_content",
+          "source": "chat_content",
+          "string_id": false,
+          "type": "string"
+        },
+        {
+          "canonical": "category",
+          "source": "category",
+          "string_id": false,
+          "type": "string"
+        },
+        {
+          "canonical": "image_path",
+          "source": "image_path",
+          "string_id": false,
+          "type": "string"
+        },
+        {
+          "canonical": "linked_order_id",
+          "source": "关联订单号",
+          "string_id": true,
+          "type": "string_id"
+        },
+        {
+          "canonical": "linked_workorder_id",
+          "source": "关联工单号",
+          "string_id": true,
+          "type": "string_id"
+        }
+      ],
+      "sheet": "聊天记录"
+    },
+    "notes": [
+      "Chat 关联订单号/关联工单号 are backfilled potential keys, not proof of visibility.",
+      "Order status has no effective time; snapshot must not treat 交易成功 as current fact.",
+      "Workorder completion requires complete_time != null and complete_time <= as_of_time."
+    ],
+    "order": {
+      "fields": [
+        {
+          "canonical": "order_id",
+          "source": "订单号",
+          "string_id": true,
+          "type": "string_id"
+        },
+        {
+          "canonical": "session_id",
+          "source": "会话ID",
+          "string_id": true,
+          "type": "string_id"
+        },
+        {
+          "canonical": "buyer_nick",
+          "source": "买家昵称",
+          "string_id": true,
+          "type": "string_id"
+        },
+        {
+          "canonical": "shop",
+          "source": "店铺",
+          "string_id": false,
+          "type": "string"
+        },
+        {
+          "canonical": "sku_code",
+          "source": "商品货号",
+          "string_id": true,
+          "type": "string_id"
+        },
+        {
+          "canonical": "product_name",
+          "source": "商品名称",
+          "string_id": false,
+          "type": "string"
+        },
+        {
+          "canonical": "quantity",
+          "source": "数量",
+          "string_id": false,
+          "type": "int"
+        },
+        {
+          "canonical": "unit_price",
+          "source": "单价(元)",
+          "string_id": false,
+          "type": "number"
+        },
+        {
+          "canonical": "paid_amount",
+          "source": "实付金额(元)",
+          "string_id": false,
+          "type": "number"
+        },
+        {
+          "canonical": "order_status_raw",
+          "source": "订单状态",
+          "string_id": false,
+          "type": "string"
+        },
+        {
+          "canonical": "placed_time",
+          "source": "下单时间",
+          "string_id": false,
+          "type": "time"
+        },
+        {
+          "canonical": "paid_time",
+          "source": "付款时间",
+          "string_id": false,
+          "type": "time"
+        },
+        {
+          "canonical": "shipped_time",
+          "source": "发货时间",
+          "string_id": false,
+          "type": "time"
+        },
+        {
+          "canonical": "courier",
+          "source": "快递公司",
+          "string_id": false,
+          "type": "string"
+        },
+        {
+          "canonical": "tracking_no",
+          "source": "物流单号",
+          "string_id": true,
+          "type": "string_id"
+        },
+        {
+          "canonical": "receiver_province",
+          "source": "收货省",
+          "string_id": false,
+          "type": "string"
+        },
+        {
+          "canonical": "receiver_city",
+          "source": "收货市",
+          "string_id": false,
+          "type": "string"
+        },
+        {
+          "canonical": "gift",
+          "source": "赠品",
+          "string_id": false,
+          "type": "string"
+        },
+        {
+          "canonical": "buyer_note",
+          "source": "买家留言",
+          "string_id": false,
+          "type": "string"
+        }
+      ],
+      "sheet": "订单"
+    },
+    "string_id_fields": [
+      "alipay_account",
+      "batch_no",
+      "buyer_nick",
+      "linked_order_id",
+      "linked_workorder_id",
+      "message_id",
+      "order_id",
+      "original_tracking_no",
+      "outbound_sku",
+      "problem_tracking_no",
+      "refund_no",
+      "related_tracking_no",
+      "reship_tracking_no",
+      "return_tracking_no",
+      "session_id",
+      "sku_code",
+      "tracking_no",
+      "workorder_id"
+    ],
+    "timezone": "Asia/Shanghai",
+    "workorder": {
+      "不良反应工单": {
+        "fields": [
+          {
+            "canonical": "workorder_id",
+            "source": "工单号",
+            "string_id": true,
+            "type": "string_id"
+          },
+          {
+            "canonical": "session_id",
+            "source": "会话ID",
+            "string_id": true,
+            "type": "string_id"
+          },
+          {
+            "canonical": "order_id",
+            "source": "关联订单号",
+            "string_id": true,
+            "type": "string_id"
+          },
+          {
+            "canonical": "buyer_nick",
+            "source": "买家昵称",
+            "string_id": true,
+            "type": "string_id"
+          },
+          {
+            "canonical": "shop",
+            "source": "店铺",
+            "string_id": false,
+            "type": "string"
+          },
+          {
+            "canonical": "handler",
+            "source": "处理人",
+            "string_id": false,
+            "type": "string"
+          },
+          {
+            "canonical": "create_time",
+            "source": "创建时间",
+            "string_id": false,
+            "type": "time"
+          },
+          {
+            "canonical": "complete_time",
+            "source": "完成时间",
+            "string_id": false,
+            "type": "time"
+          },
+          {
+            "canonical": "status_raw",
+            "source": "任务状态",
+            "string_id": false,
+            "type": "string"
+          },
+          {
+            "canonical": "channel_type",
+            "source": "类型",
+            "string_id": false,
+            "type": "string"
+          },
+          {
+            "canonical": "age",
+            "source": "年龄",
+            "string_id": false,
+            "type": "int"
+          },
+          {
+            "canonical": "skin_type",
+            "source": "肤质",
+            "string_id": false,
+            "type": "string"
+          },
+          {
+            "canonical": "used_product",
+            "source": "使用商品",
+            "string_id": false,
+            "type": "string"
+          },
+          {
+            "canonical": "batch_no",
+            "source": "产品批次号",
+            "string_id": true,
+            "type": "string_id"
+          },
+          {
+            "canonical": "affected_area",
+            "source": "不适部位",
+            "string_id": false,
+            "type": "string"
+          },
+          {
+            "canonical": "symptom",
+            "source": "症状描述",
+            "string_id": false,
+            "type": "string"
+          },
+          {
+            "canonical": "onset_after",
+            "source": "用后多久出现",
+            "string_id": false,
+            "type": "string"
+          },
+          {
+            "canonical": "discontinued",
+            "source": "是否停用",
+            "string_id": false,
+            "type": "string"
+          },
+          {
+            "canonical": "sought_medical_care",
+            "source": "是否就医",
+            "string_id": false,
+            "type": "string"
+          }
+        ],
+        "kind": "adverse_reaction",
+        "status_source": "任务状态"
+      },
+      "售后退货工单": {
+        "fields": [
+          {
+            "canonical": "workorder_id",
+            "source": "工单号",
+            "string_id": true,
+            "type": "string_id"
+          },
+          {
+            "canonical": "session_id",
+            "source": "会话ID",
+            "string_id": true,
+            "type": "string_id"
+          },
+          {
+            "canonical": "order_id",
+            "source": "关联订单号",
+            "string_id": true,
+            "type": "string_id"
+          },
+          {
+            "canonical": "buyer_nick",
+            "source": "买家昵称",
+            "string_id": true,
+            "type": "string_id"
+          },
+          {
+            "canonical": "shop",
+            "source": "店铺",
+            "string_id": false,
+            "type": "string"
+          },
+          {
+            "canonical": "handler",
+            "source": "处理人",
+            "string_id": false,
+            "type": "string"
+          },
+          {
+            "canonical": "create_time",
+            "source": "创建时间",
+            "string_id": false,
+            "type": "time"
+          },
+          {
+            "canonical": "complete_time",
+            "source": "完成时间",
+            "string_id": false,
+            "type": "time"
+          },
+          {
+            "canonical": "status_raw",
+            "source": "任务状态",
+            "string_id": false,
+            "type": "string"
+          },
+          {
+            "canonical": "package_type",
+            "source": "包裹类型",
+            "string_id": false,
+            "type": "string"
+          },
+          {
+            "canonical": "return_reason",
+            "source": "退货原因",
+            "string_id": false,
+            "type": "string"
+          },
+          {
+            "canonical": "return_tracking_no",
+            "source": "退货物流单号",
+            "string_id": true,
+            "type": "string_id"
+          },
+          {
+            "canonical": "courier",
+            "source": "快递公司",
+            "string_id": false,
+            "type": "string"
+          },
+          {
+            "canonical": "refund_no",
+            "source": "退款编号",
+            "string_id": true,
+            "type": "string_id"
+          },
+          {
+            "canonical": "receive_advice",
+            "source": "签收建议",
+            "string_id": false,
+            "type": "string"
+          },
+          {
+            "canonical": "is_abnormal",
+            "source": "是否异常",
+            "string_id": false,
+            "type": "string"
+          }
+        ],
+        "kind": "aftersale_return",
+        "status_source": "任务状态"
+      },
+      "物流工单": {
+        "fields": [
+          {
+            "canonical": "workorder_id",
+            "source": "工单号",
+            "string_id": true,
+            "type": "string_id"
+          },
+          {
+            "canonical": "session_id",
+            "source": "会话ID",
+            "string_id": true,
+            "type": "string_id"
+          },
+          {
+            "canonical": "order_id",
+            "source": "关联订单号",
+            "string_id": true,
+            "type": "string_id"
+          },
+          {
+            "canonical": "buyer_nick",
+            "source": "买家昵称",
+            "string_id": true,
+            "type": "string_id"
+          },
+          {
+            "canonical": "shop",
+            "source": "店铺",
+            "string_id": false,
+            "type": "string"
+          },
+          {
+            "canonical": "handler",
+            "source": "处理人",
+            "string_id": false,
+            "type": "string"
+          },
+          {
+            "canonical": "create_time",
+            "source": "创建时间",
+            "string_id": false,
+            "type": "time"
+          },
+          {
+            "canonical": "complete_time",
+            "source": "完成时间",
+            "string_id": false,
+            "type": "time"
+          },
+          {
+            "canonical": "status_raw",
+            "source": "工单状态",
+            "string_id": false,
+            "type": "string"
+          },
+          {
+            "canonical": "issue_type",
+            "source": "问题类型",
+            "string_id": false,
+            "type": "string"
+          },
+          {
+            "canonical": "courier",
+            "source": "快递公司",
+            "string_id": false,
+            "type": "string"
+          },
+          {
+            "canonical": "problem_tracking_no",
+            "source": "问题包裹物流单号",
+            "string_id": true,
+            "type": "string_id"
+          },
+          {
+            "canonical": "warehouse",
+            "source": "发货仓",
+            "string_id": false,
+            "type": "string"
+          },
+          {
+            "canonical": "order_paid_amount",
+            "source": "订单实付(元)",
+            "string_id": false,
+            "type": "number"
+          },
+          {
+            "canonical": "handling_plan",
+            "source": "处理方案",
+            "string_id": false,
+            "type": "string"
+          },
+          {
+            "canonical": "receiver_province",
+            "source": "收货省",
+            "string_id": false,
+            "type": "string"
+          },
+          {
+            "canonical": "receiver_city",
+            "source": "收货市",
+            "string_id": false,
+            "type": "string"
+          }
+        ],
+        "kind": "logistics",
+        "status_source": "工单状态"
+      },
+      "线下打款工单": {
+        "fields": [
+          {
+            "canonical": "workorder_id",
+            "source": "工单号",
+            "string_id": true,
+            "type": "string_id"
+          },
+          {
+            "canonical": "session_id",
+            "source": "会话ID",
+            "string_id": true,
+            "type": "string_id"
+          },
+          {
+            "canonical": "order_id",
+            "source": "关联订单号",
+            "string_id": true,
+            "type": "string_id"
+          },
+          {
+            "canonical": "buyer_nick",
+            "source": "买家昵称",
+            "string_id": true,
+            "type": "string_id"
+          },
+          {
+            "canonical": "shop",
+            "source": "店铺",
+            "string_id": false,
+            "type": "string"
+          },
+          {
+            "canonical": "handler",
+            "source": "处理人",
+            "string_id": false,
+            "type": "string"
+          },
+          {
+            "canonical": "create_time",
+            "source": "创建时间",
+            "string_id": false,
+            "type": "time"
+          },
+          {
+            "canonical": "complete_time",
+            "source": "完成时间",
+            "string_id": false,
+            "type": "time"
+          },
+          {
+            "canonical": "status_raw",
+            "source": "工单状态",
+            "string_id": false,
+            "type": "string"
+          },
+          {
+            "canonical": "payment_type",
+            "source": "打款类型",
+            "string_id": false,
+            "type": "string"
+          },
+          {
+            "canonical": "refund_issue_type",
+            "source": "退款问题类型",
+            "string_id": false,
+            "type": "string"
+          },
+          {
+            "canonical": "refund_amount",
+            "source": "退款金额(元)",
+            "string_id": false,
+            "type": "number"
+          },
+          {
+            "canonical": "alipay_real_name",
+            "source": "支付宝实名",
+            "string_id": false,
+            "type": "string"
+          },
+          {
+            "canonical": "alipay_account",
+            "source": "支付宝账号",
+            "string_id": true,
+            "type": "string"
+          },
+          {
+            "canonical": "related_tracking_no",
+            "source": "相关物流单号",
+            "string_id": true,
+            "type": "string_id"
+          },
+          {
+            "canonical": "transfer_status",
+            "source": "转账状态",
+            "string_id": false,
+            "type": "string"
+          }
+        ],
+        "kind": "offline_payment",
+        "status_source": "工单状态"
+      },
+      "补发换货工单": {
+        "fields": [
+          {
+            "canonical": "workorder_id",
+            "source": "工单号",
+            "string_id": true,
+            "type": "string_id"
+          },
+          {
+            "canonical": "session_id",
+            "source": "会话ID",
+            "string_id": true,
+            "type": "string_id"
+          },
+          {
+            "canonical": "order_id",
+            "source": "关联订单号",
+            "string_id": true,
+            "type": "string_id"
+          },
+          {
+            "canonical": "buyer_nick",
+            "source": "买家昵称",
+            "string_id": true,
+            "type": "string_id"
+          },
+          {
+            "canonical": "shop",
+            "source": "店铺",
+            "string_id": false,
+            "type": "string"
+          },
+          {
+            "canonical": "handler",
+            "source": "处理人",
+            "string_id": false,
+            "type": "string"
+          },
+          {
+            "canonical": "create_time",
+            "source": "创建时间",
+            "string_id": false,
+            "type": "time"
+          },
+          {
+            "canonical": "complete_time",
+            "source": "完成时间",
+            "string_id": false,
+            "type": "time"
+          },
+          {
+            "canonical": "status_raw",
+            "source": "工单状态",
+            "string_id": false,
+            "type": "string"
+          },
+          {
+            "canonical": "workorder_subtype",
+            "source": "工单类型",
+            "string_id": false,
+            "type": "string"
+          },
+          {
+            "canonical": "aftersale_reason",
+            "source": "售后原因",
+            "string_id": false,
+            "type": "string"
+          },
+          {
+            "canonical": "outbound_sku",
+            "source": "发出商品货号",
+            "string_id": true,
+            "type": "string_id"
+          },
+          {
+            "canonical": "outbound_product_name",
+            "source": "发出商品名称",
+            "string_id": false,
+            "type": "string"
+          },
+          {
+            "canonical": "quantity",
+            "source": "数量",
+            "string_id": false,
+            "type": "int"
+          },
+          {
+            "canonical": "original_tracking_no",
+            "source": "原订单物流单号",
+            "string_id": true,
+            "type": "string_id"
+          },
+          {
+            "canonical": "reship_tracking_no",
+            "source": "补发物流单号",
+            "string_id": true,
+            "type": "string_id"
+          },
+          {
+            "canonical": "courier",
+            "source": "快递公司",
+            "string_id": false,
+            "type": "string"
+          },
+          {
+            "canonical": "warehouse",
+            "source": "发货仓库",
+            "string_id": false,
+            "type": "string"
+          },
+          {
+            "canonical": "urgent",
+            "source": "客诉加急",
+            "string_id": false,
+            "type": "string"
+          }
+        ],
+        "kind": "reship_exchange",
+        "status_source": "工单状态"
+      }
+    }
+  },
+  "id_types": {
+    "buyer_nick_all_str": true,
+    "chat_linked_order_id_str_or_none": true,
+    "chat_linked_workorder_id_str_or_none": true,
+    "chat_message_id_all_str": true,
+    "chat_session_id_all_str": true,
+    "no_float_ids": true,
+    "order_id_all_str": true,
+    "workorder_id_all_str": true
+  },
+  "input_audit_all_match": true,
+  "input_audit_match": {
+    "chat_buyers": true,
+    "chat_rows": true,
+    "chat_sessions": true,
+    "image_messages": true,
+    "order_link_hits": true,
+    "order_rows": true,
+    "workorder_link_hits": true,
+    "workorder_rows": true,
+    "workorder_total": true
+  },
+  "loader_log": [
+    "open_readonly D:\\黑客松\\赛题 1：数据共情者-业务数据.xlsx",
+    "source_sha256 b5ac027e863c5580dab39c8f459e4698d65e9fbec29832c9915448f2087307b7",
+    "engine=openpyxl data_only=True read_only=True write=never",
+    "workbook_sheets ['数据说明', '聊天记录', '订单', '补发换货工单', '线下打款工单', '物流工单', '不良反应工单', '售后退货工单']",
+    "loaded 聊天记录 rows=998 errors=0",
+    "loaded 订单 rows=113 errors=0",
+    "loaded 补发换货工单 rows=24 kind=reship_exchange errors=0",
+    "loaded 线下打款工单 rows=13 kind=offline_payment errors=0",
+    "loaded 物流工单 rows=15 kind=logistics errors=0",
+    "loaded 不良反应工单 rows=10 kind=adverse_reaction errors=0",
+    "loaded 售后退货工单 rows=18 kind=aftersale_return errors=0",
+    "workbook_closed_without_save"
+  ],
+  "note": "Row counts and 819/819、629/629 are input audit evidence, not snapshot acceptance.",
+  "nulls": {
+    "chat": {
+      "image_path": {
+        "non_null": 29,
+        "null": 969,
+        "total": 998
+      },
+      "linked_order_id": {
+        "non_null": 819,
+        "null": 179,
+        "total": 998
+      },
+      "linked_workorder_id": {
+        "non_null": 629,
+        "null": 369,
+        "total": 998
+      },
+      "message_id": {
+        "non_null": 998,
+        "null": 0,
+        "total": 998
+      },
+      "message_time": {
+        "non_null": 998,
+        "null": 0,
+        "total": 998
+      },
+      "session_id": {
+        "non_null": 998,
+        "null": 0,
+        "total": 998
+      }
+    },
+    "order": {
+      "order_id": {
+        "non_null": 113,
+        "null": 0,
+        "total": 113
+      },
+      "paid_time": {
+        "non_null": 113,
+        "null": 0,
+        "total": 113
+      },
+      "placed_time": {
+        "non_null": 113,
+        "null": 0,
+        "total": 113
+      },
+      "shipped_time": {
+        "non_null": 97,
+        "null": 16,
+        "total": 113
+      },
+      "tracking_no": {
+        "non_null": 97,
+        "null": 16,
+        "total": 113
+      }
+    },
+    "workorder": {
+      "complete_time": {
+        "non_null": 52,
+        "null": 28,
+        "total": 80
+      },
+      "create_time": {
+        "non_null": 80,
+        "null": 0,
+        "total": 80
+      },
+      "workorder_id": {
+        "non_null": 80,
+        "null": 0,
+        "total": 80
+      }
+    }
+  },
+  "observed": {
+    "chat_buyers": 112,
+    "chat_rows": 998,
+    "chat_sessions": 138,
+    "image_messages": 29,
+    "order_link_hits": "819/819",
+    "order_rows": 113,
+    "workorder_link_hits": "629/629",
+    "workorder_rows": {
+      "不良反应工单": 10,
+      "售后退货工单": 18,
+      "物流工单": 15,
+      "线下打款工单": 13,
+      "补发换货工单": 24
+    },
+    "workorder_total": 80
+  },
+  "primary_key_uniqueness": {
+    "chat_message_id_unique": true,
+    "chat_session_message_no_unique": true,
+    "duplicate_order_sessions": [],
+    "duplicate_workorder_sessions": [],
+    "order_id_unique": true,
+    "order_session_unique": true,
+    "workorder_id_unique": true,
+    "workorder_session_unique": true
+  },
+  "sample_output_times": {
+    "first_chat": "2026-05-05T10:18:45+08:00"
+  },
+  "sheets": [
+    {
+      "canonical_fields": [
+        "session_id",
+        "message_no",
+        "message_id",
+        "message_time",
+        "role",
+        "buyer_nick",
+        "sender",
+        "shop",
+        "scene_major",
+        "scene_minor",
+        "is_target_buyer_message",
+        "message_text",
+        "content_type",
+        "chat_content",
+        "category",
+        "image_path",
+        "linked_order_id",
+        "linked_workorder_id"
+      ],
+      "headers": [
+        "会话ID",
+        "消息序号",
+        "message_id",
+        "发送时间",
+        "角色",
+        "买家昵称",
+        "发送方",
+        "店铺",
+        "scene_major",
+        "scene_minor",
+        "is_target_buyer_message",
+        "message_text",
+        "内容类型",
+        "chat_content",
+        "category",
+        "image_path",
+        "关联订单号",
+        "关联工单号"
+      ],
+      "parse_errors": [],
+      "row_count": 998,
+      "sheet": "聊天记录"
+    },
+    {
+      "canonical_fields": [
+        "order_id",
+        "session_id",
+        "buyer_nick",
+        "shop",
+        "sku_code",
+        "product_name",
+        "quantity",
+        "unit_price",
+        "paid_amount",
+        "order_status_raw",
+        "placed_time",
+        "paid_time",
+        "shipped_time",
+        "courier",
+        "tracking_no",
+        "receiver_province",
+        "receiver_city",
+        "gift",
+        "buyer_note"
+      ],
+      "headers": [
+        "订单号",
+        "会话ID",
+        "买家昵称",
+        "店铺",
+        "商品货号",
+        "商品名称",
+        "数量",
+        "单价(元)",
+        "实付金额(元)",
+        "订单状态",
+        "下单时间",
+        "付款时间",
+        "发货时间",
+        "快递公司",
+        "物流单号",
+        "收货省",
+        "收货市",
+        "赠品",
+        "买家留言"
+      ],
+      "parse_errors": [],
+      "row_count": 113,
+      "sheet": "订单"
+    },
+    {
+      "canonical_fields": [
+        "workorder_id",
+        "session_id",
+        "order_id",
+        "buyer_nick",
+        "shop",
+        "handler",
+        "create_time",
+        "complete_time",
+        "status_raw",
+        "kind",
+        "workorder_subtype",
+        "aftersale_reason",
+        "outbound_sku",
+        "outbound_product_name",
+        "quantity",
+        "original_tracking_no",
+        "reship_tracking_no",
+        "courier",
+        "warehouse",
+        "urgent"
+      ],
+      "headers": [
+        "工单号",
+        "会话ID",
+        "关联订单号",
+        "买家昵称",
+        "店铺",
+        "工单类型",
+        "售后原因",
+        "发出商品货号",
+        "发出商品名称",
+        "数量",
+        "原订单物流单号",
+        "补发物流单号",
+        "快递公司",
+        "发货仓库",
+        "客诉加急",
+        "工单状态",
+        "处理人",
+        "创建时间",
+        "完成时间"
+      ],
+      "parse_errors": [],
+      "row_count": 24,
+      "sheet": "补发换货工单"
+    },
+    {
+      "canonical_fields": [
+        "workorder_id",
+        "session_id",
+        "order_id",
+        "buyer_nick",
+        "shop",
+        "handler",
+        "create_time",
+        "complete_time",
+        "status_raw",
+        "kind",
+        "payment_type",
+        "refund_issue_type",
+        "refund_amount",
+        "alipay_real_name",
+        "alipay_account",
+        "related_tracking_no",
+        "transfer_status"
+      ],
+      "headers": [
+        "工单号",
+        "会话ID",
+        "关联订单号",
+        "买家昵称",
+        "店铺",
+        "打款类型",
+        "退款问题类型",
+        "退款金额(元)",
+        "支付宝实名",
+        "支付宝账号",
+        "相关物流单号",
+        "转账状态",
+        "工单状态",
+        "处理人",
+        "创建时间",
+        "完成时间"
+      ],
+      "parse_errors": [],
+      "row_count": 13,
+      "sheet": "线下打款工单"
+    },
+    {
+      "canonical_fields": [
+        "workorder_id",
+        "session_id",
+        "order_id",
+        "buyer_nick",
+        "shop",
+        "handler",
+        "create_time",
+        "complete_time",
+        "status_raw",
+        "kind",
+        "issue_type",
+        "courier",
+        "problem_tracking_no",
+        "warehouse",
+        "order_paid_amount",
+        "handling_plan",
+        "receiver_province",
+        "receiver_city"
+      ],
+      "headers": [
+        "工单号",
+        "会话ID",
+        "关联订单号",
+        "买家昵称",
+        "店铺",
+        "问题类型",
+        "快递公司",
+        "问题包裹物流单号",
+        "发货仓",
+        "订单实付(元)",
+        "处理方案",
+        "收货省",
+        "收货市",
+        "工单状态",
+        "处理人",
+        "创建时间",
+        "完成时间"
+      ],
+      "parse_errors": [],
+      "row_count": 15,
+      "sheet": "物流工单"
+    },
+    {
+      "canonical_fields": [
+        "workorder_id",
+        "session_id",
+        "order_id",
+        "buyer_nick",
+        "shop",
+        "handler",
+        "create_time",
+        "complete_time",
+        "status_raw",
+        "kind",
+        "channel_type",
+        "age",
+        "skin_type",
+        "used_product",
+        "batch_no",
+        "affected_area",
+        "symptom",
+        "onset_after",
+        "discontinued",
+        "sought_medical_care"
+      ],
+      "headers": [
+        "工单号",
+        "会话ID",
+        "关联订单号",
+        "买家昵称",
+        "店铺",
+        "类型",
+        "年龄",
+        "肤质",
+        "使用商品",
+        "产品批次号",
+        "不适部位",
+        "症状描述",
+        "用后多久出现",
+        "是否停用",
+        "是否就医",
+        "任务状态",
+        "处理人",
+        "创建时间",
+        "完成时间"
+      ],
+      "parse_errors": [],
+      "row_count": 10,
+      "sheet": "不良反应工单"
+    },
+    {
+      "canonical_fields": [
+        "workorder_id",
+        "session_id",
+        "order_id",
+        "buyer_nick",
+        "shop",
+        "handler",
+        "create_time",
+        "complete_time",
+        "status_raw",
+        "kind",
+        "package_type",
+        "return_reason",
+        "return_tracking_no",
+        "courier",
+        "refund_no",
+        "receive_advice",
+        "is_abnormal"
+      ],
+      "headers": [
+        "工单号",
+        "会话ID",
+        "关联订单号",
+        "买家昵称",
+        "店铺",
+        "包裹类型",
+        "退货原因",
+        "退货物流单号",
+        "快递公司",
+        "退款编号",
+        "签收建议",
+        "是否异常",
+        "任务状态",
+        "处理人",
+        "创建时间",
+        "完成时间"
+      ],
+      "parse_errors": [],
+      "row_count": 18,
+      "sheet": "售后退货工单"
+    }
+  ],
+  "source_path": "D:\\黑客松\\赛题 1：数据共情者-业务数据.xlsx",
+  "source_sha256": "b5ac027e863c5580dab39c8f459e4698d65e9fbec29832c9915448f2087307b7",
+  "time_monotonicity": {
+    "chat_time_non_decreasing_by_message_no": {
+      "ok": true,
+      "violation_count": 0,
+      "violations": []
+    },
+    "order_placed_paid_shipped": {
+      "ok": true,
+      "violation_count": 0,
+      "violations": []
+    },
+    "workorder_create_complete": {
+      "ok": true,
+      "violation_count": 0,
+      "violations": []
+    }
+  },
+  "time_parseability": {
+    "chat_message_time_ok": 998,
+    "order_paid_ok": 113,
+    "order_placed_ok": 113,
+    "order_shipped_ok": 113,
+    "sheet_parse_errors": {},
+    "workorder_complete_ok": 80,
+    "workorder_create_ok": 80
+  },
+  "timezone": "Asia/Shanghai",
+  "title": "DATA-T001 loader self-check"
+}

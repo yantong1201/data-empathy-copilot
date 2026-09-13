@@ -1,0 +1,79 @@
+{
+  "as_of_time": "2026-04-21T03:15:33+08:00",
+  "association": {
+    "method": "session_id",
+    "note": "Backfilled chat keys are not used to prove visibility and are omitted until the record is visible.",
+    "order_id": "6920797553890280371",
+    "order_visible": true,
+    "workorder_id": null,
+    "workorder_visible": false
+  },
+  "chat": [],
+  "logistics": {
+    "logistics_workorder": null,
+    "order_logistics": {
+      "courier": "申通快递",
+      "shipped_time": "2026-04-21T03:15:33+08:00",
+      "source_ref": "order:6920797553890280371:logistics",
+      "tracking_no": "773742029650001"
+    }
+  },
+  "message_no": null,
+  "order": {
+    "buyer_nick": "芝g**",
+    "buyer_note": "尽快发货",
+    "gift": null,
+    "order_id": "6920797553890280371",
+    "order_status": {
+      "assertion": "unknown",
+      "raw_in_source": true,
+      "reason": "missing_status_effective_time",
+      "snapshot_value": null
+    },
+    "paid": {
+      "note": null,
+      "reason": null,
+      "time": "2026-04-19T14:15:33+08:00",
+      "visible": true
+    },
+    "paid_amount": 199,
+    "placed_time": "2026-04-19T14:03:33+08:00",
+    "product_name": "测试B5多效修护面膜20片",
+    "quantity": 1,
+    "receiver_city": "青岛市",
+    "receiver_province": "山东省",
+    "session_id": "S00015",
+    "shipped": {
+      "courier": "申通快递",
+      "reason": null,
+      "time": "2026-04-21T03:15:33+08:00",
+      "tracking_no": "773742029650001",
+      "visible": true
+    },
+    "shop": "测试美妆旗舰店",
+    "sku_code": "XL22002",
+    "source_ref": "order:6920797553890280371",
+    "source_row": 12,
+    "source_sheet": "订单",
+    "unit_price": 199,
+    "visibility": "visible"
+  },
+  "query": {
+    "as_of_time": "2026-04-21T03:15:33+08:00",
+    "message_no": null,
+    "session_id": "S00015"
+  },
+  "schema": "data_empathy.snapshot.v1",
+  "session_id": "S00015",
+  "source_inconsistency": [],
+  "source_refs": [
+    "order:6920797553890280371",
+    "order:6920797553890280371:logistics"
+  ],
+  "timezone": "Asia/Shanghai",
+  "workorder": {
+    "reason": "create_time_after_as_of_time",
+    "visibility": "no_workorder",
+    "workorder_id": null
+  }
+}

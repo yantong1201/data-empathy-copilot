@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:data-empathy:provider-degradation:v1",
+  "title": "Provider illegal output and degradation record",
+  "description": "Schema validate → limited repair → RuleProvider/human/reject. No static default answers.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "run_id",
+    "analysis_id",
+    "provider",
+    "schema_valid_before",
+    "repair",
+    "schema_valid_after",
+    "fallback",
+    "can_enter_human_confirmation",
+    "original_output"
+  ],
+  "properties": {
+    "run_id": { "type": "string", "minLength": 1 },
+    "analysis_id": { "type": ["string", "null"] },
+    "provider": { "enum": ["QwenProvider", "MockProvider", "RuleProvider", "unknown"] },
+    "schema_valid_before": { "type": "boolean" },
+    "schema_errors": { "type": "array", "items": { "type": "string" } },
+    "repair": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["attempted", "actions", "changed_facts", "lowered_risk", "added_sources", "hid_missing_fields", "result"],
+      "properties": {
+        "attempted": { "type": "boolean" },
+        "actions": { "type": "array", "items": { "type": "string" } },
+        "changed_facts": { "type": "boolean" },
+        "lowered_risk": { "type": "boolean" },
+        "added_sources": { "type": "boolean" },
+        "hid_missing_fields": { "type": "boolean" },
+        "result": { "enum": ["not_needed", "repaired", "failed", "skipped"] }
+      }
+    },
+    "schema_valid_after": { "type": "boolean" },
+    "fallback": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["target", "reason"],
+      "properties": {
+        "target": { "enum": ["none", "RuleProvider", "human", "reject_confirmation"] },
+        "reason": { "type": "string", "minLength": 1 }
+      }
+    },
+    "can_enter_human_confirmation": { "type": "boolean" },
+    "original_output": {},
+    "repaired_output": {}
+  }
+}

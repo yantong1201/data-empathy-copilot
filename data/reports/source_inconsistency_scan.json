@@ -1,0 +1,469 @@
+{
+  "claim_session_count": 46,
+  "claim_sessions": [
+    "S00001",
+    "S00004",
+    "S00006",
+    "S00007",
+    "S00009",
+    "S00010",
+    "S00015",
+    "S00018",
+    "S00020",
+    "S00023",
+    "S00024",
+    "S00027",
+    "S00031",
+    "S00033",
+    "S00034",
+    "S00035",
+    "S00037",
+    "S00039",
+    "S00040",
+    "S00044",
+    "S00051",
+    "S00054",
+    "S00058",
+    "S00059",
+    "S00063",
+    "S00064",
+    "S00065",
+    "S00070",
+    "S00074",
+    "S00075",
+    "S00079",
+    "S00082",
+    "S00087",
+    "S00089",
+    "S00090",
+    "S00093",
+    "S00097",
+    "S00098",
+    "S00103",
+    "S00137",
+    "S00154",
+    "S00156",
+    "S00203",
+    "S00223",
+    "S00268",
+    "S00277"
+  ],
+  "missing_conflict": [],
+  "note": "Generic claimed_workorder_not_in_system; not limited to three demo cases.",
+  "rows": [
+    {
+      "create_time": "2026-05-05T10:29:45+08:00",
+      "expect_conflict": true,
+      "first_claim_message_no": 6,
+      "first_claim_time": "2026-05-05T10:27:37+08:00",
+      "had_conflict": true,
+      "session_id": "S00001",
+      "workorder_id": "BH919209358357"
+    },
+    {
+      "create_time": "2026-05-05T12:40:20+08:00",
+      "expect_conflict": true,
+      "first_claim_message_no": 6,
+      "first_claim_time": "2026-05-05T11:58:55+08:00",
+      "had_conflict": true,
+      "session_id": "S00004",
+      "workorder_id": "BH699081699885"
+    },
+    {
+      "create_time": "2026-05-05T12:27:42+08:00",
+      "expect_conflict": true,
+      "first_claim_message_no": 5,
+      "first_claim_time": "2026-05-05T12:12:51+08:00",
+      "had_conflict": true,
+      "session_id": "S00006",
+      "workorder_id": "WL190449095"
+    },
+    {
+      "create_time": "2026-05-05T13:25:28+08:00",
+      "expect_conflict": true,
+      "first_claim_message_no": 5,
+      "first_claim_time": "2026-05-05T12:45:57+08:00",
+      "had_conflict": true,
+      "session_id": "S00007",
+      "workorder_id": "BH142092289687"
+    },
+    {
+      "create_time": "2026-05-05T14:20:03+08:00",
+      "expect_conflict": true,
+      "first_claim_message_no": 4,
+      "first_claim_time": "2026-05-05T14:07:28+08:00",
+      "had_conflict": true,
+      "session_id": "S00009",
+      "workorder_id": "WL991067160"
+    },
+    {
+      "create_time": "2026-05-05T15:10:33+08:00",
+      "expect_conflict": true,
+      "first_claim_message_no": 6,
+      "first_claim_time": "2026-05-05T14:34:29+08:00",
+      "had_conflict": true,
+      "session_id": "S00010",
+      "workorder_id": "BLFY49330652"
+    },
+    {
+      "create_time": "2026-05-05T17:13:33+08:00",
+      "expect_conflict": true,
+      "first_claim_message_no": 4,
+      "first_claim_time": "2026-05-05T16:38:49+08:00",
+      "had_conflict": true,
+      "session_id": "S00015",
+      "workorder_id": "BLFY61738711"
+    },
+    {
+      "create_time": "2026-05-05T20:38:07+08:00",
+      "expect_conflict": true,
+      "first_claim_message_no": 6,
+      "first_claim_time": "2026-05-05T19:56:38+08:00",
+      "had_conflict": true,
+      "session_id": "S00018",
+      "workorder_id": "BH697811247059"
+    },
+    {
+      "create_time": "2026-05-05T21:55:14+08:00",
+      "expect_conflict": true,
+      "first_claim_message_no": 5,
+      "first_claim_time": "2026-05-05T21:09:33+08:00",
+      "had_conflict": true,
+      "session_id": "S00020",
+      "workorder_id": "BH689247868745"
+    },
+    {
+      "create_time": "2026-05-05T22:00:16+08:00",
+      "expect_conflict": true,
+      "first_claim_message_no": 5,
+      "first_claim_time": "2026-05-05T21:39:23+08:00",
+      "had_conflict": true,
+      "session_id": "S00023",
+      "workorder_id": "WL698348054"
+    },
+    {
+      "create_time": "2026-05-05T22:15:52+08:00",
+      "expect_conflict": true,
+      "first_claim_message_no": 4,
+      "first_claim_time": "2026-05-05T21:42:59+08:00",
+      "had_conflict": true,
+      "session_id": "S00024",
+      "workorder_id": "KOC3195289"
+    },
+    {
+      "create_time": "2026-05-05T23:27:29+08:00",
+      "expect_conflict": true,
+      "first_claim_message_no": 5,
+      "first_claim_time": "2026-05-05T22:44:46+08:00",
+      "had_conflict": true,
+      "session_id": "S00027",
+      "workorder_id": "BH879131096583"
+    },
+    {
+      "create_time": "2026-05-06T10:43:03+08:00",
+      "expect_conflict": true,
+      "first_claim_message_no": 6,
+      "first_claim_time": "2026-05-06T10:27:05+08:00",
+      "had_conflict": true,
+      "session_id": "S00031",
+      "workorder_id": "BH695419716917"
+    },
+    {
+      "create_time": "2026-05-06T14:43:52+08:00",
+      "expect_conflict": true,
+      "first_claim_message_no": 5,
+      "first_claim_time": "2026-05-06T14:30:55+08:00",
+      "had_conflict": true,
+      "session_id": "S00033",
+      "workorder_id": "WL120890165"
+    },
+    {
+      "create_time": "2026-05-06T15:14:22+08:00",
+      "expect_conflict": true,
+      "first_claim_message_no": 6,
+      "first_claim_time": "2026-05-06T14:35:42+08:00",
+      "had_conflict": true,
+      "session_id": "S00034",
+      "workorder_id": "BH758933100232"
+    },
+    {
+      "create_time": "2026-05-06T15:07:11+08:00",
+      "expect_conflict": true,
+      "first_claim_message_no": 5,
+      "first_claim_time": "2026-05-06T14:59:10+08:00",
+      "had_conflict": true,
+      "session_id": "S00035",
+      "workorder_id": "BH652810902299"
+    },
+    {
+      "create_time": "2026-05-06T15:30:32+08:00",
+      "expect_conflict": true,
+      "first_claim_message_no": 5,
+      "first_claim_time": "2026-05-06T15:21:47+08:00",
+      "had_conflict": true,
+      "session_id": "S00037",
+      "workorder_id": "BH121200223854"
+    },
+    {
+      "create_time": "2026-05-06T17:32:57+08:00",
+      "expect_conflict": true,
+      "first_claim_message_no": 6,
+      "first_claim_time": "2026-05-06T16:44:12+08:00",
+      "had_conflict": true,
+      "session_id": "S00039",
+      "workorder_id": "BH712927465857"
+    },
+    {
+      "create_time": "2026-05-06T20:51:37+08:00",
+      "expect_conflict": true,
+      "first_claim_message_no": 4,
+      "first_claim_time": "2026-05-06T20:05:40+08:00",
+      "had_conflict": true,
+      "session_id": "S00040",
+      "workorder_id": "KOC5432473"
+    },
+    {
+      "create_time": "2026-05-07T11:32:01+08:00",
+      "expect_conflict": true,
+      "first_claim_message_no": 5,
+      "first_claim_time": "2026-05-07T11:10:09+08:00",
+      "had_conflict": true,
+      "session_id": "S00044",
+      "workorder_id": "WL631432408"
+    },
+    {
+      "create_time": "2026-05-07T16:04:03+08:00",
+      "expect_conflict": true,
+      "first_claim_message_no": 4,
+      "first_claim_time": "2026-05-07T15:48:15+08:00",
+      "had_conflict": true,
+      "session_id": "S00051",
+      "workorder_id": "WL840101369"
+    },
+    {
+      "create_time": "2026-05-07T17:00:40+08:00",
+      "expect_conflict": true,
+      "first_claim_message_no": 6,
+      "first_claim_time": "2026-05-07T16:23:14+08:00",
+      "had_conflict": true,
+      "session_id": "S00054",
+      "workorder_id": "BH331527974180"
+    },
+    {
+      "create_time": "2026-05-07T18:01:31+08:00",
+      "expect_conflict": true,
+      "first_claim_message_no": 6,
+      "first_claim_time": "2026-05-07T17:39:26+08:00",
+      "had_conflict": true,
+      "session_id": "S00058",
+      "workorder_id": "BLFY13780992"
+    },
+    {
+      "create_time": "2026-05-07T18:15:52+08:00",
+      "expect_conflict": true,
+      "first_claim_message_no": 4,
+      "first_claim_time": "2026-05-07T17:37:11+08:00",
+      "had_conflict": true,
+      "session_id": "S00059",
+      "workorder_id": "KOC7263722"
+    },
+    {
+      "create_time": "2026-05-07T21:16:18+08:00",
+      "expect_conflict": true,
+      "first_claim_message_no": 5,
+      "first_claim_time": "2026-05-07T20:55:33+08:00",
+      "had_conflict": true,
+      "session_id": "S00063",
+      "workorder_id": "WL763619183"
+    },
+    {
+      "create_time": "2026-05-07T21:14:31+08:00",
+      "expect_conflict": true,
+      "first_claim_message_no": 4,
+      "first_claim_time": "2026-05-07T21:01:57+08:00",
+      "had_conflict": true,
+      "session_id": "S00064",
+      "workorder_id": "BH877117054803"
+    },
+    {
+      "create_time": "2026-05-08T09:42:38+08:00",
+      "expect_conflict": true,
+      "first_claim_message_no": 4,
+      "first_claim_time": "2026-05-08T09:05:17+08:00",
+      "had_conflict": true,
+      "session_id": "S00065",
+      "workorder_id": "BH453897226151"
+    },
+    {
+      "create_time": "2026-05-08T12:02:35+08:00",
+      "expect_conflict": true,
+      "first_claim_message_no": 8,
+      "first_claim_time": "2026-05-08T11:28:25+08:00",
+      "had_conflict": true,
+      "session_id": "S00070",
+      "workorder_id": "BLFY72189798"
+    },
+    {
+      "create_time": "2026-05-08T13:39:52+08:00",
+      "expect_conflict": true,
+      "first_claim_message_no": 5,
+      "first_claim_time": "2026-05-08T13:09:51+08:00",
+      "had_conflict": true,
+      "session_id": "S00074",
+      "workorder_id": "BH218088700239"
+    },
+    {
+      "create_time": "2026-05-08T14:34:40+08:00",
+      "expect_conflict": true,
+      "first_claim_message_no": 4,
+      "first_claim_time": "2026-05-08T14:04:41+08:00",
+      "had_conflict": true,
+      "session_id": "S00075",
+      "workorder_id": "WL885208335"
+    },
+    {
+      "create_time": "2026-05-08T18:04:49+08:00",
+      "expect_conflict": true,
+      "first_claim_message_no": 6,
+      "first_claim_time": "2026-05-08T17:47:22+08:00",
+      "had_conflict": true,
+      "session_id": "S00079",
+      "workorder_id": "BLFY28579679"
+    },
+    {
+      "create_time": "2026-05-08T19:27:11+08:00",
+      "expect_conflict": true,
+      "first_claim_message_no": 6,
+      "first_claim_time": "2026-05-08T19:21:18+08:00",
+      "had_conflict": true,
+      "session_id": "S00082",
+      "workorder_id": "BLFY70604980"
+    },
+    {
+      "create_time": "2026-05-08T20:20:20+08:00",
+      "expect_conflict": true,
+      "first_claim_message_no": 4,
+      "first_claim_time": "2026-05-08T20:06:07+08:00",
+      "had_conflict": true,
+      "session_id": "S00087",
+      "workorder_id": "BH567865392726"
+    },
+    {
+      "create_time": "2026-05-08T21:10:47+08:00",
+      "expect_conflict": true,
+      "first_claim_message_no": 8,
+      "first_claim_time": "2026-05-08T20:55:32+08:00",
+      "had_conflict": true,
+      "session_id": "S00089",
+      "workorder_id": "BLFY53935414"
+    },
+    {
+      "create_time": "2026-05-08T21:27:35+08:00",
+      "expect_conflict": true,
+      "first_claim_message_no": 5,
+      "first_claim_time": "2026-05-08T21:09:14+08:00",
+      "had_conflict": true,
+      "session_id": "S00090",
+      "workorder_id": "BH450849382497"
+    },
+    {
+      "create_time": "2026-05-08T22:31:44+08:00",
+      "expect_conflict": true,
+      "first_claim_message_no": 5,
+      "first_claim_time": "2026-05-08T21:56:39+08:00",
+      "had_conflict": true,
+      "session_id": "S00093",
+      "workorder_id": "WL364504665"
+    },
+    {
+      "create_time": "2026-05-09T11:16:01+08:00",
+      "expect_conflict": true,
+      "first_claim_message_no": 6,
+      "first_claim_time": "2026-05-09T11:00:42+08:00",
+      "had_conflict": true,
+      "session_id": "S00097",
+      "workorder_id": "BH459193582329"
+    },
+    {
+      "create_time": "2026-05-09T11:37:48+08:00",
+      "expect_conflict": true,
+      "first_claim_message_no": 8,
+      "first_claim_time": "2026-05-09T11:10:31+08:00",
+      "had_conflict": true,
+      "session_id": "S00098",
+      "workorder_id": "BLFY50417006"
+    },
+    {
+      "create_time": "2026-05-09T15:44:00+08:00",
+      "expect_conflict": true,
+      "first_claim_message_no": 6,
+      "first_claim_time": "2026-05-09T15:09:19+08:00",
+      "had_conflict": true,
+      "session_id": "S00103",
+      "workorder_id": "BH227871524735"
+    },
+    {
+      "create_time": "2026-05-10T19:38:35+08:00",
+      "expect_conflict": true,
+      "first_claim_message_no": 6,
+      "first_claim_time": "2026-05-10T19:15:01+08:00",
+      "had_conflict": true,
+      "session_id": "S00137",
+      "workorder_id": "BH819557327939"
+    },
+    {
+      "create_time": "2026-05-11T16:49:30+08:00",
+      "expect_conflict": true,
+      "first_claim_message_no": 4,
+      "first_claim_time": "2026-05-11T16:22:04+08:00",
+      "had_conflict": true,
+      "session_id": "S00154",
+      "workorder_id": "BLFY27898314"
+    },
+    {
+      "create_time": "2026-05-11T17:31:41+08:00",
+      "expect_conflict": true,
+      "first_claim_message_no": 2,
+      "first_claim_time": "2026-05-11T16:52:37+08:00",
+      "had_conflict": true,
+      "session_id": "S00156",
+      "workorder_id": "KOC8204206"
+    },
+    {
+      "create_time": "2026-05-13T09:29:15+08:00",
+      "expect_conflict": true,
+      "first_claim_message_no": 6,
+      "first_claim_time": "2026-05-13T09:09:05+08:00",
+      "had_conflict": true,
+      "session_id": "S00203",
+      "workorder_id": "BH946416168326"
+    },
+    {
+      "create_time": "2026-05-13T19:38:12+08:00",
+      "expect_conflict": true,
+      "first_claim_message_no": 2,
+      "first_claim_time": "2026-05-13T18:53:27+08:00",
+      "had_conflict": true,
+      "session_id": "S00223",
+      "workorder_id": "KOC4591299"
+    },
+    {
+      "create_time": "2026-05-15T13:46:43+08:00",
+      "expect_conflict": true,
+      "first_claim_message_no": 4,
+      "first_claim_time": "2026-05-15T13:15:39+08:00",
+      "had_conflict": true,
+      "session_id": "S00268",
+      "workorder_id": "BLFY41232690"
+    },
+    {
+      "create_time": "2026-05-15T16:31:10+08:00",
+      "expect_conflict": true,
+      "first_claim_message_no": 2,
+      "first_claim_time": "2026-05-15T16:01:48+08:00",
+      "had_conflict": true,
+      "session_id": "S00277",
+      "workorder_id": "KOC8458982"
+    }
+  ]
+}

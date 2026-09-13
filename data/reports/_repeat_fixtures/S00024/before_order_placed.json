@@ -1,0 +1,37 @@
+{
+  "as_of_time": "2026-04-29T17:33:51+08:00",
+  "association": {
+    "method": "session_id",
+    "note": "Backfilled chat keys are not used to prove visibility and are omitted until the record is visible.",
+    "order_id": null,
+    "order_visible": false,
+    "workorder_id": null,
+    "workorder_visible": false
+  },
+  "chat": [],
+  "logistics": {
+    "logistics_workorder": null,
+    "order_logistics": null
+  },
+  "message_no": null,
+  "order": {
+    "order_id": null,
+    "reason": "placed_time_after_as_of_time",
+    "visibility": "not_yet_visible"
+  },
+  "query": {
+    "as_of_time": "2026-04-29T17:33:51+08:00",
+    "message_no": null,
+    "session_id": "S00024"
+  },
+  "schema": "data_empathy.snapshot.v1",
+  "session_id": "S00024",
+  "source_inconsistency": [],
+  "source_refs": [],
+  "timezone": "Asia/Shanghai",
+  "workorder": {
+    "reason": "create_time_after_as_of_time",
+    "visibility": "no_workorder",
+    "workorder_id": null
+  }
+}

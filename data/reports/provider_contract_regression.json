@@ -1,0 +1,121 @@
+{
+  "analysis_id_stable": true,
+  "limited_repair": {
+    "can_enter_human_confirmation": true,
+    "fallback": {
+      "reason": "schema 与安全校验均通过，仍须人工确认业务动作",
+      "target": "none"
+    },
+    "repair": {
+      "actions": [
+        "force_needs_human_confirmation_true",
+        "strip_additional_extra_debug"
+      ],
+      "added_sources": false,
+      "attempted": true,
+      "changed_facts": false,
+      "hid_missing_fields": false,
+      "lowered_risk": false,
+      "result": "repaired"
+    },
+    "schema_valid_after": true,
+    "schema_valid_before": false
+  },
+  "not_run": {
+    "analysis_id": "A-S00015-ab2c0c4d34ff463a9334",
+    "can_be_human_confirmation_basis": false,
+    "checks": {},
+    "executed": false,
+    "failures": [
+      {
+        "affected": "safety_check_result",
+        "reason": "五项安全检查未运行，不得伪装为 pass，不得作为人工确认依据",
+        "recoverable": true,
+        "source_refs": [],
+        "type": "not_run"
+      }
+    ],
+    "run_id": "R-2aa26c0e0e80454e842056d760acd7eb",
+    "status": "not_run"
+  },
+  "repair_failed": {
+    "can_enter_human_confirmation": false,
+    "fallback": {
+      "reason": "Schema 非法且有限修复失败；转 RuleProvider 或人工处理，不用静态默认答案",
+      "target": "RuleProvider"
+    },
+    "repair": {
+      "actions": [],
+      "added_sources": false,
+      "attempted": false,
+      "changed_facts": false,
+      "hid_missing_fields": false,
+      "lowered_risk": false,
+      "result": "failed"
+    },
+    "schema_errors": [
+      "$: missing required risk"
+    ]
+  },
+  "reply_boundary": {
+    "analysis_id": "A-S00015-ab2c0c4d34ff463a9334",
+    "can_be_human_confirmation_basis": false,
+    "checks": {
+      "fact_visibility": "pass",
+      "future_information": "pass",
+      "reply_boundary": "fail",
+      "risk_non_downgrade": "pass",
+      "unsupported_timing": "fail"
+    },
+    "executed": true,
+    "failures": [
+      {
+        "affected": "reply_draft",
+        "reason": "回复含无依据的退款/赔偿/处理时效承诺",
+        "recoverable": true,
+        "source_refs": [],
+        "type": "unsupported_timing"
+      },
+      {
+        "affected": "reply_draft",
+        "reason": "回复含医学诊断",
+        "recoverable": true,
+        "source_refs": [],
+        "type": "reply_boundary"
+      }
+    ],
+    "run_id": "R-511c55a574f94d3e84808d5dd1516adf",
+    "status": "fail"
+  },
+  "risk_downgrade": {
+    "analysis_id": "A-S00015-ab2c0c4d34ff463a9334",
+    "can_be_human_confirmation_basis": false,
+    "checks": {
+      "fact_visibility": "pass",
+      "future_information": "pass",
+      "reply_boundary": "pass",
+      "risk_non_downgrade": "fail",
+      "unsupported_timing": "pass"
+    },
+    "executed": true,
+    "failures": [
+      {
+        "affected": "risk.level",
+        "reason": "Provider 将规则确定的 P0 降为 P2",
+        "recoverable": false,
+        "source_refs": [
+          "R-AR-001"
+        ],
+        "type": "risk_non_downgrade"
+      }
+    ],
+    "run_id": "R-42e3b262e75440038ec19260611b395a",
+    "status": "fail"
+  },
+  "shared_schema": {
+    "MockProvider": "urn:data-empathy:provider-analysis:v0.5",
+    "QwenProvider": "urn:data-empathy:provider-analysis:v0.5",
+    "RuleProvider": "urn:data-empathy:provider-analysis:v0.5"
+  },
+  "source_inconsistency_pass_through": true
+}

@@ -1,0 +1,9 @@
+{
+  "S00015_create_keeps_p0": true,
+  "S00015_soften_keeps_p0": true,
+  "S00024_pending_not_overridden": true,
+  "rule_ids_retained_s15_create": [
+    "R-AR-001",
+    "R-WO-001"
+  ]
+}

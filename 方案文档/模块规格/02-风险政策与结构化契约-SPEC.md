@@ -141,7 +141,9 @@ unclear
 统一 JSON 约定如下：``analysis_id`` 由固定会话、消息时点、快照版本、Provider/model、Prompt、Schema、规则和政策版本组合生成并在运行期间保持不变；每次实际执行另有唯一 ``run_id``。``risk.why`` 只列命中规则及其可见证据，``risk.why_not`` 只列不能作更强结论的证据边界。``source_inconsistency`` 为数组，每项至少含 ``kind``、``source_refs``、``as_of_time`` 和 ``summary``；数据快照是唯一写入来源，Provider 只能解释，UI 和评测直接读取，不得自行重判。``facts`` 继续承载已确认业务事实，不把冲突或待核实候选冒充事实。
 
 ## 变更记录
+- v0.5.1（2026-09-13）：记录与正式 Schema 的差异：SPEC 矩阵 R-NONE-001 结果为「无风险」，Schema `risk.level` 仍为 `P0|P1|P2|待定级`。未改 Schema 顶层字段/枚举/`needs_human_confirmation=true`。实现以 `type=none` 表示无枚举内风险类型。`safety_check_result` 保持独立运行记录；未运行不得为 pass。
 - v0.5（2026-09-13）：补充风险规则矩阵、数据/指令隔离、`reply_boundary` 安全校验和正式 Schema/非法输出处理边界。
+
 
 - v0.4（2026-09-13）：固定 `safety_check_result` 独立记录的最小结构和失败时的人工确认边界。
 - v0.3（2026-09-13）：补充 why/why-not 解释边界和独立安全校验记录要求；明确待核实不新增来源冲突类型。

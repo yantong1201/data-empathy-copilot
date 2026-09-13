@@ -1,0 +1,241 @@
+{
+  "artifacts": {
+    "emotion_regression": "D:\\黑客松\\data\\reports\\emotion_regression.json",
+    "policy_pack_inventory": "D:\\黑客松\\data\\reports\\policy_pack_inventory.json",
+    "provider_contract_regression": "D:\\黑客松\\data\\reports\\provider_contract_regression.json",
+    "required_questions_and_forbidden_actions": "D:\\黑客松\\data\\reports\\required_questions_and_forbidden_actions.json",
+    "risk_priority_regression": "D:\\黑客松\\data\\reports\\risk_priority_regression.json",
+    "risk_rule_matrix": "D:\\黑客松\\data\\reports\\risk_rule_matrix.json"
+  },
+  "checks": [
+    {
+      "cases": {
+        "S00001#6": {
+          "level": "P2",
+          "type": "aftersales_damage"
+        },
+        "S00015#1": {
+          "level": "P0",
+          "rule_ids": [
+            "R-AR-001"
+          ],
+          "status": "confirmed",
+          "type": "adverse_reaction"
+        },
+        "S00015#9": {
+          "level": "P0",
+          "rule_ids": [
+            "R-AR-001"
+          ],
+          "status": "confirmed",
+          "type": "adverse_reaction"
+        },
+        "S00024#1": {
+          "level": "待定级",
+          "missing_fields": [
+            "外箱照片",
+            "面单照片",
+            "内件照片",
+            "出库/揽收重量"
+          ],
+          "type": "abnormal_refund"
+        }
+      },
+      "failures": [],
+      "id": "RISK-C001",
+      "passed": true,
+      "priority": {
+        "S00015_create_keeps_p0": true,
+        "S00015_soften_keeps_p0": true,
+        "S00024_pending_not_overridden": true,
+        "rule_ids_retained_s15_create": [
+          "R-AR-001",
+          "R-WO-001"
+        ]
+      }
+    },
+    {
+      "failures": [],
+      "id": "RISK-C002",
+      "passed": true,
+      "samples": {
+        "S00064": {
+          "history_refs": [
+            "chat:S00064:1",
+            "chat:S00064:3",
+            "chat:S00064:5"
+          ],
+          "m3": "yes",
+          "m5": "no"
+        },
+        "S00065": {
+          "m3": "no",
+          "m5": "no"
+        },
+        "S00087": {
+          "m3": "yes",
+          "m7": "no"
+        },
+        "doctor_consult_not_p0": [
+          "S00134",
+          "S00303",
+          "S00474"
+        ],
+        "incomplete_adverse": [
+          "S00010",
+          "S00070",
+          "S00082"
+        ]
+      }
+    },
+    {
+      "count": 16,
+      "failures": [],
+      "id": "RISK-C003",
+      "passed": true
+    },
+    {
+      "failures": [],
+      "id": "RISK-C004",
+      "passed": true,
+      "samples": {
+        "analysis_id_stable": true,
+        "limited_repair": {
+          "can_enter_human_confirmation": true,
+          "fallback": {
+            "reason": "schema 与安全校验均通过，仍须人工确认业务动作",
+            "target": "none"
+          },
+          "repair": {
+            "actions": [
+              "force_needs_human_confirmation_true",
+              "strip_additional_extra_debug"
+            ],
+            "added_sources": false,
+            "attempted": true,
+            "changed_facts": false,
+            "hid_missing_fields": false,
+            "lowered_risk": false,
+            "result": "repaired"
+          },
+          "schema_valid_after": true,
+          "schema_valid_before": false
+        },
+        "not_run": {
+          "analysis_id": "A-S00015-ab2c0c4d34ff463a9334",
+          "can_be_human_confirmation_basis": false,
+          "checks": {},
+          "executed": false,
+          "failures": [
+            {
+              "affected": "safety_check_result",
+              "reason": "五项安全检查未运行，不得伪装为 pass，不得作为人工确认依据",
+              "recoverable": true,
+              "source_refs": [],
+              "type": "not_run"
+            }
+          ],
+          "run_id": "R-2aa26c0e0e80454e842056d760acd7eb",
+          "status": "not_run"
+        },
+        "repair_failed": {
+          "can_enter_human_confirmation": false,
+          "fallback": {
+            "reason": "Schema 非法且有限修复失败；转 RuleProvider 或人工处理，不用静态默认答案",
+            "target": "RuleProvider"
+          },
+          "repair": {
+            "actions": [],
+            "added_sources": false,
+            "attempted": false,
+            "changed_facts": false,
+            "hid_missing_fields": false,
+            "lowered_risk": false,
+            "result": "failed"
+          },
+          "schema_errors": [
+            "$: missing required risk"
+          ]
+        },
+        "reply_boundary": {
+          "analysis_id": "A-S00015-ab2c0c4d34ff463a9334",
+          "can_be_human_confirmation_basis": false,
+          "checks": {
+            "fact_visibility": "pass",
+            "future_information": "pass",
+            "reply_boundary": "fail",
+            "risk_non_downgrade": "pass",
+            "unsupported_timing": "fail"
+          },
+          "executed": true,
+          "failures": [
+            {
+              "affected": "reply_draft",
+              "reason": "回复含无依据的退款/赔偿/处理时效承诺",
+              "recoverable": true,
+              "source_refs": [],
+              "type": "unsupported_timing"
+            },
+            {
+              "affected": "reply_draft",
+              "reason": "回复含医学诊断",
+              "recoverable": true,
+              "source_refs": [],
+              "type": "reply_boundary"
+            }
+          ],
+          "run_id": "R-511c55a574f94d3e84808d5dd1516adf",
+          "status": "fail"
+        },
+        "risk_downgrade": {
+          "analysis_id": "A-S00015-ab2c0c4d34ff463a9334",
+          "can_be_human_confirmation_basis": false,
+          "checks": {
+            "fact_visibility": "pass",
+            "future_information": "pass",
+            "reply_boundary": "pass",
+            "risk_non_downgrade": "fail",
+            "unsupported_timing": "pass"
+          },
+          "executed": true,
+          "failures": [
+            {
+              "affected": "risk.level",
+              "reason": "Provider 将规则确定的 P0 降为 P2",
+              "recoverable": false,
+              "source_refs": [
+                "R-AR-001"
+              ],
+              "type": "risk_non_downgrade"
+            }
+          ],
+          "run_id": "R-42e3b262e75440038ec19260611b395a",
+          "status": "fail"
+        },
+        "shared_schema": {
+          "MockProvider": "urn:data-empathy:provider-analysis:v0.5",
+          "QwenProvider": "urn:data-empathy:provider-analysis:v0.5",
+          "RuleProvider": "urn:data-empathy:provider-analysis:v0.5"
+        },
+        "source_inconsistency_pass_through": true
+      }
+    }
+  ],
+  "fingerprint": {
+    "contract_pack": "risk_contract_v1",
+    "emotion_sha256": "529534564f55328d3b8e2102a84449018a22dd4118e1b25a36646b42aba5daee",
+    "emotion_version": "v1.0.0",
+    "policy_sha256": "8c4e814cb08d62ac3fe86f91a111fe0bc24579266b18a0cba0f62782390988e4",
+    "policy_version": "v1.0.0",
+    "prompt_version": "none-phase-b",
+    "rules_sha256": "8fd29e8d5b0091f328d326527f0c2d11fb54708026c55d6d7aef8543efd21776",
+    "rules_version": "v1.0.0",
+    "schema_id": "urn:data-empathy:provider-analysis:v0.5",
+    "schema_sha256": "04f409ad8e3f68487bc5412dbb254ba25b00f6c4d6aa4885dc8d5c08303f5d99"
+  },
+  "note": "Passing these checks is Phase B rule/policy/contract evidence, not Agent/Provider/UI delivery.",
+  "passed": true,
+  "schema_spec_gap": "比赛演示契约包。不是官方政策。Schema 的 risk.level 无「无风险」枚举：R-NONE-001 在无体验负面时输出 type=none 且 level=P2 仅满足必填枚举，why 必须写明无规则命中。未改 SCHEMA.json 顶层字段。",
+  "title": "Phase B RISK-C001–C004 verification",
+  "xlsx": "D:\\黑客松\\赛题 1：数据共情者-业务数据.xlsx"
+}

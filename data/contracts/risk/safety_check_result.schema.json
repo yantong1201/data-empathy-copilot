@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:data-empathy:safety-check-result:v1",
+  "title": "Safety check result",
+  "description": "Independent run record. Not a Provider JSON top-level field.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "analysis_id",
+    "run_id",
+    "status",
+    "executed",
+    "checks",
+    "failures",
+    "can_be_human_confirmation_basis"
+  ],
+  "properties": {
+    "analysis_id": { "type": "string", "minLength": 1 },
+    "run_id": { "type": "string", "minLength": 1 },
+    "status": { "enum": ["pass", "fail", "not_run"] },
+    "executed": { "type": "boolean" },
+    "checks": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "fact_visibility": { "enum": ["pass", "fail"] },
+        "future_information": { "enum": ["pass", "fail"] },
+        "risk_non_downgrade": { "enum": ["pass", "fail"] },
+        "unsupported_timing": { "enum": ["pass", "fail"] },
+        "reply_boundary": { "enum": ["pass", "fail"] }
+      }
+    },
+    "failures": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["type", "reason", "source_refs", "affected", "recoverable"],
+        "properties": {
+          "type": { "type": "string", "minLength": 1 },
+          "reason": { "type": "string", "minLength": 1 },
+          "source_refs": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+          "affected": { "type": "string", "minLength": 1 },
+          "recoverable": { "type": "boolean" }
+        }
+      }
+    },
+    "can_be_human_confirmation_basis": { "type": "boolean" }
+  }
+}

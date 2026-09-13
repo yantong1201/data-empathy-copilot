@@ -1,0 +1,439 @@
+你现在负责实现“数据共情者”项目的阶段 B：规则、政策与结构化契约。
+
+阶段 A 已完成：
+- DATA-C001–C004 已通过。
+- 真实数据快照、时间过滤、来源冲突和三主案例 fixtures 已存在。
+- 可使用：
+  python -m backend.data_empathy verify
+- 阶段 A 产物位于 data/reports/ 和 data/fixtures/。
+- 不要重新实现或修改阶段 A 的 loader、snapshot、fixtures，除非发现明确的契约缺陷并能提供回归证据。
+
+本阶段目标：
+完成 RISK-T001–RISK-T004，建立可追溯的风险规则包、情绪信号约束、政策包、Provider 统一 JSON
+契约、安全校验结果契约和非法输出降级路径。
+
+本阶段不是：
+- Agent 实现
+- Qwen/Mock/RuleProvider 实现
+- 工具调用编排
+- 真实模型调用
+- 工作台 UI 接入
+- 评测运行器
+- 自动执行退款、赔偿、建单、升级或其他业务动作
+
+必须先阅读：
+1. AGENTS.md
+2. 方案文档/00-文档总览与索引.md
+3. 方案文档/01-方案规格-SPEC.md
+4. 方案文档/02-实施计划-PLAN.md
+5. 方案文档/阶段计划/B-规则政策与契约.md
+6. 方案文档/模块规格/01-数据与时间快照-SPEC.md
+7. 方案文档/模块规格/02-风险政策与结构化契约-SPEC.md
+8. 方案文档/模块规格/02-风险政策与结构化契约-SCHEMA.json
+9. 方案文档/模块任务/02-风险政策与结构化契约-TASKS.md
+10. 方案文档/模块验收/02-风险政策与结构化契约-CHECKLIST.md
+
+权威边界：
+- 风险规则、情绪约束、政策、安全边界以风险契约 SPEC 为准。
+- Provider JSON 的正式结构以 SCHEMA.json 为准。
+- 数据可见性、时间和 source_inconsistency 只能来自阶段 A 的快照。
+- Provider 只能解释和组织结果，不能自行重判数据冲突或篡改风险规则。
+- 不从历史审查报告、冻结版或静态 prototype 推导新规则。
+- 不使用关键词规则替代 SPEC 中规定的证据条件。
+
+一、RISK-T001：实现可追溯风险规则包
+
+建立结构化规则包和规则矩阵，至少覆盖以下风险类型：
+
+- adverse_reaction
+- complaint_escalation
+- abnormal_refund
+- repeat_contact
+- logistics_exception
+- aftersales_damage
+- unresolved_workorder
+- none
+- unclear
+
+至少覆盖以下规则 ID：
+
+- R-AR-001
+- R-COMP-001
+- R-REFUND-001
+- R-REPEAT-001
+- R-LOGI-001
+- R-DAMAGE-001
+- R-WO-001
+- R-NONE-001
+- R-UNCLEAR-001
+
+每条规则必须包含：
+
+- rule_id
+- risk_type
+- level 或结果等级
+- status
+- 触发条件
+- 所需证据
+- 明确排除条件
+- 优先级
+- why 解释模板或要求
+- why_not 边界说明
+- 版本
+- 来源
+- 生效时间
+- 是否为比赛演示规则（如适用）
+
+规则必须遵守：
+
+1. P0：
+   - 人身安全、明确就医链路或监管升级。
+2. P1：
+   - 有当前可见业务记录和规则共同支持的资金/风控风险。
+3. P2：
+   - 体验类或流程类风险。
+4. 待定级：
+   - 证据不足、字段缺失、当前时点不可见或来源冲突未裁决。
+5. 仅有买家自述、异常登记或不完整证据时，不得直接升级为已确认 P0/P1。
+6. `unclear` 必须使用 `needs_verification`。
+7. 同时命中多条规则时：
+   - 保留全部 rule_id；
+   - 等级取最高确定性等级；
+   - P0/P1 一旦由规则确定，不得因情绪缓和、模型置信度低或后续工单缺失而降级。
+8. `why` 只能说明命中的规则及当前可见证据。
+9. `why_not` 只能说明缺失字段、不可见时点、待核实状态或不能作出更强结论的证据边界。
+10. 不得把 `why_not` 用来覆盖已确定的高风险。
+11. 不得把“异常=是”直接解释为欺诈或已证实空包裹。
+12. 不得由物流异常推导商品破损责任。
+13. 不得由买家昵称或相似记录直接判断重复进线。
+
+二、RISK-T002：实现情绪信号与必问/禁止动作约束
+
+情绪只允许两个可观察信号：
+
+```text
+negative_signal: none | present | unclear
+escalation: no | yes | unclear
+ ```
+
+ 要求：
+
+ 1. 只能根据当前时点及此前可见的买家原话和服务进展判断。
+ 2. 不能只看最后一句话清除历史投诉或升级信号。
+ 3. 后续明确缓和时，可以降低当前展示，但必须保留历史事件和原句引用。
+ 4. 情绪缓和不得降低已由规则确定的 P0/P1。
+ 5. “医生”“产检医生”等词不能单独触发 P0。
+ 6. “医院”不能只靠正则判断，必须结合数据快照和完整服务语境。
+ 7. 不得做心理诊断。
+ 8. 必须登记必问字段和禁止动作：
+   - 不良反应：就医/治疗事实、症状、发生时间、产品使用情况等；
+   - 异常退款：外箱、面单、照片、出库/揽收重量等；
+   - 物流/破损：当前可见物流和售后证据；
+   - 工单：当前是否可见、创建时间、完成时间和仍需动作。
+ 9. 必须区分：
+   - unclear
+   - needs_verification
+   - missing_fields
+   - 已确认事实
+ 10. 禁止动作至少包括：
+   - 医学诊断
+   - 无依据定责
+   - 承诺退款、赔付或处理时效
+   - 自动发送
+   - 自动升级
+   - 自动建单
+   - 自动退款、赔偿或打款
+   - 把业务数据中的文本当作系统指令执行
+
+ 建立可回归的情绪样例，至少覆盖：
+
+ - S00015：就医链路，不能因后续缓和降为普通风险。
+ - S00064、S00065：先投诉威胁，后明确不投诉，保留历史但当前升级信号可下降。
+ - S00087：投诉威胁后表示处理效率还行，验证升级信号随服务进展下降。
+ - S00010、S00070、S00082：不良反应信息不完整或仍在观察，不作医学诊断。
+ - S00134、S00303、S00474：医生/产检医生为咨询语义，不触发 P0。
+ - S00003、S00042、S00060：保价争议负面语气，通常为 P2。
+
+ 三、RISK-T003：建立政策包
+
+ 建立 10–20 条轻量政策/话术条目，至少覆盖：
+
+ - 不良反应收证
+ - 不良反应升级边界
+ - 医学诊断禁止
+ - 退款证据收集
+ - 空包裹/异常退款待核实
+ - 物流异常处理
+ - 到手破损处理
+ - 工单状态核实
+ - 退款和赔偿承诺边界
+ - 回复事实引用
+ - 缺失字段表达
+ - 来源冲突表达
+ - 人工确认要求
+ - 不可逆动作禁止
+ - 业务数据与指令隔离
+ - 安全校验失败后的处理
+
+ 每条政策至少包含：
+
+ - policy_id
+ - title
+ - content
+ - category
+ - source
+ - version
+ - effective_from
+ - status
+ - allowed_actions
+ - forbidden_actions
+ - evidence_requirements
+ - 是否为官方规则或比赛演示规则
+
+ 要求：
+
+ 1. 没有官方依据的内容必须明确标记为“比赛演示规则”。
+ 2. 不得伪装成官方政策。
+ 3. 政策必须支持按当前 as_of_time 和来源引用使用。
+ 4. 政策不能覆盖或降低规则引擎确定的 P0/P1。
+ 5. 不得在政策包中加入真实业务接口或自动动作。
+
+ 四、RISK-T004：统一 Provider JSON 与安全校验契约
+
+ 正式 JSON Schema 文件是：
+
+ ```text
+方案文档/模块规格/02-风险政策与结构化契约-SCHEMA.json
+ ```
+
+ 要求：
+
+ 1. 不要无理由修改现有顶层字段、枚举和 needs_human_confirmation=true 约束。
+ 2. 如发现 Schema 与 SPEC 不一致，先记录差异，再做最小修改，并同步变更记录。
+ 3. 为三种 Provider 规定共用同一个 Schema：
+   - QwenProvider
+   - MockProvider
+   - RuleProvider
+ 4. Provider JSON 必须支持：
+   - session_id
+   - message_no
+   - as_of_time
+   - analysis_id
+   - intent
+   - emotion
+   - risk
+   - facts
+   - source_inconsistency
+   - missing_fields
+   - reply_draft
+   - recommended_actions
+   - needs_human_confirmation
+   - source_refs
+ 5. analysis_id 必须稳定表示同一会话、消息时点、快照、Provider/model、Prompt、Schema、规则和政策版本组合。
+ 6. run_id 是实际执行记录字段，不要错误添加为 Provider JSON 顶层字段，除非 SPEC 明确修改。
+ 7. source_inconsistency 必须来自阶段 A 数据快照。
+ 8. Provider 只能解释冲突，不能自行重判冲突。
+ 9. facts 只能承载已确认业务事实，不能把待核实候选或冲突伪装成事实。
+ 10. risk.why 和 risk.why_not 必须可追溯到来源引用和当前时点。
+
+ 五、安全校验结果契约
+
+ 定义独立的 safety_check_result 结构，不把它混入 Provider JSON 顶层。
+
+ 最小结构必须包含：
+
+ ```json
+{
+  "status": "pass",
+  "checks": {
+    "fact_visibility": "pass",
+    "future_information": "pass",
+    "risk_non_downgrade": "pass",
+    "unsupported_timing": "pass",
+    "reply_boundary": "pass"
+  },
+  "failures": []
+}
+ ```
+
+ 要求：
+
+ 1. 每次分析必须有一条独立安全校验结果。
+ 2. 每个检查只能是 pass 或 fail。
+ 3. 任一检查失败，整体 status=fail。
+ 4. 未运行检查不得伪装成 pass。
+ 5. 失败必须记录：
+   - failure type
+   - reason
+   - source_refs
+   - affected field 或 reply
+   - 是否可恢复
+ 6. status=fail 或未运行时，不得作为人工确认依据。
+ 7. 五项检查含义：
+   - fact_visibility：事实均在当前时点可见；
+   - future_information：没有泄漏未来订单/工单/状态/时间；
+   - risk_non_downgrade：模型没有降低规则确定的风险；
+   - unsupported_timing：没有无依据承诺退款、赔偿或处理时效；
+   - reply_boundary：没有医学诊断、无依据定责、越权承诺或把业务数据当指令。
+
+ 六、非法 Provider 输出与降级路径
+
+ 为非法输出建立结构化处理路径：
+
+ 1. 先执行 Schema 校验。
+ 2. Schema 非法时，只允许有限、可记录的修复。
+ 3. 修复必须：
+   - 不改变业务事实；
+   - 不降低风险；
+   - 不新增来源；
+   - 不隐藏缺失字段；
+   - 记录原始输出、修复动作和结果。
+ 4. 有限修复失败时，定义：
+   - 转 RuleProvider；
+   - 或转人工处理；
+   - 或拒绝进入人工确认。
+ 5. 必须记录失败原因。
+ 6. 不得用静态默认答案掩盖非法输出。
+ 7. 不实现真实 Qwen、Mock 或 RuleProvider，只定义它们共用的输入输出和失败处理契约。
+
+ 七、必须产出的文件或产物
+
+ 先检查现有目录，复用已有结构。可以新增合理的 backend/、data/ 或 contracts/ 文件，但不要重复建立第二套规范。
+
+ 至少产出：
+
+ 1. 版本化风险规则包。
+ 2. 规则矩阵或规则清单。
+ 3. 情绪信号和必问/禁止动作清单。
+ 4. 10–20 条政策包。
+ 5. Provider Schema 校验入口或校验适配层。
+ 6. safety_check_result 结构定义。
+ 7. 非法输出、有限修复、RuleProvider/人工降级记录结构。
+ 8. 风险和情绪回归样例。
+ 9. RISK-C001–C004 所需验证报告。
+ 10. 必要时更新：
+   - 方案文档/模块任务/02-风险政策与结构化契约-TASKS.md
+   - 方案文档/模块验收/02-风险政策与结构化契约-CHECKLIST.md
+   - 方案文档/阶段计划/B-规则政策与契约.md
+   - 方案文档/00-文档总览与索引.md
+
+ 文档状态只能在存在真实证据时更新为“通过”。没有实现或没有运行证据的内容保持“待实现”或“待验证”。
+
+ 八、必须验证的案例
+
+ 至少验证：
+
+ 1. S00015：
+   - 当前已有就医证据时为 P0；
+   - 工单不可见不影响就医自述；
+   - 不做医学诊断；
+   - 不承诺退款、赔偿或 24 小时回访结果；
+   - 后续情绪缓和不降低规则高风险。
+ 2. S00024：
+   - 为 abnormal_refund；
+   - 缺少充分业务证据时为 待定级 + needs_verification；
+   - 不自动升级为 P1；
+   - 不认定欺诈；
+   - why_not 列出缺失的外箱/面单/照片/重量等证据。
+ 3. S00001：
+   - 为 aftersales_damage、P2；
+   - 不归类为 logistics_exception；
+   - 不推断物流或商家责任。
+ 4. S00064、S00065、S00087：
+   - 验证投诉升级信号随服务进展变化；
+   - 保留历史原句；
+   - 不把历史投诉永久固定为当前 escalation=yes。
+ 5. S00134、S00303、S00474：
+   - 出现“医生/产检医生”但不应直接触发 P0。
+ 6. 非法 Provider JSON：
+   - Schema 校验失败；
+   - 有限修复；
+   - 修复失败；
+   - RuleProvider/人工降级；
+   - 安全校验失败；
+   - 均有结构化记录；
+   - 不能进入人工确认。
+
+ 九、验收标准
+
+ RISK-C001：
+ - 规则矩阵覆盖全部风险类型、等级、证据条件、优先级、持续/缓和规则和反例。
+ - P0/P1 不能被模型降级。
+ - 每条规则有版本和来源。
+ - 有冲突优先级回归报告。
+
+ RISK-C002：
+ - 仅有 negative_signal 和 escalation 两枚信号。
+ - 医生咨询语义不误触发 P0。
+ - 缓和案例能降低当前升级展示但保留历史证据。
+ - unclear 和待核实边界可验证。
+
+ RISK-C003：
+ - 政策条目数量为 10–20 条。
+ - 每条政策有 ID、来源、版本、生效时间和官方/演示标记。
+ - 覆盖收证、升级、退款边界和回复安全。
+
+ RISK-C004：
+ - 三种 Provider 共用正式 Schema。
+ - Schema 非法输出有有限修复或 RuleProvider/人工处理路径。
+ - why/why_not、source_inconsistency、source_refs 可追溯。
+ - 五项安全检查均有结果。
+ - 任一安全检查失败时不能进入人工确认。
+ - 未运行安全检查不能视为通过。
+
+ 十、验证要求
+
+ 先运行阶段 A 回归，确认前置没有被破坏：
+
+ ```text
+python -m backend.data_empathy verify
+ ```
+
+ 然后运行本阶段最小验证。根据实际实现选择对应命令，例如：
+
+ ```text
+python -m <risk_module> verify
+python -m <risk_module> validate
+python -m <risk_module> regression
+ ```
+
+ 如果项目采用 pytest，只运行风险/契约相关测试，不运行无关全套测试。
+
+ 验证必须覆盖：
+
+ - 规则矩阵覆盖性
+ - 风险等级优先级
+ - 情绪缓和
+ - 医生语义边界
+ - P0/P1 不降级
+ - 政策元数据完整性
+ - Provider Schema 合法/非法输出
+ - source_inconsistency 透传
+ - why/why_not 证据引用
+ - 五项安全检查
+ - 安全失败禁止人工确认
+ - 非法输出降级记录
+
+ 不要修改原始 Excel，不连接真实业务系统，不提交或推送 Git。
+
+ 完成后报告：
+
+ 1. 修改了哪些文件。
+ 2. 风险规则包位置和版本。
+ 3. 政策包条目数及来源标记。
+ 4. Schema 校验入口。
+ 5. safety_check_result 结构位置。
+ 6. 非法输出和降级路径。
+ 7. 每个 RISK-C001–C004 的证据文件。
+ 8. 执行的验证命令及真实输出。
+ 9. 阶段 A 回归结果。
+ 10. 尚未实现或尚未验证的内容。
+ ```
+
+阶段 B 的正确退出条件是：
+
+```text
+RISK-C001–C004 全部有真实证据
+ ```
+
+ 并且只能说明“规则、政策和契约已完成”，不能说 Agent、Provider、UI 或评测已经完成。

@@ -1,0 +1,194 @@
+{
+  "as_of_time": "2026-05-05T16:38:49+08:00",
+  "association": {
+    "method": "session_id",
+    "note": "Backfilled chat keys are not used to prove visibility and are omitted until the record is visible.",
+    "order_id": "6920797553890280371",
+    "order_visible": true,
+    "workorder_id": null,
+    "workorder_visible": false
+  },
+  "chat": [
+    {
+      "buyer_nick": "芝g**",
+      "category": "service",
+      "content_type": "文本",
+      "image_path": null,
+      "is_target_buyer_message": true,
+      "linked_order_id": "6920797553890280371",
+      "linked_workorder_id": null,
+      "message_id": "94931577622383.PNM",
+      "message_no": 1,
+      "message_text": "必须给我个说法！用了你们面膜脸过敏，红肿刺痛，我人现在在医院！",
+      "message_time": "2026-05-05T16:33:33+08:00",
+      "role": "买家",
+      "scene_major": "不良反应",
+      "scene_minor": "过敏就医",
+      "sender": "芝g**",
+      "session_id": "S00015",
+      "shop": "测试美妆旗舰店",
+      "source_ref": "chat:S00015:1",
+      "source_row": 103
+    },
+    {
+      "buyer_nick": "芝g**",
+      "category": "service",
+      "content_type": "文本",
+      "image_path": null,
+      "is_target_buyer_message": false,
+      "linked_order_id": "6920797553890280371",
+      "linked_workorder_id": null,
+      "message_id": "45539370087606.PNM",
+      "message_no": 2,
+      "message_text": "亲亲，非常抱歉！您的情况我们高度重视，请先遵医嘱治疗。方便的话请把门诊病历和医生诊断拍照发给岚岚，马上为您上报专项处理",
+      "message_time": "2026-05-05T16:36:20+08:00",
+      "role": "客服",
+      "scene_major": "不良反应",
+      "scene_minor": "过敏就医",
+      "sender": "测试美妆旗舰店:岚岚",
+      "session_id": "S00015",
+      "shop": "测试美妆旗舰店",
+      "source_ref": "chat:S00015:2",
+      "source_row": 104
+    },
+    {
+      "buyer_nick": "芝g**",
+      "category": "service",
+      "content_type": "文本",
+      "image_path": null,
+      "is_target_buyer_message": true,
+      "linked_order_id": "6920797553890280371",
+      "linked_workorder_id": null,
+      "message_id": "84946246895939.PNM",
+      "message_no": 3,
+      "message_text": "资料给你，咋赔偿说个方案，不行我就走12315",
+      "message_time": "2026-05-05T16:37:21+08:00",
+      "role": "买家",
+      "scene_major": "不良反应",
+      "scene_minor": "过敏就医",
+      "sender": "芝g**",
+      "session_id": "S00015",
+      "shop": "测试美妆旗舰店",
+      "source_ref": "chat:S00015:3",
+      "source_row": 105
+    },
+    {
+      "buyer_nick": "芝g**",
+      "category": "service",
+      "content_type": "文本",
+      "image_path": null,
+      "is_target_buyer_message": false,
+      "linked_order_id": "6920797553890280371",
+      "linked_workorder_id": null,
+      "message_id": "28907846239919.PNM",
+      "message_no": 4,
+      "message_text": "收到资料，已为您建立不良反应专项工单并升级处理。方案：①商品全额退款；②凭医疗票据报销本次门诊费用；③专员24小时内电话回访跟进恢复情况。您看可以吗？",
+      "message_time": "2026-05-05T16:38:49+08:00",
+      "role": "客服",
+      "scene_major": "不良反应",
+      "scene_minor": "过敏就医",
+      "sender": "测试美妆旗舰店:岚岚",
+      "session_id": "S00015",
+      "shop": "测试美妆旗舰店",
+      "source_ref": "chat:S00015:4",
+      "source_row": 106
+    }
+  ],
+  "logistics": {
+    "logistics_workorder": null,
+    "order_logistics": {
+      "courier": "申通快递",
+      "shipped_time": "2026-04-21T03:15:33+08:00",
+      "source_ref": "order:6920797553890280371:logistics",
+      "tracking_no": "773742029650001"
+    }
+  },
+  "message_no": 4,
+  "order": {
+    "buyer_nick": "芝g**",
+    "buyer_note": "尽快发货",
+    "gift": null,
+    "order_id": "6920797553890280371",
+    "order_status": {
+      "assertion": "unknown",
+      "raw_in_source": true,
+      "reason": "missing_status_effective_time",
+      "snapshot_value": null
+    },
+    "paid": {
+      "note": null,
+      "reason": null,
+      "time": "2026-04-19T14:15:33+08:00",
+      "visible": true
+    },
+    "paid_amount": 199,
+    "placed_time": "2026-04-19T14:03:33+08:00",
+    "product_name": "测试B5多效修护面膜20片",
+    "quantity": 1,
+    "receiver_city": "青岛市",
+    "receiver_province": "山东省",
+    "session_id": "S00015",
+    "shipped": {
+      "courier": "申通快递",
+      "reason": null,
+      "time": "2026-04-21T03:15:33+08:00",
+      "tracking_no": "773742029650001",
+      "visible": true
+    },
+    "shop": "测试美妆旗舰店",
+    "sku_code": "XL22002",
+    "source_ref": "order:6920797553890280371",
+    "source_row": 12,
+    "source_sheet": "订单",
+    "unit_price": 199,
+    "visibility": "visible"
+  },
+  "query": {
+    "as_of_time": "2026-05-05T16:38:49+08:00",
+    "message_no": 4,
+    "session_id": "S00015"
+  },
+  "schema": "data_empathy.snapshot.v1",
+  "session_id": "S00015",
+  "source_inconsistency": [
+    {
+      "as_of_time": "2026-05-05T16:38:49+08:00",
+      "chat_quotes": [
+        {
+          "message_no": 4,
+          "message_time": "2026-05-05T16:38:49+08:00",
+          "role": "客服",
+          "source_ref": "chat:S00015:4",
+          "text": "收到资料，已为您建立不良反应专项工单并升级处理。方案：①商品全额退款；②凭医疗票据报销本次门诊费用；③专员24小时内电话回访跟进恢复情况。您看可以吗？"
+        }
+      ],
+      "kind": "claimed_workorder_not_in_system",
+      "source_refs": [
+        "chat:S00015:4",
+        "system:workorder:none:S00015"
+      ],
+      "summary": "客服声称已建单（收到资料，已为您建立不良反应专项工单并升级处理。方案：①商品全额退款；②凭医疗票据报销本次门诊费用；③专员24小时内电话回访跟进恢复情况。您看可以吗？），但工单系统在当前时点没有记录",
+      "system_fact": {
+        "fact": "工单系统暂无记录",
+        "reason": "create_time_after_as_of_time",
+        "source_ref": "system:workorder:none:S00015",
+        "workorder_visibility": "no_workorder"
+      }
+    }
+  ],
+  "source_refs": [
+    "chat:S00015:1",
+    "chat:S00015:2",
+    "chat:S00015:3",
+    "chat:S00015:4",
+    "order:6920797553890280371",
+    "order:6920797553890280371:logistics",
+    "system:workorder:none:S00015"
+  ],
+  "timezone": "Asia/Shanghai",
+  "workorder": {
+    "reason": "create_time_after_as_of_time",
+    "visibility": "no_workorder",
+    "workorder_id": null
+  }
+}

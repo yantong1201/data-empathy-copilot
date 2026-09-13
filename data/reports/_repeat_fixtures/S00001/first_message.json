@@ -1,0 +1,102 @@
+{
+  "as_of_time": "2026-05-05T10:18:45+08:00",
+  "association": {
+    "method": "session_id",
+    "note": "Backfilled chat keys are not used to prove visibility and are omitted until the record is visible.",
+    "order_id": "6920185815517983396",
+    "order_visible": true,
+    "workorder_id": null,
+    "workorder_visible": false
+  },
+  "chat": [
+    {
+      "buyer_nick": "邓e**",
+      "category": "service",
+      "content_type": "文本",
+      "image_path": null,
+      "is_target_buyer_message": true,
+      "linked_order_id": "6920185815517983396",
+      "linked_workorder_id": null,
+      "message_id": "20974795108539.PNM",
+      "message_no": 1,
+      "message_text": "你好，收到的粉底液泵头是坏的，按不出来东西，急",
+      "message_time": "2026-05-05T10:18:45+08:00",
+      "role": "买家",
+      "scene_major": "补发换货",
+      "scene_minor": "破损换货",
+      "sender": "邓e**",
+      "session_id": "S00001",
+      "shop": "测试美妆旗舰店",
+      "source_ref": "chat:S00001:1",
+      "source_row": 2
+    }
+  ],
+  "logistics": {
+    "logistics_workorder": null,
+    "order_logistics": {
+      "courier": "中通快递",
+      "shipped_time": "2026-04-30T08:50:45+08:00",
+      "source_ref": "order:6920185815517983396:logistics",
+      "tracking_no": "773478190943155"
+    }
+  },
+  "message_no": 1,
+  "order": {
+    "buyer_nick": "邓e**",
+    "buyer_note": null,
+    "gift": "测试B5面膜体验装2片",
+    "order_id": "6920185815517983396",
+    "order_status": {
+      "assertion": "unknown",
+      "raw_in_source": true,
+      "reason": "missing_status_effective_time",
+      "snapshot_value": null
+    },
+    "paid": {
+      "note": null,
+      "reason": null,
+      "time": "2026-04-29T08:50:45+08:00",
+      "visible": true
+    },
+    "paid_amount": 259,
+    "placed_time": "2026-04-29T08:27:45+08:00",
+    "product_name": "测试轻透粉底液30ml #N02自然色",
+    "quantity": 1,
+    "receiver_city": "昆明市",
+    "receiver_province": "云南省",
+    "session_id": "S00001",
+    "shipped": {
+      "courier": "中通快递",
+      "reason": null,
+      "time": "2026-04-30T08:50:45+08:00",
+      "tracking_no": "773478190943155",
+      "visible": true
+    },
+    "shop": "测试美妆旗舰店",
+    "sku_code": "XC33003",
+    "source_ref": "order:6920185815517983396",
+    "source_row": 45,
+    "source_sheet": "订单",
+    "unit_price": 259,
+    "visibility": "visible"
+  },
+  "query": {
+    "as_of_time": "2026-05-05T10:18:45+08:00",
+    "message_no": 1,
+    "session_id": "S00001"
+  },
+  "schema": "data_empathy.snapshot.v1",
+  "session_id": "S00001",
+  "source_inconsistency": [],
+  "source_refs": [
+    "chat:S00001:1",
+    "order:6920185815517983396",
+    "order:6920185815517983396:logistics"
+  ],
+  "timezone": "Asia/Shanghai",
+  "workorder": {
+    "reason": "create_time_after_as_of_time",
+    "visibility": "no_workorder",
+    "workorder_id": null
+  }
+}

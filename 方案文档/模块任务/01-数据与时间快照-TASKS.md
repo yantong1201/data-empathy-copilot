@@ -2,10 +2,10 @@
 
 | ID | 阶段 | 规格 | 目标/输入/产物 | 前置 | 完成条件与证据 | 状态 |
 |---|---|---|---|---|---|---|
-| DATA-T001 | A | [数据 SPEC](../模块规格/01-数据与时间快照-SPEC.md) | 建立只读 Excel loader、字符串 ID 和字段映射；产物：loader、映射表、自检输出 | 无 | 7 表可读；行数与审计一致；ID 无浮点化；输出命中率日志 | 待实现 |
-| DATA-T002 | A | 数据 SPEC §关联与快照 | 实现 `as_of_time` 仓库、`Asia/Shanghai` 时区解析和聊天/订单/工单过滤；产物：快照接口 | DATA-T001 | 无时区源值按 `Asia/Shanghai` 解析并输出带偏移时间；未来工单不可见，完结前无完结状态；S00015 msg1 为 `no_workorder` | 待实现 |
-| DATA-T003 | A | 数据 SPEC §canonical 案例 | 登记通用提前声称建单规则及三例回归夹具；产物：全量时点 fixtures、统一 `source_inconsistency` 输出 | DATA-T002 | 覆盖其他提前声称建单会话；每项冲突保留聊天/系统双方来源和 `kind`、`source_refs`、`as_of_time`、`summary`，回填号不可提前可见且不泄漏未来字段 | 待实现 |
-| DATA-T004 | A | 数据 SPEC | 输出 S00015、S00024、S00001 可重复基线快照 | DATA-T003 | 同输入重复运行 JSON 一致；带时区时间和证据引用可定位；不同机器本地时区不改变结果 | 待实现 |
+| DATA-T001 | A | [数据 SPEC](../模块规格/01-数据与时间快照-SPEC.md) | 建立只读 Excel loader、字符串 ID 和字段映射；产物：loader、映射表、自检输出 | 无 | 7 表可读；行数与审计一致；ID 无浮点化；输出命中率日志 | 已完成（2026-09-13）。证据：`backend/data_empathy/loader.py`、`data/reports/loader.log`、`data/reports/loader_selfcheck.json`、`data/reports/field_mapping.json`、`data/reports/phase_a_verification.json` DATA-C001 |
+| DATA-T002 | A | 数据 SPEC §关联与快照 | 实现 `as_of_time` 仓库、`Asia/Shanghai` 时区解析和聊天/订单/工单过滤；产物：快照接口 | DATA-T001 | 无时区源值按 `Asia/Shanghai` 解析并输出带偏移时间；未来工单不可见，完结前无完结状态；S00015 msg1 为 `no_workorder` | 已完成（2026-09-13）。证据：`backend/data_empathy/snapshot.py`、`data/fixtures/S00015/first_message.json`、`data/reports/phase_a_verification.json` DATA-C002 |
+| DATA-T003 | A | 数据 SPEC §canonical 案例 | 登记通用提前声称建单规则及三例回归夹具；产物：全量时点 fixtures、统一 `source_inconsistency` 输出 | DATA-T002 | 覆盖其他提前声称建单会话；每项冲突保留聊天/系统双方来源和 `kind`、`source_refs`、`as_of_time`、`summary`，回填号不可提前可见且不泄漏未来字段 | 已完成（2026-09-13）。证据：`data/reports/source_inconsistency_scan.json`（46 个声称建单会话）、`data/fixtures/S00015/claim_created.json`、`data/reports/phase_a_verification.json` DATA-C003 |
+| DATA-T004 | A | 数据 SPEC | 输出 S00015、S00024、S00001 可重复基线快照 | DATA-T003 | 同输入重复运行 JSON 一致；带时区时间和证据引用可定位；不同机器本地时区不改变结果 | 已完成（2026-09-13）。证据：`data/fixtures/`、`data/fixtures/manifest.json`、`data/reports/repeatability.json`、`data/reports/phase_a_verification.json` DATA-C004 |
 
 ## 对应检查
 

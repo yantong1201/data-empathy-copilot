@@ -1,0 +1,73 @@
+{
+  "as_of_time": "2026-04-30T12:00:00+08:00",
+  "association": {
+    "method": "session_id",
+    "note": "Backfilled chat keys are not used to prove visibility and are omitted until the record is visible.",
+    "order_id": "6920681898386530047",
+    "order_visible": true,
+    "workorder_id": null,
+    "workorder_visible": false
+  },
+  "chat": [],
+  "logistics": {
+    "logistics_workorder": null,
+    "order_logistics": null
+  },
+  "message_no": null,
+  "order": {
+    "buyer_nick": "王**",
+    "buyer_note": null,
+    "gift": null,
+    "order_id": "6920681898386530047",
+    "order_status": {
+      "assertion": "unknown",
+      "raw_in_source": true,
+      "reason": "missing_status_effective_time",
+      "snapshot_value": null
+    },
+    "paid": {
+      "note": null,
+      "reason": null,
+      "time": "2026-04-29T17:55:52+08:00",
+      "visible": true
+    },
+    "paid_amount": 799,
+    "placed_time": "2026-04-29T17:33:52+08:00",
+    "product_name": "【预售】测试修护精华双支装30ml*2",
+    "quantity": 1,
+    "receiver_city": "苏州市",
+    "receiver_province": "江苏省",
+    "session_id": "S00024",
+    "shipped": {
+      "courier": null,
+      "reason": "shipped_time_after_as_of_time",
+      "time": null,
+      "tracking_no": null,
+      "visible": false
+    },
+    "shop": "测试美妆旗舰店",
+    "sku_code": "XL19806",
+    "source_ref": "order:6920681898386530047",
+    "source_row": 52,
+    "source_sheet": "订单",
+    "unit_price": 799,
+    "visibility": "visible"
+  },
+  "query": {
+    "as_of_time": "2026-04-30T12:00:00+08:00",
+    "message_no": null,
+    "session_id": "S00024"
+  },
+  "schema": "data_empathy.snapshot.v1",
+  "session_id": "S00024",
+  "source_inconsistency": [],
+  "source_refs": [
+    "order:6920681898386530047"
+  ],
+  "timezone": "Asia/Shanghai",
+  "workorder": {
+    "reason": "create_time_after_as_of_time",
+    "visibility": "no_workorder",
+    "workorder_id": null
+  }
+}

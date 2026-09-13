@@ -1,0 +1,55 @@
+你现在负责实现“数据共情者”项目的阶段 E：评测与冻结。
+
+阶段 A–D 已完成并有真实证据：数据快照、风险契约、Agent/Provider、工作台和处置记录均可运行。不要修改产品规则、正式 Schema、冻结名单或已完成 UI/Agent 核心，除非发现明确缺陷并保留回归证据。
+
+本阶段目标：
+完成 EVAL-T001–EVAL-T004，固化开发/冻结划分和 intent_ontology_v1，完成盲标注、四组对照运行、正式指标、错误归因、成本统计、boundary/retention 回归以及 JSON/CSV/Markdown 冻结报告。
+
+必须先阅读：
+1. AGENTS.md
+2. 方案文档/00-文档总览与索引.md
+3. 方案文档/01-方案规格-SPEC.md
+4. 方案文档/02-实施计划-PLAN.md
+5. 方案文档/阶段计划/E-评测与冻结.md
+6. 方案文档/04-评测协议-详细.md（唯一详细规则、名单和公式来源）
+7. 方案文档/模块规格/01-数据与时间快照-SPEC.md
+8. 方案文档/模块规格/02-风险政策与结构化契约-SPEC.md
+9. 方案文档/模块规格/03-Agent与Provider-SPEC.md
+10. 方案文档/模块规格/05-评测与冻结-SPEC.md
+11. 方案文档/模块任务/05-评测与冻结-TASKS.md
+12. 方案文档/模块验收/05-评测与冻结-CHECKLIST.md
+
+一、EVAL-T001：划分、ontology 和盲标注
+
+固化开发 48 个会话、冻结 12 个会话，冻结名单必须严格来自评测协议：S00015、S00024、S00001、S00064、S00087、S00060、S00010、S00082、S00011、S00045、S00134、S00268。登记协议指定回归案例，不把回归案例并入冻结指标。检查同一买家和同一服务事件不跨集合；无法证明隔离时标记待核验。
+
+评测单位为 (session_id, message_no, as_of_time)，默认只取 is_target_buyer_message=1 的买家消息；客服时点只做时间泄漏回归。建立 intent_ontology_v1，保留协议规定的 10 个 scene_major 和 41 个 scene_minor 原字符串，不自动合并同义词。标注员先依据当前可见上下文生成 gold，再查看 Provider 预测；多意图只保留主意图，无法裁决标为 unclear 并记录理由。情绪、风险、证据、来源和可见时间均按权威 SPEC 标注。回复四维评分由两人独立评分后讨论冲突。保存标注版本、盲法、裁决、hash。
+
+二、EVAL-T002：四组运行器与泄漏回归
+
+实现 Chat-only、Snapshot、Full Agent、Rules-only 四组。四组保持相同政策版本和测试时点；模型组保持同模型和参数，只改变信息范围与编排；Rules-only 零模型调用。Provider 不得读取 Excel 的 scene_major/scene_minor gold 字段。运行必须验证早期工单、客服声称建单、完成时间为空和 source_inconsistency 不泄漏；Chat-only 不得意外看到快照字段，Full Agent 每条结果必须能关联统一 JSON、safety_check_result 和运行记录。
+
+三、EVAL-T003：正式指标和错误归因
+
+严格按评测协议公式计算 intent major/minor Macro-F1、轨迹关联、事实字段、引用完整性、P0/P1 recall、回复四维分数、Mock continuous success rate、Token/工具调用/耗时统计。保留 support；报告 unclear 覆盖率、覆盖内严格准确率和安全覆盖率。Full Agent 无安全记录、关联失败、未运行或失败原因缺失必须计入 missing_safety_check，不能按安全通过处理。
+
+使用固定错误类型：missing_fact、wrong_join、wrong_intent、wrong_emotion_signal、wrong_risk_level、unsupported_claim、unsafe_reply、unnecessary_escalation、future_information_leak、unnecessary_known_identifier_question、missing_safety_check。每个失败样本记录 first_error_step、first_error_type、失败工具/字段、根因、下游影响和 recoverable。
+
+四、EVAL-T004：报告与冻结
+
+生成 JSON、CSV、Markdown 报告。每条结果至少保存样本 ID、集合、对照组、analysis_id、run_id、Provider、模型/Prompt/规则/政策/Schema 版本、原始 JSON、safety_check_result、工具调用、Token、耗时、gold、ontology、support、错误、首错和证据引用。另存划分/ontology/gold hash、标注版本、运行时间、冷热缓存统计、boundary/retention 结果和冻结状态。
+
+冻结前可调整开发集；冻结后不得用冻结结果调参，不得把冻结结果回写规则。每次 Prompt、规则、Provider、Schema 或运行器变化必须同时运行受影响 boundary set 与不应变化 retention set。PPT/视频未到阶段 F，不在本阶段伪造展示数字。
+
+工程约束：
+- 评测协议是公式、名单和标签的唯一详细来源，不在脚本复制另一套规则。
+- gold 不读取预测、不手填冻结结果、不使用 Mock 固定答案作为效果证据。
+- 运行从真实快照和真实候选版本产生；失败样本不从分母删除，除非协议公式明确规定。
+- 不连接真实业务系统，不提交或推送 Git。
+- 跳过 formatter、lint 和全项目测试，只运行评测相关最小验证。
+
+必须产出：划分文件、ontology、gold/标注和 hash、四组运行器、泄漏回归、指标脚本、错误与首错记录、成本记录、boundary/retention 记录、冻结 JSON/CSV/Markdown 报告和 EVAL-C001–C004 证据。
+
+验证顺序：先运行 A–D 相关最小回归；再运行划分/标注校验、四组矩阵、时间泄漏回归、指标手算抽查、analysis_id/run_id 和 safety_check_result 关联抽查、boundary/retention。报告数字必须由运行器生成并可追溯。
+
+完成后报告：修改文件、运行入口、集合和 hash、四组运行结果位置、公式实现和抽查、错误归因、冻结状态、EVAL-C001–C004 证据、真实命令输出、尚未实现内容。阶段 E 退出条件是 EVAL-C001–C004 全部有真实证据；不能提前声称 PPT、视频或候选提交完成。

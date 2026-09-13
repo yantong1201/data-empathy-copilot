@@ -1,0 +1,254 @@
+{
+  "cases": {
+    "S00001#6": {
+      "level": "P2",
+      "type": "aftersales_damage"
+    },
+    "S00015#1": {
+      "level": "P0",
+      "rule_ids": [
+        "R-AR-001"
+      ],
+      "status": "confirmed",
+      "type": "adverse_reaction"
+    },
+    "S00015#9": {
+      "level": "P0",
+      "rule_ids": [
+        "R-AR-001"
+      ],
+      "status": "confirmed",
+      "type": "adverse_reaction"
+    },
+    "S00024#1": {
+      "level": "待定级",
+      "missing_fields": [
+        "外箱照片",
+        "面单照片",
+        "内件照片",
+        "出库/揽收重量"
+      ],
+      "type": "abnormal_refund"
+    }
+  },
+  "rules": [
+    {
+      "demo_rule": true,
+      "effective_from": "2026-05-01T00:00:00+08:00",
+      "exclusion_conditions": [
+        "不作医学诊断",
+        "仅有观察、自述不完整且无就医/治疗证据时不得确认 P0",
+        "「医生」「产检医生」咨询语义不构成就医证据",
+        "客服建议及时就医不构成买家就医证据",
+        "工单不可见不影响已可见的买家就医自述"
+      ],
+      "level": "P0",
+      "persistence": "confirmed_p0_survives_emotion_soften_and_missing_workorder",
+      "priority": 100,
+      "required_evidence": [
+        "buyer_adverse_reaction_described",
+        "buyer_medical_care_in_service_context"
+      ],
+      "risk_type": "adverse_reaction",
+      "rule_id": "R-AR-001",
+      "source": "风险 SPEC 风险规则矩阵 R-AR-001",
+      "status": "confirmed",
+      "trigger_conditions": [
+        "买家明确描述产品不良反应",
+        "或在当前服务语境下明确自述就医",
+        "同时有当前可见就医/治疗证据才确认 P0"
+      ],
+      "version": "v1.0.0"
+    },
+    {
+      "demo_rule": true,
+      "effective_from": "2026-05-01T00:00:00+08:00",
+      "exclusion_conditions": [
+        "已撤回或已缓和的历史表达不能单独维持当前升级信号",
+        "历史投诉必须保留事件和原句，但不得永久固定为 escalation=yes"
+      ],
+      "level": "P0",
+      "persistence": "historical_threat_kept_in_emotion_history_not_as_current_escalation",
+      "priority": 95,
+      "required_evidence": [
+        "buyer_regulatory_complaint_threat",
+        "current_escalation_yes"
+      ],
+      "risk_type": "complaint_escalation",
+      "rule_id": "R-COMP-001",
+      "source": "风险 SPEC 风险规则矩阵 R-COMP-001",
+      "status": "confirmed",
+      "trigger_conditions": [
+        "明确监管/投诉升级表达",
+        "且当前 escalation=yes"
+      ],
+      "version": "v1.0.0"
+    },
+    {
+      "demo_rule": true,
+      "effective_from": "2026-05-01T00:00:00+08:00",
+      "exclusion_conditions": [
+        "不得把「异常=是」直接解释为欺诈或已证实空包裹",
+        "不得仅凭买家自述自动升级为 P1",
+        "待核实登记不是已确认资金风险"
+      ],
+      "level": "P1",
+      "persistence": "pending_candidate_not_overridden_by_p2_workorder",
+      "priority": 80,
+      "required_evidence": [
+        "abnormal_refund_claim_or_record",
+        "outer_box_evidence",
+        "waybill_evidence",
+        "photos_evidence",
+        "weight_evidence"
+      ],
+      "risk_type": "abnormal_refund",
+      "rule_id": "R-REFUND-001",
+      "source": "风险 SPEC 风险规则矩阵 R-REFUND-001",
+      "status": "confirmed",
+      "trigger_conditions": [
+        "当前可见业务记录和规则共同支持异常退款才确认 P1",
+        "仅自述、异常登记或缺少外箱/面单/重量等证据时为待定级"
+      ],
+      "version": "v1.0.0"
+    },
+    {
+      "demo_rule": true,
+      "effective_from": "2026-05-01T00:00:00+08:00",
+      "exclusion_conditions": [
+        "不得仅凭昵称、买家相似或跨集合记录判定重复进线",
+        "同一会话多条消息本身不构成重复进线"
+      ],
+      "level": "P2",
+      "persistence": "not_graded_from_nickname",
+      "priority": 40,
+      "required_evidence": [
+        "locatable_repeat_contact_in_current_event"
+      ],
+      "risk_type": "repeat_contact",
+      "rule_id": "R-REPEAT-001",
+      "source": "风险 SPEC 风险规则矩阵 R-REPEAT-001",
+      "status": "confirmed",
+      "trigger_conditions": [
+        "当前服务事件中存在可定位的多次联系记录"
+      ],
+      "version": "v1.0.0"
+    },
+    {
+      "demo_rule": true,
+      "effective_from": "2026-05-01T00:00:00+08:00",
+      "exclusion_conditions": [
+        "不得由物流异常推断商品破损责任或资金风险",
+        "到手破损售后不得归为 logistics_exception"
+      ],
+      "level": "P2",
+      "persistence": "at_most_p2",
+      "priority": 45,
+      "required_evidence": [
+        "visible_logistics_exception_record"
+      ],
+      "risk_type": "logistics_exception",
+      "rule_id": "R-LOGI-001",
+      "source": "风险 SPEC 风险规则矩阵 R-LOGI-001",
+      "status": "confirmed",
+      "trigger_conditions": [
+        "当前可见物流轨迹或服务记录明确显示物流异常"
+      ],
+      "version": "v1.0.0"
+    },
+    {
+      "demo_rule": true,
+      "effective_from": "2026-05-01T00:00:00+08:00",
+      "exclusion_conditions": [
+        "不归因物流",
+        "不推断责任",
+        "缺少必要售后证据时为待定级",
+        "不归类为 logistics_exception"
+      ],
+      "level": "P2",
+      "persistence": "at_most_p2_no_liability_inference",
+      "priority": 50,
+      "required_evidence": [
+        "buyer_received_damage_described",
+        "visible_aftersales_damage_support"
+      ],
+      "risk_type": "aftersales_damage",
+      "rule_id": "R-DAMAGE-001",
+      "source": "风险 SPEC 风险规则矩阵 R-DAMAGE-001",
+      "status": "confirmed",
+      "trigger_conditions": [
+        "买家明确描述到手破损",
+        "且当前可见售后/换货证据支持才确认 P2"
+      ],
+      "version": "v1.0.0"
+    },
+    {
+      "demo_rule": true,
+      "effective_from": "2026-05-01T00:00:00+08:00",
+      "exclusion_conditions": [
+        "创建前 no_workorder 不得标成未解决工单",
+        "不能覆盖已满足的 P0/P1 或 P0/P1 待核实候选"
+      ],
+      "level": "P2",
+      "persistence": "cannot_override_p0_p1",
+      "priority": 30,
+      "required_evidence": [
+        "visible_unresolved_workorder"
+      ],
+      "risk_type": "unresolved_workorder",
+      "rule_id": "R-WO-001",
+      "source": "风险 SPEC 风险规则矩阵 R-WO-001",
+      "status": "confirmed",
+      "trigger_conditions": [
+        "当前可见工单存在未完成且仍有必需动作"
+      ],
+      "version": "v1.0.0"
+    },
+    {
+      "demo_rule": true,
+      "effective_from": "2026-05-01T00:00:00+08:00",
+      "exclusion_conditions": [
+        "不能用无命中掩盖数据缺失或未运行规则",
+        "存在待核实候选时不得输出 none"
+      ],
+      "level": "P2",
+      "persistence": "only_after_rules_ran",
+      "priority": 1,
+      "required_evidence": [
+        "applicable_rules_evaluated"
+      ],
+      "risk_type": "none",
+      "rule_id": "R-NONE-001",
+      "source": "风险 SPEC 风险规则矩阵 R-NONE-001",
+      "status": "confirmed",
+      "trigger_conditions": [
+        "已检查适用规则，当前没有规则命中"
+      ],
+      "version": "v1.0.0"
+    },
+    {
+      "demo_rule": true,
+      "effective_from": "2026-05-01T00:00:00+08:00",
+      "exclusion_conditions": [
+        "模型不得自行升为 P0/P1",
+        "必须列出 why_not 和缺失字段",
+        "已有具体候选类型时优先保留该类型的待定级"
+      ],
+      "level": "待定级",
+      "persistence": "needs_verification_required",
+      "priority": 5,
+      "required_evidence": [
+        "missing_fields_or_invisible_or_unresolved_conflict"
+      ],
+      "risk_type": "unclear",
+      "rule_id": "R-UNCLEAR-001",
+      "source": "风险 SPEC 风险规则矩阵 R-UNCLEAR-001",
+      "status": "needs_verification",
+      "trigger_conditions": [
+        "规则所需字段缺失、不可见或来源冲突尚不能裁决，且没有更具体的候选风险类型"
+      ],
+      "version": "v1.0.0"
+    }
+  ],
+  "rules_version": "v1.0.0"
+}

@@ -1,0 +1,165 @@
+{
+  "count": 16,
+  "policies": [
+    {
+      "category": "adverse_reaction_evidence",
+      "demo_rule": true,
+      "effective_from": "2026-05-01T00:00:00+08:00",
+      "official": false,
+      "policy_id": "POL-AR-001",
+      "source": "比赛演示规则",
+      "title": "不良反应收证",
+      "version": "v1.0.0"
+    },
+    {
+      "category": "adverse_reaction_escalation",
+      "demo_rule": true,
+      "effective_from": "2026-05-01T00:00:00+08:00",
+      "official": false,
+      "policy_id": "POL-AR-002",
+      "source": "比赛演示规则",
+      "title": "不良反应升级边界",
+      "version": "v1.0.0"
+    },
+    {
+      "category": "reply_safety",
+      "demo_rule": true,
+      "effective_from": "2026-05-01T00:00:00+08:00",
+      "official": false,
+      "policy_id": "POL-AR-003",
+      "source": "比赛演示规则",
+      "title": "医学诊断禁止",
+      "version": "v1.0.0"
+    },
+    {
+      "category": "refund_evidence",
+      "demo_rule": true,
+      "effective_from": "2026-05-01T00:00:00+08:00",
+      "official": false,
+      "policy_id": "POL-REFUND-001",
+      "source": "比赛演示规则",
+      "title": "退款证据收集",
+      "version": "v1.0.0"
+    },
+    {
+      "category": "refund_pending",
+      "demo_rule": true,
+      "effective_from": "2026-05-01T00:00:00+08:00",
+      "official": false,
+      "policy_id": "POL-REFUND-002",
+      "source": "比赛演示规则",
+      "title": "空包裹/异常退款待核实",
+      "version": "v1.0.0"
+    },
+    {
+      "category": "logistics",
+      "demo_rule": true,
+      "effective_from": "2026-05-01T00:00:00+08:00",
+      "official": false,
+      "policy_id": "POL-LOGI-001",
+      "source": "比赛演示规则",
+      "title": "物流异常处理",
+      "version": "v1.0.0"
+    },
+    {
+      "category": "aftersales_damage",
+      "demo_rule": true,
+      "effective_from": "2026-05-01T00:00:00+08:00",
+      "official": false,
+      "policy_id": "POL-DAMAGE-001",
+      "source": "比赛演示规则",
+      "title": "到手破损处理",
+      "version": "v1.0.0"
+    },
+    {
+      "category": "workorder",
+      "demo_rule": true,
+      "effective_from": "2026-05-01T00:00:00+08:00",
+      "official": false,
+      "policy_id": "POL-WO-001",
+      "source": "比赛演示规则",
+      "title": "工单状态核实",
+      "version": "v1.0.0"
+    },
+    {
+      "category": "refund_promise",
+      "demo_rule": true,
+      "effective_from": "2026-05-01T00:00:00+08:00",
+      "official": false,
+      "policy_id": "POL-PAY-001",
+      "source": "比赛演示规则",
+      "title": "退款和赔偿承诺边界",
+      "version": "v1.0.0"
+    },
+    {
+      "category": "reply_facts",
+      "demo_rule": true,
+      "effective_from": "2026-05-01T00:00:00+08:00",
+      "official": false,
+      "policy_id": "POL-REPLY-001",
+      "source": "比赛演示规则",
+      "title": "回复事实引用",
+      "version": "v1.0.0"
+    },
+    {
+      "category": "missing_fields",
+      "demo_rule": true,
+      "effective_from": "2026-05-01T00:00:00+08:00",
+      "official": false,
+      "policy_id": "POL-REPLY-002",
+      "source": "比赛演示规则",
+      "title": "缺失字段表达",
+      "version": "v1.0.0"
+    },
+    {
+      "category": "source_inconsistency",
+      "demo_rule": true,
+      "effective_from": "2026-05-01T00:00:00+08:00",
+      "official": false,
+      "policy_id": "POL-REPLY-003",
+      "source": "比赛演示规则",
+      "title": "来源冲突表达",
+      "version": "v1.0.0"
+    },
+    {
+      "category": "human_confirmation",
+      "demo_rule": true,
+      "effective_from": "2026-05-01T00:00:00+08:00",
+      "official": false,
+      "policy_id": "POL-HUMAN-001",
+      "source": "比赛演示规则",
+      "title": "人工确认要求",
+      "version": "v1.0.0"
+    },
+    {
+      "category": "irreversible_actions",
+      "demo_rule": true,
+      "effective_from": "2026-05-01T00:00:00+08:00",
+      "official": false,
+      "policy_id": "POL-ACTION-001",
+      "source": "比赛演示规则",
+      "title": "不可逆动作禁止",
+      "version": "v1.0.0"
+    },
+    {
+      "category": "instruction_isolation",
+      "demo_rule": true,
+      "effective_from": "2026-05-01T00:00:00+08:00",
+      "official": false,
+      "policy_id": "POL-ISO-001",
+      "source": "比赛演示规则",
+      "title": "业务数据与指令隔离",
+      "version": "v1.0.0"
+    },
+    {
+      "category": "safety_failure",
+      "demo_rule": true,
+      "effective_from": "2026-05-01T00:00:00+08:00",
+      "official": false,
+      "policy_id": "POL-SAFE-001",
+      "source": "比赛演示规则",
+      "title": "安全校验失败后的处理",
+      "version": "v1.0.0"
+    }
+  ]
+}

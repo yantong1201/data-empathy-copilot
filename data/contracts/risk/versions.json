@@ -1,0 +1,18 @@
+{
+  "contract_pack": "risk_contract_v1",
+  "rules_version": "v1.0.0",
+  "rules_id": "risk_rules_v1",
+  "emotion_version": "v1.0.0",
+  "emotion_id": "emotion_constraints_v1",
+  "policy_version": "v1.0.0",
+  "policy_id": "policy_pack_v1",
+  "schema_id": "urn:data-empathy:provider-analysis:v0.5",
+  "schema_path": "方案文档/模块规格/02-风险政策与结构化契约-SCHEMA.json",
+  "safety_schema_id": "urn:data-empathy:safety-check-result:v1",
+  "degradation_schema_id": "urn:data-empathy:provider-degradation:v1",
+  "prompt_version": "none-phase-b",
+  "effective_from": "2026-05-01T00:00:00+08:00",
+  "source": "方案文档/模块规格/02-风险政策与结构化契约-SPEC.md",
+  "demo_pack": true,
+  "note": "比赛演示契约包。不是官方政策。Schema 的 risk.level 无「无风险」枚举：R-NONE-001 在无体验负面时输出 type=none 且 level=P2 仅满足必填枚举，why 必须写明无规则命中。未改 SCHEMA.json 顶层字段。"
+}
