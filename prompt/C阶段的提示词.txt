@@ -1,13 +1,14 @@
 你现在负责实现“数据共情者”项目的阶段 C：Agent 与三种 Provider。
 
-阶段 A、B 已完成：
+阶段 A、B 已完成各自模块检查项，但这不等于 Agent、Provider、工作台或评测已完成：
 - DATA-C001–C004 已通过，真实数据快照、时间过滤、来源冲突和三主案例 fixtures 已存在。
 - RISK-C001–C004 已通过，风险规则、情绪约束、政策包、正式 Provider Schema、非法输出处理和安全校验契约已存在。
-- 可使用：
+A/B 阶段报告只能作为本阶段前置契约证据，不能作为 Agent 运行、模型效果或端到端安全证据。
+可使用：
   python -m backend.data_empathy verify
   python -m backend.risk_empathy verify
-- 阶段 A 产物位于 data/reports/ 和 data/fixtures/；阶段 B 产物位于 data/contracts/ 和 data/reports/。
-- 不要重新实现或修改 A/B 的 loader、snapshot、fixtures、规则包、政策包或正式 Schema，除非发现明确契约缺陷并提供回归证据。
+阶段 A 产物位于 data/reports/ 和 data/fixtures/；阶段 B 产物位于 data/contracts/ 和 data/reports/。
+不要重新实现或修改 A/B 的 loader、snapshot、fixtures、规则包、政策包或正式 Schema，除非发现明确契约缺陷并提供回归证据。
 
 本阶段目标：
 完成 AGENT-T001–AGENT-T004，实现一个主 Agent、8 个结构化工具、MockProvider、RuleProvider、QwenProvider、自动降级、统一运行记录、缓存和独立 safety_check_result。所有 Provider 共用同一 JSON 契约，供工作台和评测读取。

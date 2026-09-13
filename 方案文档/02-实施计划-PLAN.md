@@ -62,7 +62,7 @@ A–F 门槛必须由阶段文件链接的 C-ID 逐项通过：三主案例真�
 | 展示与技术脱节 | PPT 数字/界面不符 | 冻结报告后制作物料并复核 |
 ## 当前进度与接续点（2026-09-13）
 
-阶段 A 数据契约已有运行证据：`python -m backend.data_empathy verify`。阶段 B 规则/政策/契约已有运行证据：`python -m backend.risk_empathy verify`，`data/reports/phase_b_verification.json` 中 RISK-C001–C004 通过。静态原型、真实 Provider 实现、工作台状态管理、评测运行器、标注和报告仍未交付。当前从 **阶段 C** 的 AGENT-T001–T004 接续。阶段 B 完成的是规则、政策和契约，不是 Agent/UI/评测。
+阶段 A 数据契约已有运行证据：`python -m backend.data_empathy verify`。阶段 B 规则/政策/契约已有运行证据：`python -m backend.risk_empathy verify`，`data/reports/phase_b_verification.json` 中 RISK-C001–C004 通过。静态原型、真实 Provider 实现、工作台状态管理、评测运行器、标注和报告仍未交付。当前从 **阶段 C** 的 AGENT-T001–T004 接续。阶段 B 完成的是规则、政策和契约，不是 Agent/UI/评测。这里的阶段 A/B 是交付阶段，不是评测协议中的配置对照；不得据此声称 B 相对 A 的效果改善。
 
 
 
