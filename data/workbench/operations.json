@@ -1,0 +1,84 @@
+{
+ "OP-14d9d33db72b44ec8dc1": {
+  "accepted": true,
+  "result": {
+   "action": "status_change",
+   "from_status": "open",
+   "operator": "人工客服（演示）",
+   "to_status": "watching"
+  },
+  "seq": 7
+ },
+ "OP-78642b595f7e4587a6e0": {
+  "accepted": false,
+  "result": {
+   "accepted": false,
+   "detail": "请求携带 analysis_id=A-STALE-000000000000000000，当前分析为 A-S00024-c9ee2595d8bf958a707c；旧分析不得确认，请刷新当前分析后重试",
+   "reason": "stale_analysis"
+  },
+  "seq": 9
+ },
+ "OP-9fae93e053c94e87aa8e": {
+  "accepted": false,
+  "result": {
+   "accepted": false,
+   "detail": "仍有未完成的必需动作（未完结工单/待核验证据），不得自动 resolved",
+   "reason": "pending_actions_block_resolve"
+  },
+  "seq": 8
+ },
+ "OP-ok-test": {
+  "accepted": true,
+  "result": {
+   "action": "status_change",
+   "from_status": "open",
+   "operator": "人工客服（演示）",
+   "to_status": "watching"
+  },
+  "seq": 3
+ },
+ "OP-p0-test": {
+  "accepted": false,
+  "result": {
+   "accepted": false,
+   "detail": "规则确定的 P0 不得自动 resolved；须人工处置完成后由允许路径变更",
+   "reason": "risk_blocks_resolve"
+  },
+  "seq": 2
+ },
+ "OP-reply-test": {
+  "accepted": true,
+  "result": {
+   "action": "use_reply",
+   "operator": "人工客服（演示）"
+  },
+  "seq": 5
+ },
+ "OP-stale-test": {
+  "accepted": false,
+  "result": {
+   "accepted": false,
+   "detail": "请求携带 analysis_id=A-STALE-xxx，当前分析为 A-S00015-0f064a02eb56889c6124；旧分析不得确认，请刷新当前分析后重试",
+   "reason": "stale_analysis"
+  },
+  "seq": 1
+ },
+ "OP-staledraft-test": {
+  "accepted": false,
+  "result": {
+   "accepted": false,
+   "detail": "草稿版本不匹配：请求 revision=0，当前 revision=1；草稿已变更，请使用最新草稿重新确认",
+   "reason": "stale_draft"
+  },
+  "seq": 6
+ },
+ "OP-verify-stale": {
+  "accepted": false,
+  "result": {
+   "accepted": false,
+   "detail": "请求携带 analysis_id=A-STALE-verify，当前分析为 A-S00024-c9ee2595d8bf958a707c；旧分析不得确认，请刷新当前分析后重试",
+   "reason": "stale_analysis"
+  },
+  "seq": 10
+ }
+}

@@ -1,0 +1,115 @@
+{
+  "circuit_breaker": {
+    "consecutive_failures_threshold": 3,
+    "provider_used": "MockProvider",
+    "skipped_entry": {
+      "detail": "连续 3 次 Provider 失败，熔断跳过云端调用",
+      "failure_reason": "circuit_open",
+      "fallback_reason": "熔断直接降级",
+      "provider": "QwenProvider",
+      "run_id": "R-7f62abace37b4e86a18d71225df1c20f",
+      "skipped": true
+    }
+  },
+  "degradation_cases": [
+    {
+      "behavior": "timeout",
+      "confirmable_after_fallback": true,
+      "degraded": true,
+      "failure_reason": "timeout",
+      "fallback_reason": "QwenProvider 失败，按降级链切换",
+      "final_status": "degraded",
+      "label": "超时",
+      "provider_requested": "QwenProvider",
+      "provider_used": "MockProvider",
+      "risk_level": "P0",
+      "schema_valid_after": true
+    },
+    {
+      "behavior": "network",
+      "confirmable_after_fallback": true,
+      "degraded": true,
+      "failure_reason": "network_unreachable",
+      "fallback_reason": "QwenProvider 失败，按降级链切换",
+      "final_status": "degraded",
+      "label": "网络不可达",
+      "provider_requested": "QwenProvider",
+      "provider_used": "MockProvider",
+      "risk_level": "P0",
+      "schema_valid_after": true
+    },
+    {
+      "behavior": "auth",
+      "confirmable_after_fallback": true,
+      "degraded": true,
+      "failure_reason": "auth_failed",
+      "fallback_reason": "QwenProvider 失败，按降级链切换",
+      "final_status": "degraded",
+      "label": "鉴权失败",
+      "provider_requested": "QwenProvider",
+      "provider_used": "MockProvider",
+      "risk_level": "P0",
+      "schema_valid_after": true
+    },
+    {
+      "behavior": "invalid_json",
+      "confirmable_after_fallback": true,
+      "degraded": true,
+      "failure_reason": "invalid_json",
+      "fallback_reason": "QwenProvider 失败，按降级链切换",
+      "final_status": "degraded",
+      "label": "非法 JSON",
+      "provider_requested": "QwenProvider",
+      "provider_used": "MockProvider",
+      "risk_level": "P0",
+      "schema_valid_after": true
+    },
+    {
+      "behavior": "schema_invalid",
+      "confirmable_after_fallback": true,
+      "degraded": true,
+      "failure_reason": "schema_invalid_after_repair",
+      "fallback_reason": "Schema 非法或安全校验失败，切换下一 Provider",
+      "final_status": "degraded",
+      "label": "Schema 非法且修复失败",
+      "provider_requested": "QwenProvider",
+      "provider_used": "MockProvider",
+      "risk_level": "P0",
+      "schema_valid_after": true
+    },
+    {
+      "behavior": "risk_downgrade",
+      "confirmable_after_fallback": true,
+      "degraded": true,
+      "failure_reason": "safety_check_failed",
+      "fallback_reason": "Schema 非法或安全校验失败，切换下一 Provider",
+      "final_status": "degraded",
+      "label": "安全校验失败（降级 P0→P2 + 越界回复）",
+      "provider_requested": "QwenProvider",
+      "provider_used": "MockProvider",
+      "risk_level": "P0",
+      "schema_valid_after": true
+    }
+  ],
+  "qwen_real": {
+    "config": {
+      "api_key": "[REDACTED]",
+      "api_key_present": false,
+      "base_url": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+      "max_tokens": 2000,
+      "model": "qwen-plus",
+      "network": true,
+      "provider": "QwenProvider",
+      "seed": null,
+      "seed_note": "OpenAI 兼容接口未启用固定 seed；temperature=0 用于降低随机性",
+      "temperature": 0,
+      "timeout_s": 30
+    },
+    "credentials_present": false,
+    "real_call": {
+      "attempted": false,
+      "note": "无 Qwen 凭证：成功路径未验证，不写成通过",
+      "status": "unverified_no_credentials"
+    }
+  }
+}

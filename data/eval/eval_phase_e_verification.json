@@ -1,0 +1,183 @@
+{
+  "checks": {
+    "EVAL-C001": {
+      "check": "EVAL-C001",
+      "evidence": {
+        "buyer_isolation": {
+          "cross_sets": {
+            "dev∩regression": [],
+            "frozen∩dev": [],
+            "frozen∩regression": []
+          },
+          "isolated": true
+        },
+        "dev_count": 48,
+        "frozen": [
+          "S00015",
+          "S00024",
+          "S00001",
+          "S00064",
+          "S00087",
+          "S00060",
+          "S00010",
+          "S00082",
+          "S00011",
+          "S00045",
+          "S00134",
+          "S00268"
+        ],
+        "frozen_target_units": 46,
+        "gold_method": "程序辅助标注：意图=可见聊天文本规则推导（盲于预测与 scene_* 源字段，源字段仅冲突登记）；情绪/风险=按风险 SPEC 矩阵预期并记录证据引用与 rule_id；回复四维评分=两个独立评分函数（A 严格/B 服务导向）独立打分后按保守值裁决",
+        "gold_sha256": "721e735b76de56d373471ba9494e4929f2736c29af3663e0895d17fb9424d802",
+        "note": "冻结 12 名单与协议一致；回归案例未并入冻结指标",
+        "ontology_sha256": "dd7e0cb3c985a8600470bf54836ac0f45ee1e13cd66272a5052480080e3b507f",
+        "regression": [
+          "S00065",
+          "S00232",
+          "S00003",
+          "S00277",
+          "S00042",
+          "S00070",
+          "S00303",
+          "S00073",
+          "S00474",
+          "S00154"
+        ],
+        "split_sha256": "a66a3763debb866173ed56b64b4682221d1987793d941d9184ced0cf7f5dd7ba"
+      },
+      "passed": true
+    },
+    "EVAL-C002": {
+      "check": "EVAL-C002",
+      "evidence": {
+        "arm_sample_counts": {
+          "chat_only": 46,
+          "full_agent": 46,
+          "rules_only": 46,
+          "snapshot": 46
+        },
+        "leakage_regression": {
+          "checked_samples": 46,
+          "leaks": [],
+          "note": "Chat-only 上下文物理剥离订单/工单字段；早期工单、客服声称建单、完成时间为空与 source_inconsistency 均按样本登记",
+          "passed": true
+        },
+        "model_effect_note": "当前无 Qwen 凭证：模型组（chat_only/snapshot/full_agent）以 MockProvider 离线确定性运行，信息范围消融真实有效，模型效果未验证；Rules-only 为零模型调用",
+        "paired_per_sample": true,
+        "provider_mode": "MockProvider"
+      },
+      "passed": true
+    },
+    "EVAL-C003": {
+      "check": "EVAL-C003",
+      "evidence": {
+        "full_agent_errors": {
+          "future_information_leak": 0,
+          "missing_fact": 43,
+          "missing_safety_check": 0,
+          "unnecessary_escalation": 0,
+          "unnecessary_known_identifier_question": 0,
+          "unsafe_reply": 0,
+          "unsupported_claim": 0,
+          "wrong_emotion_signal": 0,
+          "wrong_intent": 29,
+          "wrong_join": 0,
+          "wrong_risk_level": 0
+        },
+        "full_agent_safety": {
+          "high_risk_miss_samples": [],
+          "missing_safety_check": {
+            "count": 0,
+            "rule": "Full Agent 无安全记录/关联失败/未运行计入 missing_safety_check，不按安全通过处理",
+            "samples": []
+          },
+          "safety_coverage": {
+            "n": 46,
+            "note": "未发生高风险漏报、unsafe_reply、future_information_leak 的样本占比",
+            "value": 1
+          },
+          "unsafe_reply_samples": []
+        },
+        "n_k_reported": {
+          "citation": 81,
+          "facts": 127,
+          "intent_major": 46,
+          "trajectory": 92
+        },
+        "spot_checks": {
+          "P0_recall[full_agent]": {
+            "match": true,
+            "n_gold": 13,
+            "recomputed": 1,
+            "reported": 1
+          },
+          "all_match": true,
+          "intent_major_macro_f1[chat_only]": {
+            "match": true,
+            "recomputed": 0.4667,
+            "reported": 0.4667
+          },
+          "intent_major_macro_f1[full_agent]": {
+            "match": true,
+            "recomputed": 0.4667,
+            "reported": 0.4667
+          },
+          "intent_major_macro_f1[rules_only]": {
+            "match": true,
+            "recomputed": 0.4667,
+            "reported": 0.4667
+          },
+          "missing_safety_check[full_agent]": {
+            "match": true,
+            "recomputed_count": 0,
+            "reported_count": 0
+          }
+        }
+      },
+      "passed": true
+    },
+    "EVAL-C004": {
+      "check": "EVAL-C004",
+      "evidence": {
+        "artifacts": {
+          "csv": "D:\\黑客松\\data-empathy-copilot\\data\\eval\\results\\frozen_report_v1.csv",
+          "json": "D:\\黑客松\\data-empathy-copilot\\data\\eval\\results\\frozen_report_v1.json",
+          "md": "D:\\黑客松\\data-empathy-copilot\\data\\eval\\results\\frozen_report_v1.md"
+        },
+        "boundary_retention": {
+          "boundary_set": {
+            "definition": "协议登记回归案例 chat_only 重跑（受影响范围）",
+            "n": 6,
+            "passed": true,
+            "runs_recorded": 6
+          },
+          "change": "Provider Prompt 指纹变化（SYSTEM_PROMPT v2）",
+          "retention_set": {
+            "definition": "冻结 12 会话 rules_only 结果（零模型调用，不应随 Prompt 变化）",
+            "identical_after_change": true,
+            "n": 46,
+            "passed": true
+          }
+        },
+        "freeze": {
+          "dev_session_count": 48,
+          "frozen": true,
+          "frozen_at": "2026-09-16T12:14:13+08:00",
+          "frozen_session_count": 12,
+          "frozen_target_units": 46,
+          "gold_frozen_sha256": "721e735b76de56d373471ba9494e4929f2736c29af3663e0895d17fb9424d802",
+          "gold_regression_sha256": "8ae652a9659325c98a582996c3557a9356efe890edb1190eb6f5ffa9fc6cbc2f",
+          "ontology_sha256": "dd7e0cb3c985a8600470bf54836ac0f45ee1e13cd66272a5052480080e3b507f",
+          "policy": "冻结后不得用冻结结果调参，不回写规则；每次 Prompt/规则/Provider/Schema/运行器变化须同时运行受影响 boundary set 与不应变化的 retention set",
+          "split_sha256": "a66a3763debb866173ed56b64b4682221d1987793d941d9184ced0cf7f5dd7ba"
+        },
+        "missing_fields": []
+      },
+      "passed": true
+    }
+  },
+  "evidence_boundary": "模型组当前为 MockProvider 离线确定性运行：信息范围消融与全部程序侧指标真实，模型效果未验证；PPT/视频属阶段 F，本阶段不含展示数字",
+  "issues": [],
+  "passed": true,
+  "phase": "E"
+}

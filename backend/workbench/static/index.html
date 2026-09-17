@@ -1,0 +1,600 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>数据共情者 · 客服工作台</title>
+  <style>
+    :root{--blue:#256fe8;--blue-soft:#eaf2ff;--ink:#172033;--muted:#6d7b90;--line:#e5eaf2;--bg:#f5f7fb;--red:#c94650;--red-bg:#fff1f2;--amber:#a96813;--amber-bg:#fff6e5;--green:#177553;--green-bg:#ecf9f2}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 Inter,"PingFang SC","Microsoft YaHei",sans-serif}.app{height:100vh;min-height:680px;display:flex;overflow:hidden}.rail{width:68px;flex:0 0 68px;background:#2f73e7;color:#fff;display:flex;flex-direction:column;align-items:center;padding:17px 0 14px;gap:15px}.brand{width:38px;height:38px;display:grid;place-items:center;border-radius:12px;background:#fff;color:var(--blue);font-size:18px;font-weight:800}.rail-item{width:52px;min-height:50px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border-radius:10px;color:#dce9ff;cursor:pointer;background:none;border:0}.rail-item.active{background:rgba(255,255,255,.18);color:#fff}.rail-item span{font-size:10px}.rail-bottom{margin-top:auto;display:flex;flex-direction:column;gap:12px;align-items:center}
+    .workspace{width:272px;flex:0 0 272px;background:#fbfcff;border-right:1px solid var(--line);display:flex;flex-direction:column}.shopbar{height:64px;padding:14px 17px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}.shopname{font-weight:750}.shopname small{display:block;margin-top:3px;color:var(--muted);font-size:12px;font-weight:400}.search{margin:13px 13px 10px;padding:9px 10px;display:flex;gap:7px;align-items:center;border:1px solid #edf0f5;border-radius:9px;background:#f2f5f9;color:#93a0b0}.search input{width:100%;border:0;outline:0;background:transparent;font:12px inherit;color:var(--ink)}.tabs{display:flex;gap:4px;padding:0 13px 8px}.tab{border:0;border-radius:7px;padding:7px 8px;background:transparent;color:#7d8a9d;cursor:pointer}.tab.active{background:var(--blue-soft);color:var(--blue);font-weight:700}.queue{display:flex;justify-content:space-between;padding:12px 14px 8px;color:var(--muted);font-size:12px}.queue-filter{border:0;background:transparent;color:#758399;cursor:pointer}.sessions{overflow:auto;padding:0 8px}.session{display:flex;gap:10px;margin-bottom:4px;padding:12px 10px;border-radius:10px;cursor:pointer;width:100%;border:0;background:none;text-align:left}.session:hover,.session.active{background:#eaf0f9}.face{width:34px;height:34px;display:grid;place-items:center;flex:0 0 auto;border-radius:50%;background:#dce9ff;color:#3b78e1;font-weight:750}.session-main{min-width:0;flex:1}.session-top{display:flex;justify-content:space-between;font-weight:700;color:var(--ink)}.session-top time{font-size:11px;color:#98a3b3;font-weight:400}.preview{margin-top:3px;overflow:hidden;color:#8a97a9;font-size:12px;text-overflow:ellipsis;white-space:nowrap}.badge{display:inline-flex;align-items:center;gap:3px;border-radius:999px;padding:3px 7px;font-size:10px;font-weight:750;margin-top:4px}.badge.red{background:var(--red-bg);color:var(--red)}.badge.amber{background:var(--amber-bg);color:var(--amber)}.badge.green{background:var(--green-bg);color:var(--green)}
+    .main{display:flex;min-width:0;flex:1;flex-direction:column;background:#fff}.topbar{min-height:64px;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 22px;border-bottom:1px solid var(--line);flex-wrap:wrap}.breadcrumb{color:var(--muted);font-size:12px}.title{margin-top:2px;font-size:16px;font-weight:750}.top-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap}.pill{border:1px solid var(--line);border-radius:8px;padding:6px 9px;background:#fff;color:#637186;font-size:11px;white-space:nowrap}.pill.online{border-color:#cbeedc;background:var(--green-bg);color:var(--green)}.pill.degraded{border-color:#ffe0a5;background:var(--amber-bg);color:var(--amber)}.provider-select{border:1px solid var(--line);border-radius:8px;padding:5px 7px;font:12px inherit;color:#3d4d63;background:#fff}.content{display:flex;min-height:0;flex:1}
+    .chat{display:flex;min-width:410px;flex:1;flex-direction:column;background:#fbfcfe}.snapshotbar{display:flex;align-items:center;gap:7px;padding:10px 20px;border-bottom:1px solid var(--line);background:#f8faff;color:#697890;font-size:12px;flex-wrap:wrap}.snap{border:1px solid #dce5f2;border-radius:7px;padding:5px 8px;background:#fff;color:#6d7c90;cursor:pointer}.snap.active{border-color:#bdd3fa;background:var(--blue-soft);color:var(--blue);font-weight:700}.snap:disabled{opacity:.45;cursor:not-allowed}.snapshot-note{margin-left:auto;color:#8b97a8;font-variant-numeric:tabular-nums}.product{display:flex;justify-content:space-between;align-items:center;margin:13px 21px 4px;padding:11px 13px;border:1px solid #e8edf4;border-radius:10px;background:#fff;gap:10px}.product b{font-size:13px}.product p{margin:3px 0 0;color:var(--muted);font-size:12px}.price{color:#ef702a;font-weight:750;white-space:nowrap}.stepbar{display:flex;align-items:center;gap:9px;padding:8px 23px;border-bottom:1px solid #edf0f5;color:#748195;font-size:12px;flex-wrap:wrap}.stepbar input{min-width:40px;flex:1;accent-color:var(--blue)}.link-button{border:0;background:transparent;color:#3976d1;cursor:pointer;font-size:12px;padding:2px 0}
+    .messages{overflow:auto;flex:1;padding:18px 24px}.msg{max-width:76%;margin:0 0 17px}.msg.agent{margin-left:auto}.meta{margin-bottom:4px;color:#98a4b3;font-size:11px}.bubble{border:1px solid #e7ebf1;border-radius:11px;padding:10px 12px;background:#fff;box-shadow:0 2px 5px rgba(34,46,60,.03);white-space:pre-wrap;word-break:break-word}.agent .bubble{border-color:#d6e5fe;background:#ebf3ff}.msg-risk{border-left:3px solid var(--red);padding-left:9px}.media-status{display:flex;align-items:center;gap:6px;margin-top:7px;border-radius:7px;padding:6px 7px;background:#f3f6fa;color:#5f7598;font-size:11px}.composer{padding:11px 18px;border-top:1px solid var(--line);background:#fff}.composer textarea{width:100%;height:55px;resize:none;border:0;outline:0;color:var(--ink);font:14px inherit}.composer-bottom{display:flex;align-items:center;justify-content:space-between;gap:8px}.tools{display:flex;align-items:center;gap:12px;color:#758397;font-size:11px}.send{border:0;border-radius:8px;padding:8px 15px;background:var(--blue);color:#fff;cursor:pointer}
+    .copilot{width:430px;flex:0 0 430px;display:flex;flex-direction:column;border-left:1px solid var(--line);background:#f7f9fd}.copilot-head{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:62px;flex-shrink:0;padding:12px 16px;background:linear-gradient(90deg,#2f73e7,#4d8bf1);color:#fff;flex-wrap:wrap}.copilot-head h2{margin:0;font-size:15px}.copilot-head small{opacity:.84}.copilot-mode{font-size:11px;padding:3px 7px;border:1px solid #8eb5fa;border-radius:6px}.copilot-scroll{flex:1;min-height:0;padding:12px;scrollbar-gutter:stable;overflow:auto}
+    .section{margin-bottom:10px;border:1px solid #e5eaf3;border-radius:11px;background:#fff;box-shadow:0 3px 12px rgba(30,53,85,.04)}.section-head{display:flex;align-items:center;justify-content:space-between;width:100%;border:0;border-bottom:1px solid #edf0f5;padding:11px 12px;background:#fff;color:var(--ink);font-weight:750;text-align:left}.section-body{padding:11px 12px}.chips{display:flex;flex-wrap:wrap;gap:5px}.chip{border-radius:999px;padding:3px 7px;background:#edf3ff;color:#3c70bd;font-size:11px}.missing-inline .chip{background:#f5f7fb;color:#5b6c81}
+    .riskbox{border:1px solid #ffd5d8;border-radius:9px;padding:10px;background:#fff4f5;color:#a73943}.riskbox.warn{border-color:#ffe0a5;background:#fff9ec;color:#926317}.riskbox.ok{border-color:#cbeedc;background:var(--green-bg);color:var(--green)}.risk-title{display:flex;justify-content:space-between;font-weight:750;gap:8px}.riskbox p{margin:4px 0 0;font-size:12px}.evidence{border-left:3px solid #94b7f1;border-radius:7px;padding:8px;background:#f8fafc;color:#506075;font-size:12px}
+    .decision-card{padding:12px;border-top:3px solid var(--blue)}.decision-card[data-level="P0"]{border-top-color:var(--red)}.decision-card[data-level="P1"]{border-top-color:#e07a3f}.decision-card[data-level="待定级"]{border-top-color:var(--amber)}.decision-heading{display:flex;align-items:center;gap:7px;font-size:13px;flex-wrap:wrap}.decision-heading .badge{font-size:12px;margin:0}.decision-status{margin-left:auto;font-size:11px;color:#617188;white-space:nowrap}.case-status{margin-left:auto;border:1px solid #dce5f2;border-radius:6px;padding:3px 6px;background:#f8fafc;color:#5d6d82;font-size:11px;font-weight:700;cursor:pointer}.decision-summary{margin:8px 0 6px;font-size:13px;font-weight:650;line-height:1.65}.decision-context{font-size:12px;line-height:1.65;color:#5c6e86}.history-note{display:block;margin-top:4px;color:#83520f;font-size:12px}.history-note button{font-size:11px}.conflict-alert{margin-top:9px;padding:8px;border:1px solid #efd299;border-radius:7px;background:var(--amber-bg);font-size:12px;color:#83520f}.conflict-alert p{margin:3px 0}.conflict-alert button{padding:2px 0;color:#815111;text-decoration:underline}
+    .change-note{margin:0 1px 10px;padding:6px 9px;border-radius:6px;background:#eaf2ff;color:#3c649b;font-size:11px;line-height:1.6}.copilot-tabs{display:flex;border-bottom:1px solid #dce5f1;margin-bottom:10px}.copilot-tabs button{flex:1;border:0;border-bottom:2px solid transparent;background:none;padding:9px 6px;color:#65758d;cursor:pointer;font-size:13px;font-weight:600}.copilot-tabs button[aria-selected="true"]{color:var(--blue);border-bottom-color:var(--blue)}.section-caption{font-size:11px;color:#66788f;font-weight:400}.next-action{margin:0 0 10px;font-size:13px;line-height:1.75}.missing-inline{padding:8px 0;border-top:1px solid var(--line)}.missing-inline .chips{margin-top:5px}.reply-preview{border-left:2px solid #82adf0;background:#f6f9ff;padding:8px 10px;margin-top:2px;border-radius:5px}.reply-preview p{font-size:12px;line-height:1.7;margin:5px 0 0;color:#41536b;white-space:pre-wrap}
+    .key-evidence{display:flex;align-items:start;gap:8px;width:100%;padding:7px 0;background:none;border:0;text-align:left;cursor:pointer;color:#41536b}.key-evidence+.key-evidence{border-top:1px solid #edf0f5}.key-evidence .source-tag{font-size:10px;white-space:nowrap;border-radius:4px;background:#edf3ff;color:#3b6bb1;padding:2px 5px}.key-evidence .source-copy{min-width:0;flex:1;font-size:12px;line-height:1.6}.key-evidence .excerpt{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.key-evidence small{display:block;color:#6e7f96;font-size:10px;margin-top:2px}
+    .detail-group summary{padding:12px;cursor:pointer;font-size:13px;font-weight:650}.detail-group summary span{float:right;color:#65758d;font-weight:400;font-size:11px}.detail-group[open] summary{border-bottom:1px solid var(--line)}.details-intro{font-size:12px;color:#65758d;margin:4px 0 12px}.evidence-entry{padding:10px 0;border-top:1px solid var(--line);overflow-wrap:anywhere;scroll-margin:12px}.evidence-entry:focus{outline:2px solid #7ba9ed;outline-offset:4px}.trace{display:flex;gap:9px}.trace-axis{display:flex;flex-direction:column;align-items:center}.dot{width:10px;height:10px;flex:0 0 auto;border-radius:50%;background:#4e88ed}.dot.muted{background:#c3cedd}.trace-line{width:2px;min-height:27px;flex:1;margin:3px 0;background:#dbe5f3}.trace-item{padding-bottom:10px;font-size:12px}.trace-item b{display:block}.trace-item span{display:block;color:var(--muted)}.notice{margin-top:5px;border-left:3px solid #f1a844;border-radius:6px;padding:6px 8px;background:#fff7e9;color:#8a641d;font-size:11px}
+    .fact-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}.fact{border-radius:8px;padding:8px;background:#f6f8fc}.fact label{display:block;color:#8793a4;font-size:11px}.fact strong{display:block;margin-top:2px;font-size:12px}
+    .tool-intro{margin-bottom:8px;color:var(--muted);font-size:11px}.tooltrace{display:grid;gap:6px}.tool-row{display:flex;align-items:center;gap:7px;width:100%;border:1px solid #e8edf5;border-radius:8px;padding:8px;background:#fff;color:#3e5068;text-align:left;cursor:pointer}.tool-row:hover{border-color:#aac6f4;background:#f8fbff}.tool-check{display:grid;place-items:center;width:17px;height:17px;border-radius:50%;background:var(--green-bg);color:var(--green);font-size:11px;font-weight:800}.tool-check.warn{background:var(--amber-bg);color:var(--amber)}.tool-check.bad{background:var(--red-bg);color:var(--red)}.tool-name{flex:1;font:600 11px ui-monospace,SFMono-Regular,Consolas,monospace}.tool-time{color:#8c98a8;font-size:11px;font-variant-numeric:tabular-nums}.auditbar{display:flex;gap:6px;margin-top:9px;color:#718198;font-size:11px;flex-wrap:wrap}.auditbar span{padding:3px 6px;border-radius:5px;background:#f3f6fa}
+    .safety-grid{display:grid;gap:6px}.safety-row{display:flex;justify-content:space-between;gap:8px;border-radius:7px;padding:7px 9px;background:#f6f8fc;font-size:12px}.safety-row.pass{color:var(--green)}.safety-row.fail{color:var(--red);background:var(--red-bg)}.safety-row.notrun{color:var(--amber);background:var(--amber-bg)}
+    .drawer{position:fixed;top:0;right:0;z-index:8;display:flex;width:min(560px,100vw);height:100vh;transform:translateX(100%);flex-direction:column;border-left:1px solid #dce5f2;background:#fff;box-shadow:-12px 0 35px rgba(18,38,70,.15);transition:transform .22s ease}.drawer.open{transform:translateX(0)}.drawer-head{display:flex;align-items:center;justify-content:space-between;padding:17px 18px;border-bottom:1px solid var(--line)}.drawer-head h3{margin:0;font-size:15px}.icon-button{display:grid;place-items:center;width:30px;height:30px;border:0;border-radius:7px;background:#f1f4f8;color:#536174;cursor:pointer}.drawer-body{overflow:auto;padding:16px 18px}.call-meta{display:flex;flex-wrap:wrap;gap:6px;margin:9px 0 15px}.call-meta span{border-radius:5px;padding:4px 6px;background:#f2f5fa;color:#68778b;font-size:11px}.call-label{margin:16px 0 6px;color:#65748a;font-size:11px;font-weight:750;text-transform:uppercase;letter-spacing:.05em}.json{overflow:auto;margin:0;border-radius:9px;padding:12px;background:#152238;color:#dbe8ff;font:11px/1.55 ui-monospace,SFMono-Regular,Consolas,monospace;white-space:pre-wrap;max-height:340px}.drawer-note{margin-top:12px;border-radius:8px;padding:9px;background:#f1f7ff;color:#4671aa;font-size:12px}.disposal-row{border-top:1px solid var(--line);padding:10px 2px;font-size:12px}.disposal-row b{font-size:12px}.disposal-row small{color:#7d8a9d;display:block;margin-top:2px}
+    .overlay{position:fixed;inset:0;z-index:7;display:none;background:rgba(20,34,54,.25)}.overlay.show{display:block}.modal{position:fixed;inset:0;z-index:10;display:none;align-items:center;justify-content:center;background:rgba(20,34,54,.28)}.modal.show{display:flex}.modal-card{width:min(420px,92vw);border-radius:14px;padding:20px;background:#fff;box-shadow:0 20px 60px rgba(20,40,80,.18);max-height:86vh;overflow:auto}.modal-card h3{margin:0 0 8px}.modal-card p{color:var(--muted);font-size:13px}.modal-fields{margin:10px 0;border:1px solid var(--line);border-radius:9px;padding:9px;font-size:11px;background:#f8fafc;color:#54627a;word-break:break-all}.modal-fields div{margin:2px 0}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}.toast{pointer-events:none;visibility:hidden;position:fixed;right:22px;bottom:22px;z-index:11;max-width:520px;border-radius:8px;padding:10px 13px;background:#1e2a3d;color:#fff;opacity:0;transform:translateY(10px);transition:.2s;font-size:12px}.toast.show{visibility:visible;opacity:1;transform:translateY(0)}.toast.reject{background:#7c2d35}
+    .copilot-footer{flex-shrink:0;border-top:1px solid #dce5f1;padding:11px 12px 9px;background:#fff}.footer-actions{display:grid;grid-template-columns:1.15fr 1fr 1fr;gap:7px}.footer-actions .primary{background:var(--blue);border-color:var(--blue);color:#fff}.action{border:1px solid #dce5f2;border-radius:8px;padding:8px;background:#fff;color:#3e70b2;font-weight:700;cursor:pointer}.copilot-footer small{display:block;text-align:center;margin-top:7px;color:#6a7b90;font-size:10px}
+    button:focus-visible,summary:focus-visible,.session:focus-visible{outline:2px solid var(--blue);outline-offset:3px}.msg[role="button"]{cursor:pointer;scroll-margin:12px}.msg:focus-visible,.msg.source-focus{outline:2px solid var(--blue);outline-offset:5px;border-radius:10px}[hidden]{display:none!important}
+    @media(max-width:1120px){.workspace{width:230px;flex-basis:230px}.copilot{width:365px;flex-basis:365px}}@media(max-width:850px){.rail,.workspace{display:none}.copilot{width:350px;flex-basis:350px}.chat{min-width:330px}.snapshot-note{display:none}}
+    @media(max-width:700px){.app{height:auto;min-height:100vh;overflow:visible}.content{flex-direction:column}.chat{min-width:0;min-height:560px}.copilot{width:100%;flex-basis:auto;border-left:0}.copilot-scroll{max-height:740px}.topbar{flex-wrap:wrap}.messages{max-height:340px}.stepbar{padding:8px 12px}.copilot-footer{position:sticky;bottom:0;z-index:2}}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="rail"><div class="brand">数</div><button class="rail-item active"><span>工作台</span></button><button class="rail-item" id="railWorkorder"><span>工单</span></button><button class="rail-item" id="railDisposal"><span>处置日志</span></button><div class="rail-bottom"><div class="face" style="width:29px;height:29px;font-size:12px">美</div></div></aside>
+    <section class="workspace">
+      <div class="shopbar"><div class="shopname">美妆旗舰店<small>人工客服工作台 · 真实快照接入</small></div></div>
+      <label class="search"><span aria-hidden="true">🔍</span><input id="searchInput" placeholder="昵称、会话ID、订单号、工单号（仅定位会话）" /></label>
+      <div class="tabs"><button class="tab active" data-queue="all">全部会话</button><button class="tab" data-queue="follow">待跟进</button></div>
+      <div class="queue"><span>风险队列（规则引擎实时计算）</span><button class="queue-filter" id="riskFilter">全部风险⌄</button></div>
+      <div class="sessions" id="sessions"></div>
+    </section>
+    <main class="main">
+      <header class="topbar">
+        <div><div class="breadcrumb">工作台 / 风险队列 / 当前会话</div><div class="title" id="caseTitle">加载中…</div></div>
+        <div class="top-actions">
+          <label class="pill" for="providerSelect">Provider <select class="provider-select" id="providerSelect"><option value="MockProvider">MockProvider</option><option value="RuleProvider">RuleProvider</option><option value="QwenProvider">QwenProvider</option></select></label>
+          <span class="pill" id="providerPill">待运行</span>
+          <span class="pill" id="asOfPill">as_of —</span>
+          <span class="pill" id="metricsPill">待运行</span>
+        </div>
+      </header>
+      <div class="content">
+        <section class="chat">
+          <div class="snapshotbar">
+            <span>时间快照</span>
+            <button class="snap active" data-snap="message">当前消息</button>
+            <button class="snap" data-snap="created" id="snapCreated">工单创建后</button>
+            <button class="snap" data-snap="completed" id="snapCompleted">工单完成后</button>
+            <span class="snapshot-note" id="snapshotNote"></span>
+          </div>
+          <div class="product"><div style="min-width:0"><b id="productName">—</b><p id="orderLine">—</p></div><div class="price" id="priceLine"></div></div>
+          <div class="stepbar"><span>消息推进</span><button class="snap" id="prevStep" aria-label="上一条消息">上一条</button><input id="stepRange" type="range" min="1" max="1" value="1" aria-label="消息进度" /><span id="stepLabel" aria-live="polite"></span><button class="snap" id="nextStep" aria-label="下一条消息">下一条</button><button class="link-button" id="resetStep">回到首条</button></div>
+          <div class="messages" id="messages"></div>
+          <div class="composer">
+            <small class="draft-context" id="draftContext" style="display:block;margin-bottom:5px;color:#697890;font-size:11px"></small>
+            <textarea id="composer" placeholder="输入或编辑回复草稿…（草稿按会话+时点隔离，不发送）"></textarea>
+            <div class="composer-bottom"><div class="tools"><span>草稿可编辑 · 不发送</span></div><button class="send" id="sendBtn">使用此回复</button></div>
+          </div>
+        </section>
+        <aside class="copilot" aria-label="客服辅助">
+          <div class="copilot-head"><div><h2>智能客服 Copilot</h2><small id="copilotTime">—</small></div><span class="copilot-mode" id="copilotMode">真实接入</span></div>
+          <div class="copilot-scroll" id="copilotScroll">
+            <section class="section decision-card" aria-label="当前判断" data-level="">
+              <div class="decision-heading"><span class="badge" id="riskBadge">—</span><strong id="decisionTitle">—</strong><select class="case-status" id="caseStatus" aria-label="处置状态"><option value="open">处理中</option><option value="watching">持续跟进</option><option value="resolved">已解决</option></select></div>
+              <p class="decision-summary" id="decisionSummary">—</p>
+              <div class="decision-context" id="decisionContext">—</div>
+              <div class="history-note" id="historyNote" hidden></div>
+              <div class="conflict-alert" id="conflictAlert" hidden></div>
+            </section>
+            <div class="change-note" id="changeNote" role="status" aria-live="polite">加载中…</div>
+            <div class="copilot-tabs" role="tablist" aria-label="辅助信息">
+              <button id="adviceTab" role="tab" aria-selected="true" aria-controls="advicePanel" tabindex="0">处理建议</button>
+              <button id="detailTab" role="tab" aria-selected="false" aria-controls="detailPanel" tabindex="-1">分析详情 <span id="detailCount"></span></button>
+            </div>
+            <div id="advicePanel" role="tabpanel" aria-labelledby="adviceTab">
+              <section class="section"><div class="section-head">建议下一步 <span class="section-caption">需人工确认</span></div><div class="section-body">
+                <p class="next-action" id="actionDraft">—</p>
+                <div class="missing-inline"><span class="section-caption">待补充 / 核验 <span id="missingCount">0</span> 项</span><div class="chips" id="missingFields"></div></div>
+                <div class="reply-preview"><div class="section-caption">建议回复 · 可填入中间编辑框</div><p id="replyPreview">—</p></div>
+              </div></section>
+              <section class="section"><div class="section-head">关键依据（最多3条） <button class="link-button" id="allEvidenceBtn">全部证据</button></div><div class="section-body" id="keyEvidence"></div></section>
+            </div>
+            <div id="detailPanel" role="tabpanel" aria-labelledby="detailTab" hidden>
+              <div class="details-intro">以下均为本次真实运行结果（同一 analysis_id / as_of_time）；无运行记录处如实标注。</div>
+              <details class="section detail-group" id="safetyGroup"><summary>安全校验 safety_check_result <span id="safetySummary"></span></summary><div class="section-body"><div class="safety-grid" id="safetyGrid"></div><div id="safetyFailures"></div></div></details>
+              <details class="section detail-group" id="fullEvidenceGroup"><summary>完整证据 <span id="evidenceCount"></span></summary><div class="section-body"><div id="evidence"></div></div></details>
+              <details class="section detail-group" id="timelineGroup"><summary>服务轨迹（当前时点可见）</summary><div class="section-body" id="timeline"></div></details>
+              <details class="section detail-group" id="factsGroup"><summary>事实与风险规则</summary><div class="section-body"><div class="fact-grid" id="facts"></div><div class="riskbox" id="riskbox" style="margin:10px 0"></div><div class="chips" id="riskChips"></div></div></details>
+              <details class="section detail-group" id="toolsGroup"><summary>Agent 工具链 <span>8 个节点 · 真实请求/响应</span></summary><div class="section-body"><div class="tool-intro">点击节点查看真实 Request/Response、source_refs 与耗时。耗时/Provider/降级来自运行记录。</div><div class="tooltrace" id="toolTrace"></div><div class="auditbar" id="auditBar"></div></div></details>
+            </div>
+          </div>
+          <div class="copilot-footer">
+            <div class="footer-actions"><button class="action primary" id="applyReplyBtn">填入回复</button><button class="action" id="workorderBtn">工单草稿</button><button class="action" id="escalateBtn">人工升级</button></div>
+            <small>仅生成草稿 · 不发送、不执行外部业务动作 · 业务动作须人工确认</small>
+          </div>
+        </aside>
+      </div>
+    </main>
+  </div>
+  <div class="overlay" id="overlay"></div>
+  <aside class="drawer" id="drawer" aria-label="详情抽屉"><div class="drawer-head"><div><div class="breadcrumb" id="drawerCrumb">详情</div><h3 id="drawerTitle"></h3></div><button class="icon-button" id="drawerClose" aria-label="关闭详情">✕</button></div><div class="drawer-body" id="drawerBody"></div></aside>
+  <div class="modal" id="confirmModal"><div class="modal-card"><h3 id="modalTitle"></h3><p id="modalText"></p><div class="modal-fields" id="modalFields"></div><div class="modal-actions"><button class="action" id="modalCancel">取消</button><button class="action primary" id="modalConfirm">确认</button></div></div></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+const escapeHtml=v=>String(v==null?"":v).replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
+const pretty=v=>JSON.stringify(v,null,2);
+const statusLabel={ok:"ok",no_data:"无数据",no_workorder:"暂无工单",source_conflict:"来源冲突",invalid_request:"非法请求",unavailable:"不可用"};
+const STATUS_LABELS={open:"处理中",watching:"持续跟进",resolved:"已解决"};
+const RISK_NAMES={adverse_reaction:"不良反应与就医风险",complaint_escalation:"投诉升级",abnormal_refund:"异常仅退款待核实",repeat_contact:"重复进线",logistics_exception:"物流异常",aftersales_damage:"商品到手破损售后",unresolved_workorder:"未完结工单",none:"无命中风险",unclear:"证据不足待核验"};
+
+const state={
+  sessions:[],qwenCreds:false,current:null,sessionData:null,
+  view:{mode:"message",step:1},provider:"MockProvider",
+  analysis:null,draft:null,prevSnapshot:null,
+  sessionViews:new Map(),pendingConfirm:null,drawer:null,
+  editedFlag:false,loading:false
+};
+
+function toast(text,reject){const el=$("toast");el.textContent=text;el.className="toast show"+(reject?" reject":"");clearTimeout(window.__toastT);window.__toastT=setTimeout(()=>el.classList.remove("show"),reject?6000:2600);}
+
+async function apiGet(path){const r=await fetch(path);const j=await r.json().catch(()=>({error:"bad json"}));if(!r.ok)throw new Error(j.error||r.status);return j;}
+async function apiPost(path,body){const r=await fetch(path,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});const j=await r.json().catch(()=>({error:"bad json"}));if(!r.ok&&!j.accepted)throw j;return j;}
+
+// ---------- timepoint helpers ----------
+function currentAsOf(){
+  const d=state.sessionData;if(!d)return null;
+  if(state.view.mode==="created"&&d.workorder&&d.workorder.create_time)return d.workorder.create_time;
+  if(state.view.mode==="completed"&&d.workorder&&d.workorder.complete_time)return d.workorder.complete_time;
+  const m=d.messages[state.view.step-1];return m?m.message_time:null;
+}
+function visibleMessages(){
+  const d=state.sessionData,asOf=currentAsOf();
+  return asOf?(d.messages||[]).filter(m=>m.message_time<=asOf):[];
+}
+function pointLabel(){
+  if(state.view.mode==="created")return"工单创建后";
+  if(state.view.mode==="completed")return"工单完成后";
+  return"消息 "+state.view.step+" / "+state.sessionData.messages.length;
+}
+
+// ---------- load & analyze ----------
+async function loadBootstrap(){
+  const data=await apiGet("/api/bootstrap");
+  state.sessions=data.sessions;state.qwenCreds=data.providers.qwen_credentials;
+  renderSessions();
+  const first=["S00015","S00024","S00001"].find(id=>state.sessions.some(s=>s.session_id===id))||state.sessions[0].session_id;
+  await selectSession(first);
+}
+async function selectSession(id,keepView){
+  state.current=id;
+  if(!keepView)state.view=state.sessionViews.get(id)||{mode:"message",step:1};
+  if(!state.sessionViews.has(id))state.sessionViews.set(id,{...state.view});
+  state.analysis=null;state.draft=null;state.editedFlag=false;closeDrawer();
+  state.sessionData=await apiGet("/api/session/"+encodeURIComponent(id)+"/messages");
+  renderSessions();
+  await refreshAnalysis();
+}
+async function setView(view){
+  state.view=view;state.sessionViews.set(state.current,{...view});
+  await refreshAnalysis();
+}
+async function refreshAnalysis(){
+  const d=state.sessionData,asOf=currentAsOf();if(!d||!asOf)return;
+  state.loading=true;renderTopbar("分析中…");
+  let url="/api/analyze?session_id="+encodeURIComponent(state.current)+"&provider="+encodeURIComponent(state.provider);
+  if(state.view.mode==="message"&&d.messages[state.view.step-1])url+="&message_no="+state.view.step;else url+="&as_of="+encodeURIComponent(asOf);
+  try{
+    const a=await apiGet(url);state.analysis=a;state.loading=false;
+    await loadDraft(a.as_of_time);
+    renderAll();
+  }catch(e){state.loading=false;toast("分析失败："+(e.message||e),true);renderAll();}
+}
+async function loadDraft(asOf){
+  const j=await apiGet("/api/draft?session_id="+encodeURIComponent(state.current)+"&as_of_time="+encodeURIComponent(asOf));
+  state.draft=j.draft;state.editedFlag=false;
+  const composer=$("composer");
+  if(j.draft){composer.value=j.draft.text;}
+  else if(state.analysis){composer.value=state.analysis.analysis.reply_draft||"";}
+}
+let draftTimer=null;
+function onDraftInput(){
+  clearTimeout(draftTimer);
+  draftTimer=setTimeout(async()=>{
+    const asOf=state.analysis&&state.analysis.as_of_time;if(!asOf)return;
+    const j=await apiPost("/api/draft",{session_id:state.current,as_of_time:asOf,text:$("composer").value});
+    state.draft=j.draft;state.editedFlag=true;renderDraftContext();
+  },700);
+}
+
+// ---------- confirmations ----------
+function confirmPayload(extra){
+  const a=state.analysis;
+  return Object.assign({
+    session_id:state.current,analysis_id:a?a.analysis_id:"—",as_of_time:a?a.as_of_time:"—",
+    operator:"人工客服（演示）",
+    draft_revision:state.draft?state.draft.revision:null,
+    draft_hash:state.draft?state.draft.draft_hash:""
+  },extra||{});
+}
+function openConfirm(title,text,payload,onAccepted){
+  state.pendingConfirm={payload,onAccepted};
+  $("modalTitle").textContent=title;$("modalText").textContent=text;
+  const p=payload;
+  $("modalFields").innerHTML="<div>analysis_id："+escapeHtml(p.analysis_id)+"</div><div>as_of_time："+escapeHtml(p.as_of_time)+"</div><div>草稿 revision："+escapeHtml(p.draft_revision==null?"—（非草稿操作）":String(p.draft_revision))+"</div><div>draft_hash："+escapeHtml(p.draft_hash?p.draft_hash.slice(0,16)+"…":"—")+"</div><div>operation_id："+escapeHtml(p.operation_id)+"</div>";
+  $("modalConfirm").textContent="确认";
+  $("confirmModal").classList.add("show");$("modalCancel").focus();
+}
+async function submitConfirm(){
+  const pc=state.pendingConfirm;if(!pc)return;
+  $("confirmModal").classList.remove("show");state.pendingConfirm=null;
+  try{
+    const resp=await apiPost("/api/confirm",pc.payload);
+    if(resp.accepted){
+      toast("已确认（operation_id "+pc.payload.operation_id.slice(0,14)+"…）；仅本地记录，不执行真实业务动作");
+      if(pc.onAccepted)await pc.onAccepted(resp);
+      if(pc.payload.action==="status_change"){const q=await apiGet("/api/bootstrap");state.sessions=q.sessions;renderAll();}
+    }else{
+      toast("确认被拒绝 ["+resp.reason+"]："+(resp.detail||""),true);
+    }
+  }catch(e){
+    const reason=e&&(e.reason||e.error)||"网络错误";
+    toast("确认被拒绝 ["+reason+"]："+((e&&e.detail)||""),true);
+  }
+}
+function newOpId(){return "OP-"+crypto.randomUUID().replaceAll("-","").slice(0,20);}
+
+// ---------- rendering ----------
+function renderTopbar(pending){
+  const a=state.analysis,d=state.sessionData;
+  $("caseTitle").textContent=d?state.current+" · "+(RISK_NAMES[(a&&a.analysis.risk&&a.analysis.risk.type)||"unclear"]||""):"—";
+  $("asOfPill").textContent="as_of "+(currentAsOf()||"—");
+  if(pending){$("providerPill").textContent=pending;$("providerPill").className="pill";$("metricsPill").textContent=pending;return;}
+  if(!a){$("providerPill").textContent="待运行";return;}
+  const fb=a.fallback_chain&&a.fallback_chain[0];
+  const degraded=a.degraded;
+  $("providerPill").className="pill "+(degraded?"degraded":"online");
+  $("providerPill").textContent=degraded
+    ?"降级 "+a.provider_requested+"→"+a.provider_used+"（"+(fb?(fb.failure_reason+(fb.skipped?"·熔断":"")):"")+"）"
+    :"Provider "+a.provider_used+(a.cache_hit?" · 缓存命中":"");
+  $("providerPill").title=a.fallback_chain&&a.fallback_chain.length?pretty(a.fallback_chain):(a.provider_used+" 正常");
+  const tok=a.token_usage?a.token_usage.total_tokens:0;
+  $("metricsPill").textContent="耗时 "+Math.round(a.duration_ms)+"ms · Token "+tok+" · 工具 "+(a.tool_calls?a.tool_calls.length:0)+" · run "+a.run_id.slice(2,10);
+}
+function renderSessions(){
+  const q=$("searchInput").value.trim().toLowerCase();
+  const only=$("riskFilter").dataset.only==="yes";
+  const follow=document.querySelector(".tab.active")?.dataset.queue==="follow";
+  $("sessions").innerHTML=state.sessions.map(s=>{
+    const hay=[s.buyer_nick,s.session_id,s.order_id||"",s.workorder_id||"",s.preview||""].join(" ").toLowerCase();
+    const hidden=(q&&!hay.includes(q))||(only&&!["P0","P1"].includes(s.risk_level))||(follow&&s.status!=="watching"&&s.status!=="open");
+    const cls=s.risk_level==="P0"?"red":s.risk_level==="P1"?"red":s.risk_level==="待定级"?"amber":"green";
+    return '<button class="session'+(s.session_id===state.current?" active":"")+'" data-case="'+s.session_id+'"'+(hidden?" hidden":"")+'><div class="face">'+escapeHtml((s.buyer_nick||"?")[0])+'</div><div class="session-main"><div class="session-top"><span>'+escapeHtml(s.buyer_nick)+" <small style=\"color:#98a3b3;font-weight:400\">"+escapeHtml(s.session_id)+'</small></span><time>'+escapeHtml((s.last_time||"").slice(5,16))+'</time></div><div class="preview">'+escapeHtml(s.preview||"")+'</div><span class="badge '+cls+'">'+escapeHtml(s.risk_level)+" · "+escapeHtml(STATUS_LABELS[s.status]||s.status)+" · "+escapeHtml(s.scene||"")+'</span></div></button>';
+  }).join("");
+  document.querySelectorAll(".session").forEach(el=>el.onclick=()=>selectSession(el.dataset.case));
+}
+function renderSnapshotbar(){
+  const d=state.sessionData,wo=d&&d.workorder;
+  const created=$("snapCreated"),completed=$("snapCompleted");
+  if(!wo||!wo.workorder_id){
+    created.disabled=true;completed.disabled=true;
+    created.title=completed.title="当前会话无工单记录";
+    created.textContent="工单创建后（无工单）";completed.textContent="工单完成后（无工单）";
+  }else{
+    created.disabled=!wo.create_time;completed.disabled=!wo.complete_time;
+    created.textContent="工单创建后";completed.textContent="工单完成后";
+    created.title=wo.create_time?"as_of "+wo.create_time:"工单无创建时间，入口禁用";
+    completed.title=wo.complete_time?"as_of "+wo.complete_time:"完成时间为空（工单未完结），入口禁用";
+  }
+  document.querySelectorAll(".snap[data-snap]").forEach(b=>b.classList.toggle("active",b.dataset.snap===state.view.mode));
+  $("snapshotNote").textContent=pointLabel()+" · as_of "+(currentAsOf()||"—");
+  const msgs=d?d.messages:[];
+  $("stepRange").max=msgs.length;$("stepRange").value=state.view.mode==="message"?Math.min(state.view.step,msgs.length):visibleMessages().length;
+  $("stepLabel").textContent=visibleMessages().length+" / "+msgs.length;
+  $("prevStep").disabled=state.view.mode==="message"&&state.view.step<=1;
+  $("nextStep").disabled=visibleMessages().length>=msgs.length;
+}
+function renderProduct(){
+  const a=state.analysis,d=state.sessionData;
+  const order=a&&a.snapshot?a.snapshot.order:null;
+  if(order&&order.visibility==="visible"){
+    $("productName").textContent=order.product_name||"商品信息待补充";
+    $("priceLine").textContent=order.paid_amount!=null&&order.paid&&order.paid.visible?("¥ "+order.paid_amount):"金额未可见";
+    const ship=order.shipped&&order.shipped.visible?("\n已发货 · "+order.shipped.courier+" · "+order.shipped.tracking_no):"暂无可见发货记录";
+    $("orderLine").textContent="订单 "+order.order_id+"（下单时间可见）"+ship.replace("\n"," · ");
+    $("orderLine").title="订单状态无生效时间，不作快照断言；发货信息仅按发货时间可见";
+  }else{
+    $("productName").textContent=d?d.messages[0]&&"会话首条消息时点":"—";
+    $("priceLine").textContent="";
+    $("orderLine").textContent=order?"订单此时不可见（"+(order.reason||order.visibility)+"）":"该会话无订单记录";
+  }
+}
+function renderMessages(){
+  const vis=visibleMessages();
+  $("messages").innerHTML=vis.map(m=>{
+    const riskCls=m.role==="客服"&&/已为您建立|已提交核实工单|换货单已创建|已提交，仓库签收|登记/.test(m.message_text||"")?"msg-risk":"";
+    return '<div id="message-'+m.message_no+'" data-message="'+m.message_no+'" role="button" tabindex="0" aria-label="查看消息 '+m.message_no+' 时点" class="msg '+(m.role==="客服"?"agent":"")+' '+riskCls+'"><div class="meta">'+escapeHtml(m.role==="客服"?"客服":(m.buyer_nick||"买家"))+" · "+escapeHtml((m.message_time||"").slice(11,19))+'</div><div class="bubble">'+escapeHtml(m.message_text||"")+(m.image_path?'<div class="media-status">🖼 '+escapeHtml(m.image_path)+" · 原始图片文件缺失，视觉分析为扩展</div>":"")+'</div></div>';
+  }).join("");
+  document.querySelectorAll("[data-message]").forEach(el=>{
+    const jump=()=>{setView({mode:"message",step:Number(el.dataset.message)});highlightMessage(Number(el.dataset.message));};
+    el.onclick=jump;el.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();jump();}};
+  });
+}
+function highlightMessage(n){
+  document.querySelectorAll(".source-focus").forEach(el=>el.classList.remove("source-focus"));
+  const el=$("message-"+n);if(el){el.classList.add("source-focus");el.scrollIntoView({block:"nearest"});}
+}
+function renderDraftContext(){
+  const a=state.analysis;if(!a)return;
+  const d=state.draft;
+  $("draftContext").textContent="草稿随快照隔离 · "+a.as_of_time+(d?(" · 已保存 v"+d.revision+" · hash "+d.draft_hash.slice(0,8)):" · 建议草稿（编辑后自动保存）")+(state.editedFlag?" · 手工编辑":"");
+}
+function evidenceRows(){
+  const a=state.analysis;if(!a)return[];
+  const rows=[];const snap=a.snapshot;
+  (visibleMessages()||[]).forEach(m=>rows.push({source:m.source_ref,kind:m.role==="客服"?"客服表述（非执行凭证）":"买家消息",text:m.message_text||"",time:m.message_time,chat:true}));
+  const order=snap.order;
+  if(order&&order.visibility==="visible"){
+    rows.push({source:order.source_ref,kind:"订单字段（下单时间可见）",text:"订单 "+order.order_id+" · "+(order.product_name||"")+" · 实付 "+(order.paid&&order.paid.visible?order.paid_amount:"不可见")+" · 发货 "+(order.shipped&&order.shipped.visible?order.shipped.time:"不可见"),time:order.placed_time});
+  }
+  const wo=snap.workorder;
+  if(wo&&wo.visibility==="visible"){
+    rows.push({source:wo.source_ref,kind:"工单系统记录",text:"工单 "+wo.workorder_id+"（"+wo.kind+"）· 创建 "+wo.create_time+" · 状态 "+(((wo.status||{}).snapshot_value)==="completed"?"已完结":"未完结")+(wo.complete_time?" · 完成 "+wo.complete_time:" · 完成时间"+(wo.completion&&wo.completion.reason==="complete_time_empty"?"为空":"未到时点")),time:wo.create_time});
+  }
+  (snap.source_inconsistency||[]).forEach(item=>{
+    (item.chat_quotes||[]).forEach(q=>rows.push({source:q.source_ref,kind:"来源冲突 · 客服原句",text:q.text,time:q.message_time,chat:true}));
+    rows.push({source:(item.source_refs||[]).find(r=>r.startsWith("system:"))||item.source_refs[0],kind:"来源冲突 · 系统事实",text:item.summary+"（工单系统暂无记录，两类来源均保留）",time:item.as_of_time});
+  });
+  const policyTool=(a.tool_calls||[]).find(t=>t.tool==="retrieve_policy");
+  if(policyTool&&policyTool.response&&policyTool.response.data&&policyTool.response.data.results){
+    policyTool.response.data.results.forEach(p=>rows.push({source:"policy:"+p.policy_id,kind:"政策（比赛演示规则）",text:p.title+"："+p.content,time:null}));
+  }
+  const seen=new Set();return rows.filter(r=>!seen.has(r.source+"|"+r.kind)&&seen.add(r.source+"|"+r.kind));
+}
+function refToEvidenceIndex(rows,ref){
+  const idx=rows.findIndex(r=>r.source===ref);if(idx>=0)return idx;
+  if(ref&&ref.startsWith("chat:")){const n=Number(ref.split(":").pop());return rows.findIndex(r=>r.chat&&r.source==="chat:"+state.current+":"+n);}
+  return -1;
+}
+function showEvidence(index){
+  selectCopilotPanel("detail");$("fullEvidenceGroup").open=true;
+  const rows=evidenceRows();const entry=$("evidence-"+index);
+  if(entry){entry.focus({preventScroll:true});entry.scrollIntoView({block:"nearest"});}
+  const row=rows[index];if(row&&row.chat)highlightMessage(Number(row.source.split(":").pop()));
+}
+function renderEvidence(){
+  const rows=evidenceRows();const a=state.analysis;
+  $("evidenceCount").textContent=rows.length+" 条";
+  $("detailCount").textContent=rows.length+" 条依据";
+  $("allEvidenceBtn").textContent="全部 "+rows.length+" 条";
+  $("evidence").innerHTML='<div class="evidence" style="border:0;padding:0 0 8px">截止 '+(currentAsOf()||"—")+' 可见来源<br><small>聊天原文与系统记录分别保留；客服承诺不等于业务动作已执行。</small></div>'+rows.map((e,i)=>'<div class="evidence-entry" id="evidence-'+i+'" tabindex="-1"><b>'+escapeHtml(e.kind)+'</b><br>'+escapeHtml((e.text||"").slice(0,160))+((e.text||"").length>160?"…":"")+'<br><small>'+escapeHtml(e.source)+(e.time?" · "+escapeHtml(e.time):"")+"</small></div>").join("");
+  const keyRefs=[];
+  const riskRefs=(a&&a.analysis.risk&&(a.analysis.source_refs||[]))||[];
+  const risk=(a&&a.analysis.risk)||{};
+  (risk.why||[]).slice(0,1);
+  const emotionRefs=(a&&a.analysis.emotion&&a.analysis.emotion.evidence_refs)||[];
+  const firstBuyer=rows.find(r=>r.chat&&r.kind==="买家消息");
+  if(firstBuyer)keyRefs.push(firstBuyer);
+  const conflict=rows.find(r=>r.kind.startsWith("来源冲突"));
+  if(conflict)keyRefs.push(conflict);
+  const wo=rows.find(r=>r.kind==="工单系统记录");
+  if(wo)keyRefs.push(wo);
+  if(keyRefs.length<3){const ord=rows.find(r=>r.kind.startsWith("订单"));if(ord)keyRefs.push(ord);}
+  $("keyEvidence").innerHTML=keyRefs.filter(Boolean).slice(0,3).map(e=>{
+    const idx=rows.indexOf(e);
+    const src=e.kind.startsWith("买家")?"买家":e.kind.startsWith("客服")?"客服":e.kind.startsWith("订单")?"订单":e.kind.startsWith("工单")?"工单":e.kind.startsWith("来源")?"冲突":"政策";
+    return '<button class="key-evidence" data-evidence="'+idx+'" aria-label="查看'+src+'依据"><span class="source-tag">'+src+'</span><span class="source-copy"><span class="excerpt">'+escapeHtml((e.text||"").slice(0,90))+'</span><small>'+(e.chat?"消息 "+e.source.split(":").pop()+" · ":"")+escapeHtml((e.time||"").slice(11,19)||"")+" · 点击定位原文</small></span></button>";
+  }).join("");
+  document.querySelectorAll("[data-evidence]").forEach(b=>b.onclick=()=>showEvidence(Number(b.dataset.evidence)));
+}
+function renderSafety(){
+  const a=state.analysis;if(!a)return;
+  const s=a.safety_check_result||{};
+  const checks=s.checks||{};
+  const order=["fact_visibility","future_information","risk_non_downgrade","unsupported_timing","reply_boundary"];
+  const names={fact_visibility:"事实可见性",future_information:"未来信息隔离",risk_non_downgrade:"风险不降级",unsupported_timing:"无依据时效",reply_boundary:"回复边界"};
+  $("safetySummary").textContent="status="+String(s.status)+" · run "+String(s.run_id||"—").slice(2,10);
+  $("safetyGrid").innerHTML=order.map(k=>{
+    const v=checks[k];
+    const cls=v==="pass"?"pass":v==="fail"?"fail":"notrun";
+    return '<div class="safety-row '+cls+'"><span>'+names[k]+' <small style="color:#8793a4">'+k+'</small></span><b>'+(v||"未运行")+"</b></div>";
+  }).join("")+'<div class="safety-row '+(s.executed?(s.status==="pass"?"pass":"fail"):"notrun")+'"><span>整体（独立运行记录，非 Provider 自报）</span><b>'+(s.executed?s.status:"未运行")+"</b></div>";
+  const fails=(s.failures||[]).filter(f=>f.type!=="not_run");
+  $("safetyFailures").innerHTML=fails.length?"<div class='notice'>失败项：<br>"+fails.map(f=>escapeHtml(f.type)+" — "+escapeHtml(f.reason||"")).join("<br>")+"</div>":"";
+}
+function renderTimeline(){
+  const a=state.analysis;if(!a)return;
+  const tool=(a.tool_calls||[]).find(t=>t.tool==="get_service_timeline");
+  const events=(tool&&tool.response&&tool.response.data&&tool.response.data.events)||[];
+  const snap=a.snapshot;const conflict=(snap.source_inconsistency||[]).length>0;
+  $("timeline").innerHTML='<div class="trace"><div class="trace-axis"><div class="dot"></div><div class="trace-line"></div><div class="dot '+((snap.workorder||{}).visibility==="visible"?"":"muted")+'"></div></div><div><div class="trace-item"><b>'+pointLabel()+" · "+escapeHtml((currentAsOf()||"").slice(11,19))+'</b><span>聊天与订单按 as_of_time 可见；可见消息 '+((snap.visible_message_count)||0)+' 条</span>'+(conflict?'<div class="notice">来源冲突：客服称已建单，但工单系统当前时点无记录。</div>':"")+"</div><div class='trace-item'><b>"+((snap.workorder||{}).visibility==="visible"?"工单已可见 · "+snap.workorder.workorder_id:"工单快照 · 当前时点暂无可见工单")+"</b><span>"+((snap.workorder||{}).visibility==="visible"?"创建 "+snap.workorder.create_time+" · "+(((snap.workorder.status||{}).snapshot_value)==="completed"?"已完结":"未完结"):"创建前返回 no_workorder，不提前暴露未来字段")+"</span></div></div></div>"+(events.length?'<div class="evidence" style="margin-top:8px">事件 '+events.length+' 条：'+events.map(e=>escapeHtml(e.kind+"@"+(e.time||"").slice(11,19))).join(" · ")+"</div>":"");
+}
+function renderFacts(){
+  const a=state.analysis;if(!a)return;
+  const an=a.analysis;
+  const emo=an.emotion||{};
+  const neg={present:"有负面信号",none:"未见明显负面",unclear:"负面信号不明确"}[emo.negative_signal]||"—";
+  const esc={yes:"有升级信号",no:"未见升级信号",unclear:"升级信号不明确"}[emo.escalation]||"—";
+  $("facts").innerHTML=[
+    ["意图",an.intent.major+" / "+an.intent.minor],
+    ["情绪信号（可观察）",neg+" · "+esc],
+    ["工单状态",((a.snapshot.workorder||{}).visibility)==="visible"?(((a.snapshot.workorder.status||{}).snapshot_value)==="completed"?"已完结":"未完结"):"当前暂无可见工单"],
+    ["风险状态",(an.risk.status==="confirmed"?"规则已定级":"待核实 needs_verification")]
+  ].map(([k,v])=>'<div class="fact"><label>'+k+"</label><strong>"+escapeHtml(v)+"</strong></div>").join("");
+  const risk=an.risk;const warn=risk.level==="待定级";const none=risk.type==="none";
+  const box=$("riskbox");box.className="riskbox "+(none?"ok":warn?"warn":"");
+  box.innerHTML='<div class="risk-title"><span>'+escapeHtml(RISK_NAMES[risk.type]||risk.type)+"</span><span>"+escapeHtml(risk.level)+"</span></div><p><b>why</b>："+(risk.why||[]).map(escapeHtml).join("；")+"</p><p><b>why_not</b>："+(risk.why_not||[]).map(escapeHtml).join("；")+"</p>";
+  $("riskChips").innerHTML=(risk.rule_ids||[]).map(r=>'<span class="chip">'+escapeHtml(r)+"</span>").join("")+'<span class="chip">'+(risk.status==="confirmed"?"规则确认":"待核实")+"</span>";
+}
+function renderTools(){
+  const a=state.analysis;if(!a)return;
+  const calls=a.tool_calls||[];
+  const cls=c=>c.status==="ok"?"✓":c.status==="no_workorder"||c.status==="no_data"?"○":c.status==="source_conflict"?"⚠":"✕";
+  $("toolTrace").innerHTML=calls.map((c,i)=>'<button class="tool-row" data-tool="'+i+'"><span class="tool-check '+(c.status==="ok"?"":c.status==="unavailable"||c.status==="invalid_request"?"bad":"warn")+'">'+cls(c)+'</span><span class="tool-name">'+c.tool+'</span><span class="tool-time">'+(c.deduplicated?"去重 · ":"")+(c.retried?"重试"+c.attempts+"次 · ":"")+c.duration_ms+"ms</span></button>").join("");
+  document.querySelectorAll("[data-tool]").forEach(el=>el.onclick=()=>openToolDrawer(Number(el.dataset.tool)));
+  $("auditBar").innerHTML="<span>Provider："+escapeHtml(a.provider_used)+(a.degraded?"（降级）":"")+"</span><span>analysis_id："+escapeHtml(a.analysis_id)+"</span><span>run_id："+escapeHtml(a.run_id)+"</span><span>safety："+escapeHtml(String((a.safety_check_result||{}).status))+"</span><span>"+(a.cache_hit?"缓存命中":"完整运行")+"</span>";
+}
+function renderDecision(){
+  const a=state.analysis;if(!a)return;
+  const an=a.analysis;const risk=an.risk;const emo=an.emotion;
+  document.querySelector(".decision-card").dataset.level=risk.level;
+  const badge=$("riskBadge");badge.textContent=risk.level+(risk.status==="needs_verification"?" · 待核实":"");
+  badge.className="badge "+(risk.level==="P0"||risk.level==="P1"?"red":risk.level==="待定级"?"amber":"green");
+  $("decisionTitle").textContent=risk.level==="P0"?"须即时人工介入":risk.level==="P1"?"当日核实处理":risk.level==="待定级"?"先核实，再处理":"按标准流程处理";
+  $("decisionSummary").textContent=an.intent.major+" / "+an.intent.minor+"（置信 "+an.intent.confidence+"）";
+  const emotion=emo.escalation==="yes"?"当前有升级信号":emo.negative_signal==="present"?"当前有负面信号":emo.negative_signal==="none"?"未见明显负面信号":"情绪信号不明确";
+  const wo=a.snapshot.workorder||{};
+  const woState=wo.visibility==="visible"?(((wo.status||{}).snapshot_value)==="completed"?"工单已完结":"工单未完结"):"当前暂无可见工单";
+  $("decisionContext").textContent=emotion+"；"+woState+"。"+(a.degraded?"（当前为降级结果，仍须人工核实）":"");
+  const history=emo.evidence_refs&&emo.evidence_refs.length;
+  $("historyNote").hidden=!history;
+  $("historyNote").innerHTML=history?'历史情绪/投诉证据保留 <button class="link-button" data-histref="'+escapeHtml(emo.evidence_refs[0])+'">查看原句</button>':"";
+  const histBtn=document.querySelector("[data-histref]");if(histBtn)histBtn.onclick=()=>{const rows=evidenceRows();showEvidence(refToEvidenceIndex(rows,histBtn.dataset.histref));};
+  const conflict=(a.snapshot.source_inconsistency||[]).length>0;
+  $("conflictAlert").hidden=!conflict;
+  $("conflictAlert").innerHTML=conflict?'<b>来源冲突 · 需核验建单情况</b><p>客服称已建单，但工单系统当前时点暂无记录；两类来源均保留。</p><button class="link-button" id="conflictEvidenceBtn">对照聊天原文与系统快照</button>':"";
+  if(conflict)$("conflictEvidenceBtn").onclick=()=>{const rows=evidenceRows();const idx=rows.findIndex(r=>r.kind.startsWith("来源冲突 · 客服"));showEvidence(idx>=0?idx:0);};
+  // status select shows current server-side disposal status
+  $("caseStatus").value=a.disposal_status||"open";
+  $("caseStatus").title="处置状态："+STATUS_LABELS[a.disposal_status||"open"]+"；变更需人工确认并校验 analysis_id/时点/草稿";
+  // advice panel
+  $("actionDraft").textContent=((an.recommended_actions||[])[0])||"—";
+  const missing=an.missing_fields||[];
+  $("missingCount").textContent=missing.length;
+  $("missingFields").innerHTML=missing.length?missing.map(v=>'<span class="chip">'+escapeHtml(v)+"</span>").join(""):'<span class="chip">无待核验字段</span>';
+  $("replyPreview").textContent=an.reply_draft||"—";
+  // change note
+  const prev=state.prevSnapshot;
+  const cur={session:state.current,asOf:a.as_of_time,wo:woState,conflict,risk:risk.level+risk.type,missing:missing.join("|"),count:a.snapshot.visible_message_count};
+  if(!prev||prev.session!==cur.session){
+    $("changeNote").textContent="已按当前时点生成真实分析 · 完整依据与工具请求在分析详情查看";
+  }else{
+    const changes=[];
+    if(cur.conflict!==prev.conflict)changes.push(cur.conflict?"出现来源冲突":"工单记录已可见，冲突解除");
+    if(cur.wo!==prev.wo)changes.push("工单可见性变化："+cur.wo);
+    if(cur.risk!==prev.risk)changes.push("风险变化："+prev.risk+" → "+cur.risk);
+    if(cur.missing!==prev.missing)changes.push("待核验字段更新");
+    $("changeNote").textContent=changes.length?"本次变化 · "+changes.join("；"):"已同步至 "+pointLabel()+" · 暂无影响处理的变化";
+  }
+  state.prevSnapshot=cur;
+  $("copilotTime").textContent="消息 "+(a.snapshot.visible_message_count||0)+" / "+state.sessionData.messages.length+" · 截止 "+(a.as_of_time||"").slice(11,19)+" · "+(a.as_of_time||"").slice(0,10);
+}
+function renderAll(){
+  renderTopbar();renderSnapshotbar();renderProduct();renderMessages();renderDraftContext();
+  if(!state.analysis){return;}
+  renderDecision();renderEvidence();renderSafety();renderTimeline();renderFacts();renderTools();
+}
+
+// ---------- drawers ----------
+function openToolDrawer(i){
+  const a=state.analysis;if(!a)return;const c=(a.tool_calls||[])[i];if(!c)return;
+  state.drawer={type:"tool"};
+  const resp=c.response||{};
+  $("drawerCrumb").textContent="Agent 工具调用详情 · 本次运行";
+  $("drawerTitle").textContent=c.tool;
+  const body=$("drawerBody");
+  const meta='<div class="call-meta"><span>状态 '+escapeHtml(statusLabel[c.status]||c.status)+"</span><span>耗时 "+c.duration_ms+"ms（实测）</span><span>as_of "+escapeHtml(currentAsOf()||"—")+"</span><span>analysis_id "+escapeHtml(a.analysis_id)+"</span><span>run_id "+escapeHtml(a.run_id)+"</span>"+(c.deduplicated?"<span>去重复用</span>":"")+(c.retried?"<span>重试 "+c.attempts+" 次</span>":"")+(a.degraded?"<span>降级链 "+escapeHtml(a.provider_requested+"→"+a.provider_used)+"</span>":"")+"</div>";
+  const srcs='<div class="call-label">source_refs</div><pre class="json">'+escapeHtml(pretty(resp.source_refs||[]))+"</pre>";
+  const note='<div class="drawer-note">工具只读或生成草稿，请求与响应来自同一次运行（analysis_id/run_id 一致）；不会发送回复、退款、赔偿、打款或直接升级。</div>';
+  body.innerHTML=meta+'<div class="call-label">Request</div><pre class="json">'+escapeHtml(pretty(c.params||{}))+'</pre><div class="call-label">Response</div><pre class="json">'+escapeHtml(pretty(resp.data!==undefined?resp.data:resp))+"</pre>"+srcs+note;
+  openDrawer();
+}
+function openDisposalDrawer(){
+  state.drawer={type:"disposal"};
+  $("drawerCrumb").textContent="处置记录 · append-only";
+  $("drawerTitle").textContent="处置日志";
+  apiGet("/api/disposal").then(j=>{
+    const rows=(j.records||[]).slice().reverse();
+    $("drawerBody").innerHTML=rows.length?rows.map(r=>'<div class="disposal-row"><b>'+escapeHtml(r.operation||r.event)+"</b> · "+escapeHtml(r.outcome||r.action_type||"")+"<small>"+escapeHtml(r.session_id||"")+" · "+escapeHtml(r.operation_time||r.ts||"")+" · 操作者 "+escapeHtml(r.operator||"—")+"</small><small>analysis "+escapeHtml((r.analysis_id||"—").slice(0,28))+"… · as_of "+escapeHtml(r.as_of_time||"—")+" · 状态 "+escapeHtml(String(r.from_status||"—")+"→"+String(r.to_status||"—"))+"</small>"+(r.reason?"<small style=\"color:#c94650\">拒绝原因："+escapeHtml(r.reason)+" — "+escapeHtml(r.detail||"")+"</small>":"")+"</div>").join(""):'<div class="disposal-row">暂无处置记录（不伪造历史）</div>';
+  });
+  openDrawer();
+}
+function openLocalDraftDrawer(title,payload){
+  state.drawer={type:"draft"};
+  $("drawerCrumb").textContent="本地草稿 · 不执行真实业务";
+  $("drawerTitle").textContent=title;
+  $("drawerBody").innerHTML='<div class="drawer-note">以下为本地草稿（人工确认后生成），不创建/更新真实工单、不调用真实升级接口、不改变业务快照。</div><div class="call-label">草稿内容</div><pre class="json">'+escapeHtml(pretty(payload))+"</pre>";
+  openDrawer();
+}
+function openDrawer(){$("drawer").classList.add("open");$("overlay").classList.add("show");$("drawerClose").focus();}
+function closeDrawer(){$("drawer").classList.remove("open");$("overlay").classList.remove("show");state.drawer=null;}
+
+// ---------- panels & events ----------
+function selectCopilotPanel(panel){
+  const details=panel==="detail";
+  $("advicePanel").hidden=details;$("detailPanel").hidden=!details;
+  [["adviceTab",!details],["detailTab",details]].forEach(([id,sel])=>{const el=$(id);el.setAttribute("aria-selected",String(sel));el.tabIndex=sel?0:-1;});
+}
+$("adviceTab").onclick=()=>selectCopilotPanel("advice");
+$("detailTab").onclick=()=>selectCopilotPanel("detail");
+document.querySelector(".copilot-tabs").onkeydown=e=>{
+  if(["ArrowLeft","ArrowRight","Home","End"].includes(e.key)){e.preventDefault();
+    const target=e.key==="Home"?"adviceTab":e.key==="End"?"detailTab":document.activeElement.id==="adviceTab"?"detailTab":"adviceTab";
+    $(target).click();$(target).focus();}
+};
+$("drawerClose").onclick=closeDrawer;$("overlay").onclick=closeDrawer;
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){if($("confirmModal").classList.contains("show")){$("modalCancel").click();}else closeDrawer();}});
+$("searchInput").oninput=renderSessions;
+$("riskFilter").onclick=()=>{const only=$("riskFilter").dataset.only!=="yes";$("riskFilter").dataset.only=only?"yes":"no";$("riskFilter").textContent=only?"仅 P0/P1⌄":"全部风险⌄";renderSessions();};
+document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>{document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("active",x===t));renderSessions();});
+document.querySelectorAll(".snap[data-snap]").forEach(el=>el.onclick=()=>{
+  const next=el.dataset.snap;
+  if(el.disabled){toast("入口禁用："+(el.title||"对应时间为空"),true);return;}
+  closeDrawer();setView({mode:next,step:state.view.step});
+});
+$("prevStep").onclick=()=>setView({mode:"message",step:Math.max(1,state.view.step-1)});
+$("nextStep").onclick=()=>setView({mode:"message",step:Math.min(state.sessionData.messages.length,visibleMessages().length+1)});
+$("stepRange").oninput=e=>setView({mode:"message",step:Number(e.target.value)});
+$("resetStep").onclick=()=>{setView({mode:"message",step:1});toast("已回到首条买家消息，未来工单字段已过滤");};
+$("providerSelect").onchange=e=>{state.provider=e.target.value;refreshAnalysis();};
+$("composer").oninput=onDraftInput;
+$("sendBtn").onclick=()=>{
+  if(!state.analysis)return;
+  openConfirm("使用此回复（保留当前编辑内容）","确认保留当前编辑草稿；不会发送。确认将校验当前 analysis_id、时点与草稿版本。",
+    confirmPayload({action:"use_reply",operation_id:newOpId()}),
+    async()=>{await loadDraft(state.analysis.as_of_time);renderDraftContext();});
+};
+$("applyReplyBtn").onclick=()=>{
+  if(!state.analysis)return;
+  openConfirm("填入建议回复","确认后将用建议回复替换编辑框内容（本地草稿，不发送）。",
+    confirmPayload({action:"apply_reply",operation_id:newOpId()}),
+    async()=>{$("composer").value=state.analysis.analysis.reply_draft||"";$("composer").dispatchEvent(new Event("input"));});
+};
+$("workorderBtn").onclick=()=>{
+  if(!state.analysis)return;const an=state.analysis.analysis;
+  const draft={draft_type:"workorder_draft",session_id:state.current,as_of_time:state.analysis.as_of_time,risk:{type:an.risk.type,level:an.risk.level,rule_ids:an.risk.rule_ids},evidence_refs:(an.source_refs||[]).slice(0,8),note:"本地工单草稿；不创建真实工单"};
+  openConfirm("创建工单草稿（本地）","仅生成本地工单草稿，等待人工后续处理；不调用真实建单接口。",
+    confirmPayload({action:"workorder_draft",operation_id:newOpId(),payload:{draft}}),
+    ()=>openLocalDraftDrawer("工单草稿（本地）",draft));
+};
+$("escalateBtn").onclick=()=>{
+  if(!state.analysis)return;const an=state.analysis.analysis;
+  const draft={draft_type:"escalation_draft",session_id:state.current,as_of_time:state.analysis.as_of_time,reason:(an.risk.why||[]).join("；"),risk_level:an.risk.level,note:"人工升级草稿；由 UI 生成，非第9个 Agent 工具，不调用真实升级"};
+  openConfirm("人工升级（本地草稿）","基于当前分析生成本地升级草稿；不是第 9 个 Agent 工具，不执行真实升级。",
+    confirmPayload({action:"escalation_draft",operation_id:newOpId(),payload:{draft}}),
+    ()=>openLocalDraftDrawer("人工升级草稿（本地）",draft));
+};
+$("caseStatus").onchange=e=>{
+  const to=e.target.value;const a=state.analysis;
+  if(!a){e.target.value="open";return;}
+  const from=a.disposal_status||"open";
+  const p=confirmPayload({action:"status_change",operation_id:newOpId(),from_status:from,to_status:to});
+  openConfirm("确认处置状态："+STATUS_LABELS[to],
+    "状态变更由人工确认触发；确认时校验当前 analysis_id、as_of_time 与幂等 operation_id。P0/P1、未完成必需动作或关键来源冲突不得自动 resolved。",
+    p,
+    async()=>{await selectSession(state.current,true);},
+  );
+  state.pendingConfirm.__statusSelect=e.target;
+};
+$("modalCancel").onclick=()=>{
+  $("confirmModal").classList.remove("show");
+  if(state.pendingConfirm&&state.pendingConfirm.__statusSelect){state.pendingConfirm.__statusSelect.value=state.analysis?(state.analysis.disposal_status||"open"):"open";}
+  state.pendingConfirm=null;
+};
+$("modalConfirm").onclick=submitConfirm;
+$("railDisposal").onclick=openDisposalDrawer;
+$("railWorkorder").onclick=()=>{$("workorderBtn").click();};
+$("allEvidenceBtn").onclick=()=>showEvidence(0);
+// debug/testing hook: run a stale-analysis confirmation through the same path
+window.__wb={
+  confirmStale:async()=>{
+    const a=state.analysis;if(!a)return "no analysis";
+    return apiPost("/api/confirm",{operation_id:newOpId(),action:"status_change",session_id:state.current,analysis_id:"A-STALE-000000000000000000",as_of_time:a.as_of_time,from_status:"open",to_status:"watching",operator:"异步旧任务"});
+  },
+  state
+};
+loadBootstrap().catch(e=>toast("初始化失败："+(e.message||e),true));
+</script>
+</body>
+</html>

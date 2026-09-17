@@ -1,4 +1,4 @@
-open_readonly D:\黑客松\赛题 1：数据共情者-业务数据.xlsx
+open_readonly D:\黑客松\data-empathy-copilot\赛题 1：数据共情者-业务数据.xlsx
 source_sha256 b5ac027e863c5580dab39c8f459e4698d65e9fbec29832c9915448f2087307b7
 engine=openpyxl data_only=True read_only=True write=never
 workbook_sheets ['数据说明', '聊天记录', '订单', '补发换货工单', '线下打款工单', '物流工单', '不良反应工单', '售后退货工单']

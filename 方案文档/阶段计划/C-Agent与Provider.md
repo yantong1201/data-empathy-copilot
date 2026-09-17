@@ -1,7 +1,7 @@
 # 阶段 C：Agent 与三种 Provider
 
 进入条件：A 的快照接口和 B 的正式 Schema 可用。涉及 AGENT-T001–T004；Mock/Rule 可先于 Qwen 并行。
-退出条件：AGENT-C001–C004 全部通过；断网无密钥主流程可运行；统一 `analysis_id`/`run_id`、完整版本指纹、运行预算、停止/降级记录和 `safety_check_result` 可被工作台与评测读取。当前：A/B 进入条件已满足，C 尚未实现；不得把 A/B 阶段报告当作 Agent、Provider 或端到端安全证据。
+退出条件：AGENT-C001–C004 全部通过；断网无密钥主流程可运行；统一 `analysis_id`/`run_id`、完整版本指纹、运行预算、停止/降级记录和 `safety_check_result` 可被工作台与评测读取。当前：C 已完成（2026-09-16，AGENT-C001–C004 全部 PASS，data/reports/agent_phase_c_verification.json）；Qwen 无凭证，真实成功路径保持未验证。
 本阶段的运行证据必须区分设计定义、实现产物和实际运行结果；至少保留脱敏的实际模型输入摘要或 hash、工具调用/响应关联、失败/超时/取消/降级记录。无 Qwen 凭证时，Qwen 成功验证保持“未验证”，不得写成通过。
 
 ## 当前接续状态

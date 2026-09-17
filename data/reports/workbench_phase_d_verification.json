@@ -1,0 +1,97 @@
+{
+  "artifacts": {
+    "confirm_log": "D:\\黑客松\\data-empathy-copilot\\data\\workbench\\confirm_log.jsonl",
+    "disposal_log": "D:\\黑客松\\data-empathy-copilot\\data\\workbench\\disposal_log.jsonl",
+    "screenshots": [
+      "01_S00015_msg1_desktop.png",
+      "02_S00015_after_create.png",
+      "03_S00024_disabled_completed.png",
+      "04_search_future_wo_no_leak.png",
+      "05_S00024_msg4_conflict.png",
+      "06_tool_drawer_real.png",
+      "07_status_confirm_modal.png",
+      "08_disposal_log.png",
+      "09_narrow_600px.png"
+    ],
+    "screenshots_dir": "D:\\黑客松\\data-empathy-copilot\\data\\reports\\ui_evidence",
+    "server": "python -m backend.workbench --port 8765"
+  },
+  "checks": {
+    "UI-C001": {
+      "api_recheck": {
+        "S00001_complete_time": null,
+        "S00015_at_complete": {
+          "complete_time_visible": "2026-05-05T23:56:33+08:00",
+          "completion": "completed"
+        },
+        "S00015_at_create": {
+          "workorder_id": "BLFY61738711",
+          "workorder_visibility": "visible"
+        },
+        "S00015_first": {
+          "as_of": "2026-05-05T16:33:33+08:00",
+          "risk": [
+            "adverse_reaction",
+            "P0"
+          ],
+          "workorder_visibility": "no_workorder"
+        },
+        "S00024_complete_time": null,
+        "S00024_completed_entry_disabled_reason": "完成时间为空（工单未完结）"
+      },
+      "browser_evidence": [
+        "01_S00015_msg1_desktop.png（首条买家消息，工单不可见，P0）",
+        "02_S00015_after_create.png（工单创建后：工单可见、未完结）",
+        "04_search_future_wo_no_leak.png（用工单号 KOC3195289 搜索仅定位会话，进入后无未来工单字段）"
+      ],
+      "notes": "回放路径 消息1→创建后→完成后→回到首条 均按统一快照重算；S00024/S00001 完成入口禁用并显示原因",
+      "passed": true
+    },
+    "UI-C002": {
+      "browser_evidence": [
+        "05_S00024_msg4_conflict.png（消息4：来源冲突提示，客服声称已建单但系统暂无记录）",
+        "06_tool_drawer_real.png（工具抽屉：真实请求/响应、source_refs、实测耗时、analysis_id/run_id）"
+      ],
+      "passed": true,
+      "verified_interactions": {
+        "draft_isolated": "草稿按会话+时点隔离，编辑后自动保存（v1/hash b34d97ae 已复核）",
+        "escalation_local": "人工升级/工单草稿为本地草稿确认后展示，未调用第 9 个工具或真实接口",
+        "evidence_locating": "点击关键依据高亮聊天原句且 as_of 不变（21:38:52 前后一致）",
+        "known_identifiers": "回复草稿不重复询问当前可见订单号/运单号/工单号（S00024 首条建议回复未包含编号提问）",
+        "tool_drawer": "打开/关闭抽屉不改时点、草稿或处置状态；Esc 与关闭按钮均可关闭"
+      }
+    },
+    "UI-C003": {
+      "browser_evidence": [
+        "07_status_confirm_modal.png（确认框显示 analysis_id/as_of_time/operation_id 校验字段）",
+        "08_disposal_log.png（处置日志抽屉：append-only 记录含操作者/时间/分析标识/前后状态）"
+      ],
+      "passed": true,
+      "verified_rules": {
+        "accepted": "S00024 open→watching 人工确认通过（operation_id 幂等重放复核通过）",
+        "append_only": "disposal_log.jsonl / confirm_log.jsonl 哈希链追加（D:\\黑客松\\data-empathy-copilot\\data\\workbench\\disposal_log.jsonl）",
+        "rejected_resolved": "S00024 →resolved 被 pending_actions_block_resolve 拒绝",
+        "rejected_stale": "异步旧分析确认被 stale_analysis 拒绝（UI toast 与 API 双重复核）",
+        "safety_gate": "服务端仅接受 safety_check_result.status=pass 且 Schema 合法的分析作为确认依据"
+      }
+    },
+    "UI-C004": {
+      "browser_evidence": [
+        "01_S00015_msg1_desktop.png（桌面 1440px：首屏含当前判断/下一步/回复预览/关键依据，完整 JSON 按需展开）",
+        "09_narrow_600px.png（窄屏 600px：聊天与 Copilot 纵向堆叠，聊天不遮挡）"
+      ],
+      "passed": true,
+      "verified_rules": {
+        "efficiency": "主要处理路径（判断→下一步→填入回复）无需先打开详情抽屉",
+        "keyboard": "消息气泡 role=button+tabindex 可 Enter/Space 选择时点；抽屉 Esc 关闭；确认/取消可键盘操作",
+        "static_baseline": "prototype/index.html 原型保持未改动，静态交互基线保留",
+        "text_not_color": "风险等级/状态均有文字标签，不单靠颜色"
+      }
+    }
+  },
+  "evidence_boundary": "本报告基于真实 Excel 快照、真实 Agent 运行与浏览器实际操作；Mock/Rule 输出不构成模型效果证据；真实业务动作从未被执行",
+  "issues": [],
+  "passed": true,
+  "phase": "D",
+  "verified_at": "2026-09-16T12:09:39+08:00"
+}

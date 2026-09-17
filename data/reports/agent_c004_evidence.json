@@ -1,0 +1,84 @@
+{
+  "append_only": {
+    "append_only": true,
+    "file_size_bytes": 2446813,
+    "hash_chain_valid": true,
+    "record_count": 715,
+    "seq_monotonic": true
+  },
+  "cache": {
+    "different_run_id": true,
+    "fingerprint_change": {
+      "cache_entries": 2,
+      "invalidated": true,
+      "method": "Prompt 指纹变化（SYSTEM_PROMPT v2），规则/Schema/政策文件未修改",
+      "new_analysis_id": "A-S00001-5281edba1bc763cd7d57",
+      "old_analysis_id": "A-S00001-6fdcaa43a11e8ae662ca"
+    },
+    "first_cache_hit": false,
+    "same_analysis_id": true,
+    "second_cache_hit": true,
+    "second_record_final_status": "cache_hit"
+  },
+  "cost_summary": {
+    "cache_hits": 11,
+    "cache_misses": 704,
+    "completion_tokens": {
+      "count": 715,
+      "mean": 0,
+      "median": 0,
+      "p50": 0,
+      "p95": 0
+    },
+    "degraded_runs": 108,
+    "duration_ms": {
+      "count": 715,
+      "mean": 2.138,
+      "median": 0,
+      "p50": 0,
+      "p95": 16
+    },
+    "failed_or_rejected_runs": 53,
+    "failure_reasons": [
+      "cancelled",
+      "provider_fallback_exhausted",
+      "tool_budget_exceeded"
+    ],
+    "generated_at": "2026-09-16T12:16:02.795+08:00",
+    "note": "仅统计真实运行记录；固定演示耗时不得计入",
+    "prompt_tokens": {
+      "count": 715,
+      "mean": 0,
+      "median": 0,
+      "p50": 0,
+      "p95": 0
+    },
+    "tool_calls_per_run": {
+      "count": 715,
+      "mean": 7.877,
+      "median": 8,
+      "p50": 8,
+      "p95": 8
+    },
+    "total_runs": 715
+  },
+  "record_fields": {
+    "missing_in_some_records": [],
+    "required": [
+      "analysis_id",
+      "run_id",
+      "session_id",
+      "as_of_time",
+      "provider_used",
+      "versions",
+      "tool_calls",
+      "token_usage",
+      "duration_ms",
+      "cache_hit",
+      "final_status",
+      "stop_reason",
+      "safety_status"
+    ],
+    "total_records": 142
+  }
+}

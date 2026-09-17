@@ -1,11 +1,11 @@
 {
   "artifacts": {
-    "field_mapping": "D:\\黑客松\\data\\reports\\field_mapping.json",
-    "fixtures_manifest": "D:\\黑客松\\data\\fixtures\\manifest.json",
-    "loader_log": "D:\\黑客松\\data\\reports\\loader.log",
-    "loader_selfcheck": "D:\\黑客松\\data\\reports\\loader_selfcheck.json",
-    "repeatability": "D:\\黑客松\\data\\reports\\repeatability.json",
-    "source_inconsistency_scan": "D:\\黑客松\\data\\reports\\source_inconsistency_scan.json"
+    "field_mapping": "D:\\黑客松\\data-empathy-copilot\\data\\reports\\field_mapping.json",
+    "fixtures_manifest": "D:\\黑客松\\data-empathy-copilot\\data\\fixtures\\manifest.json",
+    "loader_log": "D:\\黑客松\\data-empathy-copilot\\data\\reports\\loader.log",
+    "loader_selfcheck": "D:\\黑客松\\data-empathy-copilot\\data\\reports\\loader_selfcheck.json",
+    "repeatability": "D:\\黑客松\\data-empathy-copilot\\data\\reports\\repeatability.json",
+    "source_inconsistency_scan": "D:\\黑客松\\data-empathy-copilot\\data\\reports\\source_inconsistency_scan.json"
   },
   "checks": [
     {
@@ -108,5 +108,5 @@
   "passed": true,
   "source_sha256": "b5ac027e863c5580dab39c8f459e4698d65e9fbec29832c9915448f2087307b7",
   "title": "Phase A DATA-C001–C004 verification",
-  "xlsx": "D:\\黑客松\\赛题 1：数据共情者-业务数据.xlsx"
+  "xlsx": "D:\\黑客松\\data-empathy-copilot\\赛题 1：数据共情者-业务数据.xlsx"
 }

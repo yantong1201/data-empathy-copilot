@@ -1,0 +1,2717 @@
+{
+  "annotation_method": "程序辅助标注：意图=可见聊天文本规则推导（盲于预测与 scene_* 源字段，源字段仅冲突登记）；情绪/风险=按风险 SPEC 矩阵预期并记录证据引用与 rule_id；回复四维评分=两个独立评分函数（A 严格/B 服务导向）独立打分后按保守值裁决",
+  "blind_to_predictions": true,
+  "gold_sha256": "721e735b76de56d373471ba9494e4929f2736c29af3663e0895d17fb9424d802",
+  "gold_version": "gold_v1",
+  "labels": [
+    {
+      "as_of_time": "2026-05-05T16:33:33+08:00",
+      "emotion": {
+        "escalation": "no",
+        "evidence_refs": [
+          "chat:S00015:1"
+        ],
+        "negative_signal": "present"
+      },
+      "expected_associations": {
+        "order": "6920797553890280371",
+        "workorder": "no_workorder"
+      },
+      "gold_version": "gold_v1",
+      "intent": {
+        "cue": "医院",
+        "major": "不良反应",
+        "minor": "过敏就医"
+      },
+      "intent_conflict": null,
+      "intent_source_field_crosscheck": {
+        "major": "不良反应",
+        "minor": "过敏就医"
+      },
+      "message_no": 1,
+      "required_evidence_refs": [
+        "chat:S00015:1"
+      ],
+      "risk": {
+        "evidence_refs": [
+          "chat:S00015:1"
+        ],
+        "level": "P0",
+        "rule_ids": [
+          "R-AR-001"
+        ],
+        "status": "confirmed",
+        "type": "adverse_reaction"
+      },
+      "sample_id": "S00015#1",
+      "session_id": "S00015",
+      "visible_gold_fields": [
+        {
+          "field": "order.placed_time",
+          "source_ref": "order:6920797553890280371",
+          "value": "2026-04-19T14:03:33+08:00"
+        },
+        {
+          "field": "order.paid_time",
+          "source_ref": "order:6920797553890280371",
+          "value": "2026-04-19T14:15:33+08:00"
+        },
+        {
+          "field": "order.shipped_time",
+          "source_ref": "order:6920797553890280371:logistics",
+          "value": "2026-04-21T03:15:33+08:00"
+        }
+      ]
+    },
+    {
+      "as_of_time": "2026-05-05T16:37:21+08:00",
+      "emotion": {
+        "escalation": "yes",
+        "evidence_refs": [
+          "chat:S00015:1",
+          "chat:S00015:3"
+        ],
+        "negative_signal": "present"
+      },
+      "expected_associations": {
+        "order": "6920797553890280371",
+        "workorder": "no_workorder"
+      },
+      "gold_version": "gold_v1",
+      "intent": {
+        "cue": "医院",
+        "major": "不良反应",
+        "minor": "过敏就医"
+      },
+      "intent_conflict": null,
+      "intent_source_field_crosscheck": {
+        "major": "不良反应",
+        "minor": "过敏就医"
+      },
+      "message_no": 3,
+      "required_evidence_refs": [
+        "chat:S00015:1",
+        "chat:S00015:3"
+      ],
+      "risk": {
+        "evidence_refs": [
+          "chat:S00015:1",
+          "chat:S00015:3"
+        ],
+        "level": "P0",
+        "rule_ids": [
+          "R-AR-001",
+          "R-COMP-001"
+        ],
+        "status": "confirmed",
+        "type": "adverse_reaction"
+      },
+      "sample_id": "S00015#3",
+      "session_id": "S00015",
+      "visible_gold_fields": [
+        {
+          "field": "order.placed_time",
+          "source_ref": "order:6920797553890280371",
+          "value": "2026-04-19T14:03:33+08:00"
+        },
+        {
+          "field": "order.paid_time",
+          "source_ref": "order:6920797553890280371",
+          "value": "2026-04-19T14:15:33+08:00"
+        },
+        {
+          "field": "order.shipped_time",
+          "source_ref": "order:6920797553890280371:logistics",
+          "value": "2026-04-21T03:15:33+08:00"
+        }
+      ]
+    },
+    {
+      "as_of_time": "2026-05-05T16:39:24+08:00",
+      "emotion": {
+        "escalation": "no",
+        "evidence_refs": [
+          "chat:S00015:1",
+          "chat:S00015:3"
+        ],
+        "negative_signal": "present"
+      },
+      "expected_associations": {
+        "order": "6920797553890280371",
+        "workorder": "no_workorder"
+      },
+      "gold_version": "gold_v1",
+      "intent": {
+        "cue": "医院",
+        "major": "不良反应",
+        "minor": "过敏就医"
+      },
+      "intent_conflict": null,
+      "intent_source_field_crosscheck": {
+        "major": "不良反应",
+        "minor": "过敏就医"
+      },
+      "message_no": 5,
+      "required_evidence_refs": [
+        "chat:S00015:1",
+        "chat:S00015:3"
+      ],
+      "risk": {
+        "evidence_refs": [
+          "chat:S00015:1",
+          "chat:S00015:5"
+        ],
+        "level": "P0",
+        "rule_ids": [
+          "R-AR-001"
+        ],
+        "status": "confirmed",
+        "type": "adverse_reaction"
+      },
+      "sample_id": "S00015#5",
+      "session_id": "S00015",
+      "visible_gold_fields": [
+        {
+          "field": "order.placed_time",
+          "source_ref": "order:6920797553890280371",
+          "value": "2026-04-19T14:03:33+08:00"
+        },
+        {
+          "field": "order.paid_time",
+          "source_ref": "order:6920797553890280371",
+          "value": "2026-04-19T14:15:33+08:00"
+        },
+        {
+          "field": "order.shipped_time",
+          "source_ref": "order:6920797553890280371:logistics",
+          "value": "2026-04-21T03:15:33+08:00"
+        }
+      ]
+    },
+    {
+      "as_of_time": "2026-05-05T16:40:47+08:00",
+      "emotion": {
+        "escalation": "no",
+        "evidence_refs": [
+          "chat:S00015:1",
+          "chat:S00015:3"
+        ],
+        "negative_signal": "present"
+      },
+      "expected_associations": {
+        "order": "6920797553890280371",
+        "workorder": "no_workorder"
+      },
+      "gold_version": "gold_v1",
+      "intent": {
+        "cue": "医院",
+        "major": "不良反应",
+        "minor": "过敏就医"
+      },
+      "intent_conflict": null,
+      "intent_source_field_crosscheck": {
+        "major": "不良反应",
+        "minor": "过敏就医"
+      },
+      "message_no": 7,
+      "required_evidence_refs": [
+        "chat:S00015:1",
+        "chat:S00015:3"
+      ],
+      "risk": {
+        "evidence_refs": [
+          "chat:S00015:1",
+          "chat:S00015:5",
+          "chat:S00015:7"
+        ],
+        "level": "P0",
+        "rule_ids": [
+          "R-AR-001"
+        ],
+        "status": "confirmed",
+        "type": "adverse_reaction"
+      },
+      "sample_id": "S00015#7",
+      "session_id": "S00015",
+      "visible_gold_fields": [
+        {
+          "field": "order.placed_time",
+          "source_ref": "order:6920797553890280371",
+          "value": "2026-04-19T14:03:33+08:00"
+        },
+        {
+          "field": "order.paid_time",
+          "source_ref": "order:6920797553890280371",
+          "value": "2026-04-19T14:15:33+08:00"
+        },
+        {
+          "field": "order.shipped_time",
+          "source_ref": "order:6920797553890280371:logistics",
+          "value": "2026-04-21T03:15:33+08:00"
+        }
+      ]
+    },
+    {
+      "as_of_time": "2026-05-05T16:42:39+08:00",
+      "emotion": {
+        "escalation": "no",
+        "evidence_refs": [
+          "chat:S00015:1",
+          "chat:S00015:3"
+        ],
+        "negative_signal": "present"
+      },
+      "expected_associations": {
+        "order": "6920797553890280371",
+        "workorder": "no_workorder"
+      },
+      "gold_version": "gold_v1",
+      "intent": {
+        "cue": "医院",
+        "major": "不良反应",
+        "minor": "过敏就医"
+      },
+      "intent_conflict": null,
+      "intent_source_field_crosscheck": {
+        "major": "不良反应",
+        "minor": "过敏就医"
+      },
+      "message_no": 9,
+      "required_evidence_refs": [
+        "chat:S00015:1",
+        "chat:S00015:3"
+      ],
+      "risk": {
+        "evidence_refs": [
+          "chat:S00015:1",
+          "chat:S00015:5",
+          "chat:S00015:7"
+        ],
+        "level": "P0",
+        "rule_ids": [
+          "R-AR-001"
+        ],
+        "status": "confirmed",
+        "type": "adverse_reaction"
+      },
+      "sample_id": "S00015#9",
+      "session_id": "S00015",
+      "visible_gold_fields": [
+        {
+          "field": "order.placed_time",
+          "source_ref": "order:6920797553890280371",
+          "value": "2026-04-19T14:03:33+08:00"
+        },
+        {
+          "field": "order.paid_time",
+          "source_ref": "order:6920797553890280371",
+          "value": "2026-04-19T14:15:33+08:00"
+        },
+        {
+          "field": "order.shipped_time",
+          "source_ref": "order:6920797553890280371:logistics",
+          "value": "2026-04-21T03:15:33+08:00"
+        }
+      ]
+    },
+    {
+      "as_of_time": "2026-05-05T21:38:52+08:00",
+      "emotion": {
+        "escalation": "no",
+        "evidence_refs": [
+          "chat:S00024:1"
+        ],
+        "negative_signal": "present"
+      },
+      "expected_associations": {
+        "order": "6920681898386530047",
+        "workorder": "no_workorder"
+      },
+      "gold_version": "gold_v1",
+      "intent": {
+        "cue": "里面是空的",
+        "major": "售后退货",
+        "minor": "仅退款疑似异常"
+      },
+      "intent_conflict": null,
+      "intent_source_field_crosscheck": {
+        "major": "售后退货",
+        "minor": "仅退款疑似异常"
+      },
+      "message_no": 1,
+      "required_evidence_refs": [
+        "chat:S00024:1"
+      ],
+      "risk": {
+        "evidence_refs": [
+          "chat:S00024:1"
+        ],
+        "level": "待定级",
+        "rule_ids": [
+          "R-REFUND-001"
+        ],
+        "status": "needs_verification",
+        "type": "abnormal_refund"
+      },
+      "sample_id": "S00024#1",
+      "session_id": "S00024",
+      "visible_gold_fields": [
+        {
+          "field": "order.placed_time",
+          "source_ref": "order:6920681898386530047",
+          "value": "2026-04-29T17:33:52+08:00"
+        },
+        {
+          "field": "order.paid_time",
+          "source_ref": "order:6920681898386530047",
+          "value": "2026-04-29T17:55:52+08:00"
+        },
+        {
+          "field": "order.shipped_time",
+          "source_ref": "order:6920681898386530047:logistics",
+          "value": "2026-05-01T13:55:52+08:00"
+        }
+      ]
+    },
+    {
+      "as_of_time": "2026-05-05T21:42:20+08:00",
+      "emotion": {
+        "escalation": "no",
+        "evidence_refs": [
+          "chat:S00024:1",
+          "chat:S00024:3"
+        ],
+        "negative_signal": "present"
+      },
+      "expected_associations": {
+        "order": "6920681898386530047",
+        "workorder": "no_workorder"
+      },
+      "gold_version": "gold_v1",
+      "intent": {
+        "cue": "里面是空的",
+        "major": "售后退货",
+        "minor": "仅退款疑似异常"
+      },
+      "intent_conflict": null,
+      "intent_source_field_crosscheck": {
+        "major": "售后退货",
+        "minor": "仅退款疑似异常"
+      },
+      "message_no": 3,
+      "required_evidence_refs": [
+        "chat:S00024:1",
+        "chat:S00024:3"
+      ],
+      "risk": {
+        "evidence_refs": [
+          "chat:S00024:1"
+        ],
+        "level": "待定级",
+        "rule_ids": [
+          "R-REFUND-001"
+        ],
+        "status": "needs_verification",
+        "type": "abnormal_refund"
+      },
+      "sample_id": "S00024#3",
+      "session_id": "S00024",
+      "visible_gold_fields": [
+        {
+          "field": "order.placed_time",
+          "source_ref": "order:6920681898386530047",
+          "value": "2026-04-29T17:33:52+08:00"
+        },
+        {
+          "field": "order.paid_time",
+          "source_ref": "order:6920681898386530047",
+          "value": "2026-04-29T17:55:52+08:00"
+        },
+        {
+          "field": "order.shipped_time",
+          "source_ref": "order:6920681898386530047:logistics",
+          "value": "2026-05-01T13:55:52+08:00"
+        }
+      ]
+    },
+    {
+      "as_of_time": "2026-05-05T21:43:56+08:00",
+      "emotion": {
+        "escalation": "no",
+        "evidence_refs": [
+          "chat:S00024:1",
+          "chat:S00024:3",
+          "chat:S00024:5"
+        ],
+        "negative_signal": "present"
+      },
+      "expected_associations": {
+        "order": "6920681898386530047",
+        "workorder": "no_workorder"
+      },
+      "gold_version": "gold_v1",
+      "intent": {
+        "cue": "里面是空的",
+        "major": "售后退货",
+        "minor": "仅退款疑似异常"
+      },
+      "intent_conflict": null,
+      "intent_source_field_crosscheck": {
+        "major": "售后退货",
+        "minor": "仅退款疑似异常"
+      },
+      "message_no": 5,
+      "required_evidence_refs": [
+        "chat:S00024:1",
+        "chat:S00024:3",
+        "chat:S00024:5"
+      ],
+      "risk": {
+        "evidence_refs": [
+          "chat:S00024:1"
+        ],
+        "level": "待定级",
+        "rule_ids": [
+          "R-REFUND-001"
+        ],
+        "status": "needs_verification",
+        "type": "abnormal_refund"
+      },
+      "sample_id": "S00024#5",
+      "session_id": "S00024",
+      "visible_gold_fields": [
+        {
+          "field": "order.placed_time",
+          "source_ref": "order:6920681898386530047",
+          "value": "2026-04-29T17:33:52+08:00"
+        },
+        {
+          "field": "order.paid_time",
+          "source_ref": "order:6920681898386530047",
+          "value": "2026-04-29T17:55:52+08:00"
+        },
+        {
+          "field": "order.shipped_time",
+          "source_ref": "order:6920681898386530047:logistics",
+          "value": "2026-05-01T13:55:52+08:00"
+        }
+      ]
+    },
+    {
+      "as_of_time": "2026-05-05T21:46:58+08:00",
+      "emotion": {
+        "escalation": "no",
+        "evidence_refs": [
+          "chat:S00024:1",
+          "chat:S00024:3",
+          "chat:S00024:5",
+          "chat:S00024:7"
+        ],
+        "negative_signal": "present"
+      },
+      "expected_associations": {
+        "order": "6920681898386530047",
+        "workorder": "no_workorder"
+      },
+      "gold_version": "gold_v1",
+      "intent": {
+        "cue": "里面是空的",
+        "major": "售后退货",
+        "minor": "仅退款疑似异常"
+      },
+      "intent_conflict": null,
+      "intent_source_field_crosscheck": {
+        "major": "售后退货",
+        "minor": "仅退款疑似异常"
+      },
+      "message_no": 7,
+      "required_evidence_refs": [
+        "chat:S00024:1",
+        "chat:S00024:3",
+        "chat:S00024:5"
+      ],
+      "risk": {
+        "evidence_refs": [
+          "chat:S00024:1"
+        ],
+        "level": "待定级",
+        "rule_ids": [
+          "R-REFUND-001"
+        ],
+        "status": "needs_verification",
+        "type": "abnormal_refund"
+      },
+      "sample_id": "S00024#7",
+      "session_id": "S00024",
+      "visible_gold_fields": [
+        {
+          "field": "order.placed_time",
+          "source_ref": "order:6920681898386530047",
+          "value": "2026-04-29T17:33:52+08:00"
+        },
+        {
+          "field": "order.paid_time",
+          "source_ref": "order:6920681898386530047",
+          "value": "2026-04-29T17:55:52+08:00"
+        },
+        {
+          "field": "order.shipped_time",
+          "source_ref": "order:6920681898386530047:logistics",
+          "value": "2026-05-01T13:55:52+08:00"
+        }
+      ]
+    },
+    {
+      "as_of_time": "2026-05-05T10:18:45+08:00",
+      "emotion": {
+        "escalation": "no",
+        "evidence_refs": [
+          "chat:S00001:1"
+        ],
+        "negative_signal": "present"
+      },
+      "expected_associations": {
+        "order": "6920185815517983396",
+        "workorder": "no_workorder"
+      },
+      "gold_version": "gold_v1",
+      "intent": {
+        "cue": "泵头是坏的",
+        "major": "补发换货",
+        "minor": "破损换货"
+      },
+      "intent_conflict": null,
+      "intent_source_field_crosscheck": {
+        "major": "补发换货",
+        "minor": "破损换货"
+      },
+      "message_no": 1,
+      "required_evidence_refs": [
+        "chat:S00001:1"
+      ],
+      "risk": {
+        "evidence_refs": [
+          "chat:S00001:1"
+        ],
+        "level": "待定级",
+        "rule_ids": [
+          "R-DAMAGE-001"
+        ],
+        "status": "needs_verification",
+        "type": "aftersales_damage"
+      },
+      "sample_id": "S00001#1",
+      "session_id": "S00001",
+      "visible_gold_fields": [
+        {
+          "field": "order.placed_time",
+          "source_ref": "order:6920185815517983396",
+          "value": "2026-04-29T08:27:45+08:00"
+        },
+        {
+          "field": "order.paid_time",
+          "source_ref": "order:6920185815517983396",
+          "value": "2026-04-29T08:50:45+08:00"
+        },
+        {
+          "field": "order.shipped_time",
+          "source_ref": "order:6920185815517983396:logistics",
+          "value": "2026-04-30T08:50:45+08:00"
+        }
+      ]
+    },
+    {
+      "as_of_time": "2026-05-05T10:21:38+08:00",
+      "emotion": {
+        "escalation": "no",
+        "evidence_refs": [
+          "chat:S00001:1"
+        ],
+        "negative_signal": "present"
+      },
+      "expected_associations": {
+        "order": "6920185815517983396",
+        "workorder": "no_workorder"
+      },
+      "gold_version": "gold_v1",
+      "intent": {
+        "cue": "泵头是坏的",
+        "major": "补发换货",
+        "minor": "破损换货"
+      },
+      "intent_conflict": null,
+      "intent_source_field_crosscheck": {
+        "major": "补发换货",
+        "minor": "破损换货"
+      },
+      "message_no": 3,
+      "required_evidence_refs": [
+        "chat:S00001:1"
+      ],
+      "risk": {
+        "evidence_refs": [
+          "chat:S00001:1"
+        ],
+        "level": "待定级",
+        "rule_ids": [
+          "R-DAMAGE-001"
+        ],
+        "status": "needs_verification",
+        "type": "aftersales_damage"
+      },
+      "sample_id": "S00001#3",
+      "session_id": "S00001",
+      "visible_gold_fields": [
+        {
+          "field": "order.placed_time",
+          "source_ref": "order:6920185815517983396",
+          "value": "2026-04-29T08:27:45+08:00"
+        },
+        {
+          "field": "order.paid_time",
+          "source_ref": "order:6920185815517983396",
+          "value": "2026-04-29T08:50:45+08:00"
+        },
+        {
+          "field": "order.shipped_time",
+          "source_ref": "order:6920185815517983396:logistics",
+          "value": "2026-04-30T08:50:45+08:00"
+        }
+      ]
+    },
+    {
+      "as_of_time": "2026-05-05T10:25:13+08:00",
+      "emotion": {
+        "escalation": "no",
+        "evidence_refs": [
+          "chat:S00001:1"
+        ],
+        "negative_signal": "present"
+      },
+      "expected_associations": {
+        "order": "6920185815517983396",
+        "workorder": "no_workorder"
+      },
+      "gold_version": "gold_v1",
+      "intent": {
+        "cue": "泵头是坏的",
+        "major": "补发换货",
+        "minor": "破损换货"
+      },
+      "intent_conflict": null,
+      "intent_source_field_crosscheck": {
+        "major": "补发换货",
+        "minor": "破损换货"
+      },
+      "message_no": 5,
+      "required_evidence_refs": [
+        "chat:S00001:1"
+      ],
+      "risk": {
+        "evidence_refs": [
+          "chat:S00001:1",
+          "chat:S00001:4"
+        ],
+        "level": "P2",
+        "rule_ids": [
+          "R-DAMAGE-001"
+        ],
+        "status": "confirmed",
+        "type": "aftersales_damage"
+      },
+      "sample_id": "S00001#5",
+      "session_id": "S00001",
+      "visible_gold_fields": [
+        {
+          "field": "order.placed_time",
+          "source_ref": "order:6920185815517983396",
+          "value": "2026-04-29T08:27:45+08:00"
+        },
+        {
+          "field": "order.paid_time",
+          "source_ref": "order:6920185815517983396",
+          "value": "2026-04-29T08:50:45+08:00"
+        },
+        {
+          "field": "order.shipped_time",
+          "source_ref": "order:6920185815517983396:logistics",
+          "value": "2026-04-30T08:50:45+08:00"
+        }
+      ]
+    },
+    {
+      "as_of_time": "2026-05-07T20:58:31+08:00",
+      "emotion": {
+        "escalation": "no",
+        "evidence_refs": [
+          "chat:S00064:1"
+        ],
+        "negative_signal": "present"
+      },
+      "expected_associations": {
+        "order": "6920154185938638662",
+        "workorder": "no_workorder"
+      },
+      "gold_version": "gold_v1",
+      "intent": {
+        "cue": "少发",
+        "major": "物流异常",
+        "minor": "包裹少件"
+      },
+      "intent_conflict": {
+        "kind": "intent_source_field_disagreement",
+        "resolution": "gold 采用文本推导标签；源字段仅登记冲突",
+        "source_field": "补发换货/少发正装",
+        "text_derived": "物流异常/包裹少件"
+      },
+      "intent_source_field_crosscheck": {
+        "major": "补发换货",
+        "minor": "少发正装"
+      },
+      "message_no": 1,
+      "required_evidence_refs": [
+        "chat:S00064:1"
+      ],
+      "risk": {
+        "evidence_refs": [],
+        "level": "P2",
+        "rule_ids": [
+          "R-NONE-001"
+        ],
+        "status": "confirmed",
+        "type": "none"
+      },
+      "sample_id": "S00064#1",
+      "session_id": "S00064",
+      "visible_gold_fields": [
+        {
+          "field": "order.placed_time",
+          "source_ref": "order:6920154185938638662",
+          "value": "2026-04-30T18:24:31+08:00"
+        },
+        {
+          "field": "order.paid_time",
+          "source_ref": "order:6920154185938638662",
+          "value": "2026-04-30T18:30:31+08:00"
+        },
+        {
+          "field": "order.shipped_time",
+          "source_ref": "order:6920154185938638662:logistics",
+          "value": "2026-05-02T00:30:31+08:00"
+        }
+      ]
+    },
+    {
+      "as_of_time": "2026-05-07T21:01:13+08:00",
+      "emotion": {
+        "escalation": "yes",
+        "evidence_refs": [
+          "chat:S00064:1",
+          "chat:S00064:3"
+        ],
+        "negative_signal": "present"
+      },
+      "expected_associations": {
+        "order": "6920154185938638662",
+        "workorder": "no_workorder"
+      },
+      "gold_version": "gold_v1",
+      "intent": {
+        "cue": "少发",
+        "major": "物流异常",
+        "minor": "包裹少件"
+      },
+      "intent_conflict": {
+        "kind": "intent_source_field_disagreement",
+        "resolution": "gold 采用文本推导标签；源字段仅登记冲突",
+        "source_field": "补发换货/少发正装",
+        "text_derived": "物流异常/包裹少件"
+      },
+      "intent_source_field_crosscheck": {
+        "major": "补发换货",
+        "minor": "少发正装"
+      },
+      "message_no": 3,
+      "required_evidence_refs": [
+        "chat:S00064:1",
+        "chat:S00064:3"
+      ],
+      "risk": {
+        "evidence_refs": [
+          "chat:S00064:3",
+          "chat:S00064:1"
+        ],
+        "level": "P0",
+        "rule_ids": [
+          "R-COMP-001"
+        ],
+        "status": "confirmed",
+        "type": "complaint_escalation"
+      },
+      "sample_id": "S00064#3",
+      "session_id": "S00064",
+      "visible_gold_fields": [
+        {
+          "field": "order.placed_time",
+          "source_ref": "order:6920154185938638662",
+          "value": "2026-04-30T18:24:31+08:00"
+        },
+        {
+          "field": "order.paid_time",
+          "source_ref": "order:6920154185938638662",
+          "value": "2026-04-30T18:30:31+08:00"
+        },
+        {
+          "field": "order.shipped_time",
+          "source_ref": "order:6920154185938638662:logistics",
+          "value": "2026-05-02T00:30:31+08:00"
+        }
+      ]
+    },
+    {
+      "as_of_time": "2026-05-07T21:02:57+08:00",
+      "emotion": {
+        "escalation": "no",
+        "evidence_refs": [
+          "chat:S00064:1",
+          "chat:S00064:3",
+          "chat:S00064:5"
+        ],
+        "negative_signal": "present"
+      },
+      "expected_associations": {
+        "order": "6920154185938638662",
+        "workorder": "no_workorder"
+      },
+      "gold_version": "gold_v1",
+      "intent": {
+        "cue": "少发",
+        "major": "物流异常",
+        "minor": "包裹少件"
+      },
+      "intent_conflict": {
+        "kind": "intent_source_field_disagreement",
+        "resolution": "gold 采用文本推导标签；源字段仅登记冲突",
+        "source_field": "补发换货/少发正装",
+        "text_derived": "物流异常/包裹少件"
+      },
+      "intent_source_field_crosscheck": {
+        "major": "补发换货",
+        "minor": "少发正装"
+      },
+      "message_no": 5,
+      "required_evidence_refs": [
+        "chat:S00064:1",
+        "chat:S00064:3",
+        "chat:S00064:5"
+      ],
+      "risk": {
+        "evidence_refs": [
+          "chat:S00064:4",
+          "system:workorder:none:S00064"
+        ],
+        "level": "待定级",
+        "rule_ids": [
+          "R-UNCLEAR-001"
+        ],
+        "status": "needs_verification",
+        "type": "unclear"
+      },
+      "sample_id": "S00064#5",
+      "session_id": "S00064",
+      "visible_gold_fields": [
+        {
+          "field": "order.placed_time",
+          "source_ref": "order:6920154185938638662",
+          "value": "2026-04-30T18:24:31+08:00"
+        },
+        {
+          "field": "order.paid_time",
+          "source_ref": "order:6920154185938638662",
+          "value": "2026-04-30T18:30:31+08:00"
+        },
+        {
+          "field": "order.shipped_time",
+          "source_ref": "order:6920154185938638662:logistics",
+          "value": "2026-05-02T00:30:31+08:00"
+        }
+      ]
+    },
+    {
+      "as_of_time": "2026-05-08T20:01:20+08:00",
+      "emotion": {
+        "escalation": "no",
+        "evidence_refs": [],
+        "negative_signal": "none"
+      },
+      "expected_associations": {
+        "order": "6920480727847614042",
+        "workorder": "no_workorder"
+      },
+      "gold_version": "gold_v1",
+      "intent": {
+        "cue": null,
+        "major": "unclear",
+        "minor": "unclear"
+      },
+      "intent_conflict": null,
+      "intent_source_field_crosscheck": {
+        "major": "补发换货",
+        "minor": "少发正装"
+      },
+      "message_no": 1,
+      "required_evidence_refs": [
+        "chat:S00087:1"
+      ],
+      "risk": {
+        "evidence_refs": [],
+        "level": "P2",
+        "rule_ids": [
+          "R-NONE-001"
+        ],
+        "status": "confirmed",
+        "type": "none"
+      },
+      "sample_id": "S00087#1",
+      "session_id": "S00087",
+      "visible_gold_fields": [
+        {
+          "field": "order.placed_time",
+          "source_ref": "order:6920480727847614042",
+          "value": "2026-04-28T18:43:20+08:00"
+        },
+        {
+          "field": "order.paid_time",
+          "source_ref": "order:6920480727847614042",
+          "value": "2026-04-28T18:48:20+08:00"
+        },
+        {
+          "field": "order.shipped_time",
+          "source_ref": "order:6920480727847614042:logistics",
+          "value": "2026-04-30T06:48:20+08:00"
+        }
+      ]
+    },
+    {
+      "as_of_time": "2026-05-08T20:03:20+08:00",
+      "emotion": {
+        "escalation": "yes",
+        "evidence_refs": [
+          "chat:S00087:3"
+        ],
+        "negative_signal": "present"
+      },
+      "expected_associations": {
+        "order": "6920480727847614042",
+        "workorder": "no_workorder"
+      },
+      "gold_version": "gold_v1",
+      "intent": {
+        "cue": null,
+        "major": "unclear",
+        "minor": "unclear"
+      },
+      "intent_conflict": null,
+      "intent_source_field_crosscheck": {
+        "major": "补发换货",
+        "minor": "少发正装"
+      },
+      "message_no": 3,
+      "required_evidence_refs": [
+        "chat:S00087:3"
+      ],
+      "risk": {
+        "evidence_refs": [
+          "chat:S00087:3"
+        ],
+        "level": "P0",
+        "rule_ids": [
+          "R-COMP-001"
+        ],
+        "status": "confirmed",
+        "type": "complaint_escalation"
+      },
+      "sample_id": "S00087#3",
+      "session_id": "S00087",
+      "visible_gold_fields": [
+        {
+          "field": "order.placed_time",
+          "source_ref": "order:6920480727847614042",
+          "value": "2026-04-28T18:43:20+08:00"
+        },
+        {
+          "field": "order.paid_time",
+          "source_ref": "order:6920480727847614042",
+          "value": "2026-04-28T18:48:20+08:00"
+        },
+        {
+          "field": "order.shipped_time",
+          "source_ref": "order:6920480727847614042:logistics",
+          "value": "2026-04-30T06:48:20+08:00"
+        }
+      ]
+    },
+    {
+      "as_of_time": "2026-05-08T20:07:13+08:00",
+      "emotion": {
+        "escalation": "yes",
+        "evidence_refs": [
+          "chat:S00087:3"
+        ],
+        "negative_signal": "present"
+      },
+      "expected_associations": {
+        "order": "6920480727847614042",
+        "workorder": "no_workorder"
+      },
+      "gold_version": "gold_v1",
+      "intent": {
+        "cue": null,
+        "major": "unclear",
+        "minor": "unclear"
+      },
+      "intent_conflict": null,
+      "intent_source_field_crosscheck": {
+        "major": "补发换货",
+        "minor": "少发正装"
+      },
+      "message_no": 5,
+      "required_evidence_refs": [
+        "chat:S00087:3"
+      ],
+      "risk": {
+        "evidence_refs": [
+          "chat:S00087:3"
+        ],
+        "level": "P0",
+        "rule_ids": [
+          "R-COMP-001"
+        ],
+        "status": "confirmed",
+        "type": "complaint_escalation"
+      },
+      "sample_id": "S00087#5",
+      "session_id": "S00087",
+      "visible_gold_fields": [
+        {
+          "field": "order.placed_time",
+          "source_ref": "order:6920480727847614042",
+          "value": "2026-04-28T18:43:20+08:00"
+        },
+        {
+          "field": "order.paid_time",
+          "source_ref": "order:6920480727847614042",
+          "value": "2026-04-28T18:48:20+08:00"
+        },
+        {
+          "field": "order.shipped_time",
+          "source_ref": "order:6920480727847614042:logistics",
+          "value": "2026-04-30T06:48:20+08:00"
+        }
+      ]
+    },
+    {
+      "as_of_time": "2026-05-08T20:09:09+08:00",
+      "emotion": {
+        "escalation": "no",
+        "evidence_refs": [
+          "chat:S00087:3",
+          "chat:S00087:7"
+        ],
+        "negative_signal": "present"
+      },
+      "expected_associations": {
+        "order": "6920480727847614042",
+        "workorder": "no_workorder"
+      },
+      "gold_version": "gold_v1",
+      "intent": {
+        "cue": null,
+        "major": "unclear",
+        "minor": "unclear"
+      },
+      "intent_conflict": null,
+      "intent_source_field_crosscheck": {
+        "major": "补发换货",
+        "minor": "少发正装"
+      },
+      "message_no": 7,
+      "required_evidence_refs": [
+        "chat:S00087:3",
+        "chat:S00087:7"
+      ],
+      "risk": {
+        "evidence_refs": [
+          "chat:S00087:4",
+          "system:workorder:none:S00087"
+        ],
+        "level": "待定级",
+        "rule_ids": [
+          "R-UNCLEAR-001"
+        ],
+        "status": "needs_verification",
+        "type": "unclear"
+      },
+      "sample_id": "S00087#7",
+      "session_id": "S00087",
+      "visible_gold_fields": [
+        {
+          "field": "order.placed_time",
+          "source_ref": "order:6920480727847614042",
+          "value": "2026-04-28T18:43:20+08:00"
+        },
+        {
+          "field": "order.paid_time",
+          "source_ref": "order:6920480727847614042",
+          "value": "2026-04-28T18:48:20+08:00"
+        },
+        {
+          "field": "order.shipped_time",
+          "source_ref": "order:6920480727847614042:logistics",
+          "value": "2026-04-30T06:48:20+08:00"
+        }
+      ]
+    },
+    {
+      "as_of_time": "2026-05-07T18:32:19+08:00",
+      "emotion": {
+        "escalation": "no",
+        "evidence_refs": [
+          "chat:S00060:1"
+        ],
+        "negative_signal": "present"
+      },
+      "expected_associations": {
+        "order": "6920514762118795062",
+        "workorder": "no_workorder"
+      },
+      "gold_version": "gold_v1",
+      "intent": {
+        "cue": null,
+        "major": "unclear",
+        "minor": "unclear"
+      },
+      "intent_conflict": null,
+      "intent_source_field_crosscheck": {
+        "major": "订单服务",
+        "minor": "保价申请被拒"
+      },
+      "message_no": 1,
+      "required_evidence_refs": [
+        "chat:S00060:1"
+      ],
+      "risk": {
+        "evidence_refs": [],
+        "level": "P2",
+        "rule_ids": [
+          "R-NONE-001"
+        ],
+        "status": "confirmed",
+        "type": "none"
+      },
+      "sample_id": "S00060#1",
+      "session_id": "S00060",
+      "visible_gold_fields": [
+        {
+          "field": "order.placed_time",
+          "source_ref": "order:6920514762118795062",
+          "value": "2026-04-28T14:20:19+08:00"
+        },
+        {
+          "field": "order.paid_time",
+          "source_ref": "order:6920514762118795062",
+          "value": "2026-04-28T14:31:19+08:00"
+        },
+        {
+          "field": "order.shipped_time",
+          "source_ref": "order:6920514762118795062:logistics",
+          "value": "2026-04-29T08:31:19+08:00"
+        }
+      ]
+    },
+    {
+      "as_of_time": "2026-05-07T18:35:09+08:00",
+      "emotion": {
+        "escalation": "no",
+        "evidence_refs": [
+          "chat:S00060:1",
+          "chat:S00060:4"
+        ],
+        "negative_signal": "present"
+      },
+      "expected_associations": {
+        "order": "6920514762118795062",
+        "workorder": "no_workorder"
+      },
+      "gold_version": "gold_v1",
+      "intent": {
+        "cue": null,
+        "major": "unclear",
+        "minor": "unclear"
+      },
+      "intent_conflict": null,
+      "intent_source_field_crosscheck": {
+        "major": "订单服务",
+        "minor": "保价申请被拒"
+      },
+      "message_no": 4,
+      "required_evidence_refs": [
+        "chat:S00060:1",
+        "chat:S00060:4"
+      ],
+      "risk": {
+        "evidence_refs": [],
+        "level": "P2",
+        "rule_ids": [
+          "R-NONE-001"
+        ],
+        "status": "confirmed",
+        "type": "none"
+      },
+      "sample_id": "S00060#4",
+      "session_id": "S00060",
+      "visible_gold_fields": [
+        {
+          "field": "order.placed_time",
+          "source_ref": "order:6920514762118795062",
+          "value": "2026-04-28T14:20:19+08:00"
+        },
+        {
+          "field": "order.paid_time",
+          "source_ref": "order:6920514762118795062",
+          "value": "2026-04-28T14:31:19+08:00"
+        },
+        {
+          "field": "order.shipped_time",
+          "source_ref": "order:6920514762118795062:logistics",
+          "value": "2026-04-29T08:31:19+08:00"
+        }
+      ]
+    },
+    {
+      "as_of_time": "2026-05-07T18:38:32+08:00",
+      "emotion": {
+        "escalation": "no",
+        "evidence_refs": [
+          "chat:S00060:1",
+          "chat:S00060:4"
+        ],
+        "negative_signal": "present"
+      },
+      "expected_associations": {
+        "order": "6920514762118795062",
+        "workorder": "no_workorder"
+      },
+      "gold_version": "gold_v1",
+      "intent": {
+        "cue": null,
+        "major": "unclear",
+        "minor": "unclear"
+      },
+      "intent_conflict": null,
+      "intent_source_field_crosscheck": {
+        "major": "订单服务",
+        "minor": "保价申请被拒"
+      },
+      "message_no": 6,
+      "required_evidence_refs": [
+        "chat:S00060:1",
+        "chat:S00060:4"
+      ],
+      "risk": {
+        "evidence_refs": [],
+        "level": "P2",
+        "rule_ids": [
+          "R-NONE-001"
+        ],
+        "status": "confirmed",
+        "type": "none"
+      },
+      "sample_id": "S00060#6",
+      "session_id": "S00060",
+      "visible_gold_fields": [
+        {
+          "field": "order.placed_time",
+          "source_ref": "order:6920514762118795062",
+          "value": "2026-04-28T14:20:19+08:00"
+        },
+        {
+          "field": "order.paid_time",
+          "source_ref": "order:6920514762118795062",
+          "value": "2026-04-28T14:31:19+08:00"
+        },
+        {
+          "field": "order.shipped_time",
+          "source_ref": "order:6920514762118795062:logistics",
+          "value": "2026-04-29T08:31:19+08:00"
+        }
+      ]
+    },
+    {
+      "as_of_time": "2026-05-05T14:25:33+08:00",
+      "emotion": {
+        "escalation": "no",
+        "evidence_refs": [],
+        "negative_signal": "none"
+      },
+      "expected_associations": {
+        "order": "6920932618149621705",
+        "workorder": "no_workorder"
+      },
+      "gold_version": "gold_v1",
+      "intent": {
+        "cue": null,
+        "major": "unclear",
+        "minor": "unclear"
+      },
+      "intent_conflict": null,
+      "intent_source_field_crosscheck": {
+        "major": "不良反应",
+        "minor": "泛红刺痒"
+      },
+      "message_no": 1,
+      "required_evidence_refs": [
+        "chat:S00010:1"
+      ],
+      "risk": {
+        "evidence_refs": [
+          "chat:S00010:1"
+        ],
+        "level": "待定级",
+        "rule_ids": [
+          "R-AR-001"
+        ],
+        "status": "needs_verification",
+        "type": "adverse_reaction"
+      },
+      "sample_id": "S00010#1",
+      "session_id": "S00010",
+      "visible_gold_fields": [
+        {
+          "field": "order.placed_time",
+          "source_ref": "order:6920932618149621705",
+          "value": "2026-04-19T07:38:33+08:00"
+        },
+        {
+          "field": "order.paid_time",
+          "source_ref": "order:6920932618149621705",
+          "value": "2026-04-19T08:02:33+08:00"
+        },
+        {
+          "field": "order.shipped_time",
+          "source_ref": "order:6920932618149621705:logistics",
+          "value": "2026-04-20T06:02:33+08:00"
+        }
+      ]
+    },
+    {
+      "as_of_time": "2026-05-05T14:28:37+08:00",
+      "emotion": {
+        "escalation": "no",
+        "evidence_refs": [],
+        "negative_signal": "none"
+      },
+      "expected_associations": {
+        "order": "6920932618149621705",
+        "workorder": "no_workorder"
+      },
+      "gold_version": "gold_v1",
+      "intent": {
+        "cue": null,
+        "major": "unclear",
+        "minor": "unclear"
+      },
+      "intent_conflict": null,
+      "intent_source_field_crosscheck": {
+        "major": "不良反应",
+        "minor": "泛红刺痒"
+      },
+      "message_no": 3,
+      "required_evidence_refs": [
+        "chat:S00010:1",
+        "chat:S00010:3"
+      ],
+      "risk": {
+        "evidence_refs": [
+          "chat:S00010:1"
+        ],
+        "level": "待定级",
+        "rule_ids": [
+          "R-AR-001"
+        ],
+        "status": "needs_verification",
+        "type": "adverse_reaction"
+      },
+      "sample_id": "S00010#3",
+      "session_id": "S00010",
+      "visible_gold_fields": [
+        {
+          "field": "order.placed_time",
+          "source_ref": "order:6920932618149621705",
+          "value": "2026-04-19T07:38:33+08:00"
+        },
+        {
+          "field": "order.paid_time",
+          "source_ref": "order:6920932618149621705",
+          "value": "2026-04-19T08:02:33+08:00"
+        },
+        {
+          "field": "order.shipped_time",
+          "source_ref": "order:6920932618149621705:logistics",
+          "value": "2026-04-20T06:02:33+08:00"
+        }
+      ]
+    },
+    {
+      "as_of_time": "2026-05-05T14:32:08+08:00",
+      "emotion": {
+        "escalation": "no",
+        "evidence_refs": [
+          "chat:S00010:5"
+        ],
+        "negative_signal": "present"
+      },
+      "expected_associations": {
+        "order": "6920932618149621705",
+        "workorder": "no_workorder"
+      },
+      "gold_version": "gold_v1",
+      "intent": {
+        "cue": null,
+        "major": "unclear",
+        "minor": "unclear"
+      },
+      "intent_conflict": null,
+      "intent_source_field_crosscheck": {
+        "major": "不良反应",
+        "minor": "泛红刺痒"
+      },
+      "message_no": 5,
+      "required_evidence_refs": [
+        "chat:S00010:5"
+      ],
+      "risk": {
+        "evidence_refs": [
+          "chat:S00010:1"
+        ],
+        "level": "待定级",
+        "rule_ids": [
+          "R-AR-001"
+        ],
+        "status": "needs_verification",
+        "type": "adverse_reaction"
+      },
+      "sample_id": "S00010#5",
+      "session_id": "S00010",
+      "visible_gold_fields": [
+        {
+          "field": "order.placed_time",
+          "source_ref": "order:6920932618149621705",
+          "value": "2026-04-19T07:38:33+08:00"
+        },
+        {
+          "field": "order.paid_time",
+          "source_ref": "order:6920932618149621705",
+          "value": "2026-04-19T08:02:33+08:00"
+        },
+        {
+          "field": "order.shipped_time",
+          "source_ref": "order:6920932618149621705:logistics",
+          "value": "2026-04-20T06:02:33+08:00"
+        }
+      ]
+    },
+    {
+      "as_of_time": "2026-05-05T14:35:12+08:00",
+      "emotion": {
+        "escalation": "no",
+        "evidence_refs": [
+          "chat:S00010:5"
+        ],
+        "negative_signal": "present"
+      },
+      "expected_associations": {
+        "order": "6920932618149621705",
+        "workorder": "no_workorder"
+      },
+      "gold_version": "gold_v1",
+      "intent": {
+        "cue": null,
+        "major": "unclear",
+        "minor": "unclear"
+      },
+      "intent_conflict": null,
+      "intent_source_field_crosscheck": {
+        "major": "不良反应",
+        "minor": "泛红刺痒"
+      },
+      "message_no": 7,
+      "required_evidence_refs": [
+        "chat:S00010:5"
+      ],
+      "risk": {
+        "evidence_refs": [
+          "chat:S00010:1"
+        ],
+        "level": "待定级",
+        "rule_ids": [
+          "R-AR-001"
+        ],
+        "status": "needs_verification",
+        "type": "adverse_reaction"
+      },
+      "sample_id": "S00010#7",
+      "session_id": "S00010",
+      "visible_gold_fields": [
+        {
+          "field": "order.placed_time",
+          "source_ref": "order:6920932618149621705",
+          "value": "2026-04-19T07:38:33+08:00"
+        },
+        {
+          "field": "order.paid_time",
+          "source_ref": "order:6920932618149621705",
+          "value": "2026-04-19T08:02:33+08:00"
+        },
+        {
+          "field": "order.shipped_time",
+          "source_ref": "order:6920932618149621705:logistics",
+          "value": "2026-04-20T06:02:33+08:00"
+        }
+      ]
+    },
+    {
+      "as_of_time": "2026-05-05T14:37:59+08:00",
+      "emotion": {
+        "escalation": "no",
+        "evidence_refs": [
+          "chat:S00010:5"
+        ],
+        "negative_signal": "present"
+      },
+      "expected_associations": {
+        "order": "6920932618149621705",
+        "workorder": "no_workorder"
+      },
+      "gold_version": "gold_v1",
+      "intent": {
+        "cue": null,
+        "major": "unclear",
+        "minor": "unclear"
+      },
+      "intent_conflict": null,
+      "intent_source_field_crosscheck": {
+        "major": "不良反应",
+        "minor": "泛红刺痒"
+      },
+      "message_no": 9,
+      "required_evidence_refs": [
+        "chat:S00010:5"
+      ],
+      "risk": {
+        "evidence_refs": [
+          "chat:S00010:1"
+        ],
+        "level": "待定级",
+        "rule_ids": [
+          "R-AR-001"
+        ],
+        "status": "needs_verification",
+        "type": "adverse_reaction"
+      },
+      "sample_id": "S00010#9",
+      "session_id": "S00010",
+      "visible_gold_fields": [
+        {
+          "field": "order.placed_time",
+          "source_ref": "order:6920932618149621705",
+          "value": "2026-04-19T07:38:33+08:00"
+        },
+        {
+          "field": "order.paid_time",
+          "source_ref": "order:6920932618149621705",
+          "value": "2026-04-19T08:02:33+08:00"
+        },
+        {
+          "field": "order.shipped_time",
+          "source_ref": "order:6920932618149621705:logistics",
+          "value": "2026-04-20T06:02:33+08:00"
+        }
+      ]
+    },
+    {
+      "as_of_time": "2026-05-08T19:12:11+08:00",
+      "emotion": {
+        "escalation": "no",
+        "evidence_refs": [],
+        "negative_signal": "none"
+      },
+      "expected_associations": {
+        "order": "6920505423981949613",
+        "workorder": "no_workorder"
+      },
+      "gold_version": "gold_v1",
+      "intent": {
+        "cue": null,
+        "major": "unclear",
+        "minor": "unclear"
+      },
+      "intent_conflict": null,
+      "intent_source_field_crosscheck": {
+        "major": "不良反应",
+        "minor": "泛红刺痒"
+      },
+      "message_no": 1,
+      "required_evidence_refs": [
+        "chat:S00082:1"
+      ],
+      "risk": {
+        "evidence_refs": [
+          "chat:S00082:1"
+        ],
+        "level": "待定级",
+        "rule_ids": [
+          "R-AR-001"
+        ],
+        "status": "needs_verification",
+        "type": "adverse_reaction"
+      },
+      "sample_id": "S00082#1",
+      "session_id": "S00082",
+      "visible_gold_fields": [
+        {
+          "field": "order.placed_time",
+          "source_ref": "order:6920505423981949613",
+          "value": "2026-04-24T11:03:11+08:00"
+        },
+        {
+          "field": "order.paid_time",
+          "source_ref": "order:6920505423981949613",
+          "value": "2026-04-24T11:16:11+08:00"
+        },
+        {
+          "field": "order.shipped_time",
+          "source_ref": "order:6920505423981949613:logistics",
+          "value": "2026-04-25T18:16:11+08:00"
+        }
+      ]
+    },
+    {
+      "as_of_time": "2026-05-08T19:15:22+08:00",
+      "emotion": {
+        "escalation": "no",
+        "evidence_refs": [],
+        "negative_signal": "none"
+      },
+      "expected_associations": {
+        "order": "6920505423981949613",
+        "workorder": "no_workorder"
+      },
+      "gold_version": "gold_v1",
+      "intent": {
+        "cue": null,
+        "major": "unclear",
+        "minor": "unclear"
+      },
+      "intent_conflict": null,
+      "intent_source_field_crosscheck": {
+        "major": "不良反应",
+        "minor": "泛红刺痒"
+      },
+      "message_no": 3,
+      "required_evidence_refs": [
+        "chat:S00082:1",
+        "chat:S00082:3"
+      ],
+      "risk": {
+        "evidence_refs": [
+          "chat:S00082:1"
+        ],
+        "level": "待定级",
+        "rule_ids": [
+          "R-AR-001"
+        ],
+        "status": "needs_verification",
+        "type": "adverse_reaction"
+      },
+      "sample_id": "S00082#3",
+      "session_id": "S00082",
+      "visible_gold_fields": [
+        {
+          "field": "order.placed_time",
+          "source_ref": "order:6920505423981949613",
+          "value": "2026-04-24T11:03:11+08:00"
+        },
+        {
+          "field": "order.paid_time",
+          "source_ref": "order:6920505423981949613",
+          "value": "2026-04-24T11:16:11+08:00"
+        },
+        {
+          "field": "order.shipped_time",
+          "source_ref": "order:6920505423981949613:logistics",
+          "value": "2026-04-25T18:16:11+08:00"
+        }
+      ]
+    },
+    {
+      "as_of_time": "2026-05-08T19:18:48+08:00",
+      "emotion": {
+        "escalation": "no",
+        "evidence_refs": [],
+        "negative_signal": "none"
+      },
+      "expected_associations": {
+        "order": "6920505423981949613",
+        "workorder": "no_workorder"
+      },
+      "gold_version": "gold_v1",
+      "intent": {
+        "cue": null,
+        "major": "unclear",
+        "minor": "unclear"
+      },
+      "intent_conflict": null,
+      "intent_source_field_crosscheck": {
+        "major": "不良反应",
+        "minor": "泛红刺痒"
+      },
+      "message_no": 5,
+      "required_evidence_refs": [
+        "chat:S00082:1",
+        "chat:S00082:3",
+        "chat:S00082:5"
+      ],
+      "risk": {
+        "evidence_refs": [
+          "chat:S00082:1"
+        ],
+        "level": "待定级",
+        "rule_ids": [
+          "R-AR-001"
+        ],
+        "status": "needs_verification",
+        "type": "adverse_reaction"
+      },
+      "sample_id": "S00082#5",
+      "session_id": "S00082",
+      "visible_gold_fields": [
+        {
+          "field": "order.placed_time",
+          "source_ref": "order:6920505423981949613",
+          "value": "2026-04-24T11:03:11+08:00"
+        },
+        {
+          "field": "order.paid_time",
+          "source_ref": "order:6920505423981949613",
+          "value": "2026-04-24T11:16:11+08:00"
+        },
+        {
+          "field": "order.shipped_time",
+          "source_ref": "order:6920505423981949613:logistics",
+          "value": "2026-04-25T18:16:11+08:00"
+        }
+      ]
+    },
+    {
+      "as_of_time": "2026-05-08T19:22:10+08:00",
+      "emotion": {
+        "escalation": "no",
+        "evidence_refs": [],
+        "negative_signal": "none"
+      },
+      "expected_associations": {
+        "order": "6920505423981949613",
+        "workorder": "no_workorder"
+      },
+      "gold_version": "gold_v1",
+      "intent": {
+        "cue": "退货",
+        "major": "售后退货",
+        "minor": "七天无理由退货"
+      },
+      "intent_conflict": {
+        "kind": "intent_source_field_disagreement",
+        "resolution": "gold 采用文本推导标签；源字段仅登记冲突",
+        "source_field": "不良反应/泛红刺痒",
+        "text_derived": "售后退货/七天无理由退货"
+      },
+      "intent_source_field_crosscheck": {
+        "major": "不良反应",
+        "minor": "泛红刺痒"
+      },
+      "message_no": 7,
+      "required_evidence_refs": [
+        "chat:S00082:3",
+        "chat:S00082:5",
+        "chat:S00082:7"
+      ],
+      "risk": {
+        "evidence_refs": [
+          "chat:S00082:1"
+        ],
+        "level": "待定级",
+        "rule_ids": [
+          "R-AR-001"
+        ],
+        "status": "needs_verification",
+        "type": "adverse_reaction"
+      },
+      "sample_id": "S00082#7",
+      "session_id": "S00082",
+      "visible_gold_fields": [
+        {
+          "field": "order.placed_time",
+          "source_ref": "order:6920505423981949613",
+          "value": "2026-04-24T11:03:11+08:00"
+        },
+        {
+          "field": "order.paid_time",
+          "source_ref": "order:6920505423981949613",
+          "value": "2026-04-24T11:16:11+08:00"
+        },
+        {
+          "field": "order.shipped_time",
+          "source_ref": "order:6920505423981949613:logistics",
+          "value": "2026-04-25T18:16:11+08:00"
+        }
+      ]
+    },
+    {
+      "as_of_time": "2026-05-08T19:24:09+08:00",
+      "emotion": {
+        "escalation": "no",
+        "evidence_refs": [],
+        "negative_signal": "none"
+      },
+      "expected_associations": {
+        "order": "6920505423981949613",
+        "workorder": "no_workorder"
+      },
+      "gold_version": "gold_v1",
+      "intent": {
+        "cue": "退货",
+        "major": "售后退货",
+        "minor": "七天无理由退货"
+      },
+      "intent_conflict": {
+        "kind": "intent_source_field_disagreement",
+        "resolution": "gold 采用文本推导标签；源字段仅登记冲突",
+        "source_field": "不良反应/泛红刺痒",
+        "text_derived": "售后退货/七天无理由退货"
+      },
+      "intent_source_field_crosscheck": {
+        "major": "不良反应",
+        "minor": "泛红刺痒"
+      },
+      "message_no": 9,
+      "required_evidence_refs": [
+        "chat:S00082:5",
+        "chat:S00082:7",
+        "chat:S00082:9"
+      ],
+      "risk": {
+        "evidence_refs": [
+          "chat:S00082:1"
+        ],
+        "level": "待定级",
+        "rule_ids": [
+          "R-AR-001"
+        ],
+        "status": "needs_verification",
+        "type": "adverse_reaction"
+      },
+      "sample_id": "S00082#9",
+      "session_id": "S00082",
+      "visible_gold_fields": [
+        {
+          "field": "order.placed_time",
+          "source_ref": "order:6920505423981949613",
+          "value": "2026-04-24T11:03:11+08:00"
+        },
+        {
+          "field": "order.paid_time",
+          "source_ref": "order:6920505423981949613",
+          "value": "2026-04-24T11:16:11+08:00"
+        },
+        {
+          "field": "order.shipped_time",
+          "source_ref": "order:6920505423981949613:logistics",
+          "value": "2026-04-25T18:16:11+08:00"
+        }
+      ]
+    },
+    {
+      "as_of_time": "2026-05-05T15:13:33+08:00",
+      "emotion": {
+        "escalation": "no",
+        "evidence_refs": [],
+        "negative_signal": "none"
+      },
+      "expected_associations": {
+        "order": "6920654901868624795",
+        "workorder": "no_workorder"
+      },
+      "gold_version": "gold_v1",
+      "intent": {
+        "cue": null,
+        "major": "unclear",
+        "minor": "unclear"
+      },
+      "intent_conflict": null,
+      "intent_source_field_crosscheck": {
+        "major": "物流异常",
+        "minor": "包裹破损"
+      },
+      "message_no": 1,
+      "required_evidence_refs": [
+        "chat:S00011:1"
+      ],
+      "risk": {
+        "evidence_refs": [],
+        "level": "P2",
+        "rule_ids": [
+          "R-NONE-001"
+        ],
+        "status": "confirmed",
+        "type": "none"
+      },
+      "sample_id": "S00011#1",
+      "session_id": "S00011",
+      "visible_gold_fields": [
+        {
+          "field": "order.placed_time",
+          "source_ref": "order:6920654901868624795",
+          "value": "2026-05-02T08:11:33+08:00"
+        },
+        {
+          "field": "order.paid_time",
+          "source_ref": "order:6920654901868624795",
+          "value": "2026-05-02T08:31:33+08:00"
+        },
+        {
+          "field": "order.shipped_time",
+          "source_ref": "order:6920654901868624795:logistics",
+          "value": "2026-05-03T17:31:33+08:00"
+        }
+      ]
+    },
+    {
+      "as_of_time": "2026-05-05T15:15:50+08:00",
+      "emotion": {
+        "escalation": "no",
+        "evidence_refs": [],
+        "negative_signal": "none"
+      },
+      "expected_associations": {
+        "order": "6920654901868624795",
+        "workorder": "no_workorder"
+      },
+      "gold_version": "gold_v1",
+      "intent": {
+        "cue": null,
+        "major": "unclear",
+        "minor": "unclear"
+      },
+      "intent_conflict": null,
+      "intent_source_field_crosscheck": {
+        "major": "物流异常",
+        "minor": "包裹破损"
+      },
+      "message_no": 3,
+      "required_evidence_refs": [
+        "chat:S00011:1",
+        "chat:S00011:3"
+      ],
+      "risk": {
+        "evidence_refs": [],
+        "level": "P2",
+        "rule_ids": [
+          "R-NONE-001"
+        ],
+        "status": "confirmed",
+        "type": "none"
+      },
+      "sample_id": "S00011#3",
+      "session_id": "S00011",
+      "visible_gold_fields": [
+        {
+          "field": "order.placed_time",
+          "source_ref": "order:6920654901868624795",
+          "value": "2026-05-02T08:11:33+08:00"
+        },
+        {
+          "field": "order.paid_time",
+          "source_ref": "order:6920654901868624795",
+          "value": "2026-05-02T08:31:33+08:00"
+        },
+        {
+          "field": "order.shipped_time",
+          "source_ref": "order:6920654901868624795:logistics",
+          "value": "2026-05-03T17:31:33+08:00"
+        }
+      ]
+    },
+    {
+      "as_of_time": "2026-05-05T15:19:46+08:00",
+      "emotion": {
+        "escalation": "no",
+        "evidence_refs": [],
+        "negative_signal": "none"
+      },
+      "expected_associations": {
+        "order": "6920654901868624795",
+        "workorder": "no_workorder"
+      },
+      "gold_version": "gold_v1",
+      "intent": {
+        "cue": null,
+        "major": "unclear",
+        "minor": "unclear"
+      },
+      "intent_conflict": null,
+      "intent_source_field_crosscheck": {
+        "major": "物流异常",
+        "minor": "包裹破损"
+      },
+      "message_no": 5,
+      "required_evidence_refs": [
+        "chat:S00011:1",
+        "chat:S00011:3",
+        "chat:S00011:5"
+      ],
+      "risk": {
+        "evidence_refs": [],
+        "level": "P2",
+        "rule_ids": [
+          "R-NONE-001"
+        ],
+        "status": "confirmed",
+        "type": "none"
+      },
+      "sample_id": "S00011#5",
+      "session_id": "S00011",
+      "visible_gold_fields": [
+        {
+          "field": "order.placed_time",
+          "source_ref": "order:6920654901868624795",
+          "value": "2026-05-02T08:11:33+08:00"
+        },
+        {
+          "field": "order.paid_time",
+          "source_ref": "order:6920654901868624795",
+          "value": "2026-05-02T08:31:33+08:00"
+        },
+        {
+          "field": "order.shipped_time",
+          "source_ref": "order:6920654901868624795:logistics",
+          "value": "2026-05-03T17:31:33+08:00"
+        }
+      ]
+    },
+    {
+      "as_of_time": "2026-05-05T15:21:47+08:00",
+      "emotion": {
+        "escalation": "no",
+        "evidence_refs": [],
+        "negative_signal": "none"
+      },
+      "expected_associations": {
+        "order": "6920654901868624795",
+        "workorder": "no_workorder"
+      },
+      "gold_version": "gold_v1",
+      "intent": {
+        "cue": null,
+        "major": "unclear",
+        "minor": "unclear"
+      },
+      "intent_conflict": null,
+      "intent_source_field_crosscheck": {
+        "major": "物流异常",
+        "minor": "包裹破损"
+      },
+      "message_no": 7,
+      "required_evidence_refs": [
+        "chat:S00011:3",
+        "chat:S00011:5",
+        "chat:S00011:7"
+      ],
+      "risk": {
+        "evidence_refs": [],
+        "level": "P2",
+        "rule_ids": [
+          "R-NONE-001"
+        ],
+        "status": "confirmed",
+        "type": "none"
+      },
+      "sample_id": "S00011#7",
+      "session_id": "S00011",
+      "visible_gold_fields": [
+        {
+          "field": "order.placed_time",
+          "source_ref": "order:6920654901868624795",
+          "value": "2026-05-02T08:11:33+08:00"
+        },
+        {
+          "field": "order.paid_time",
+          "source_ref": "order:6920654901868624795",
+          "value": "2026-05-02T08:31:33+08:00"
+        },
+        {
+          "field": "order.shipped_time",
+          "source_ref": "order:6920654901868624795:logistics",
+          "value": "2026-05-03T17:31:33+08:00"
+        }
+      ]
+    },
+    {
+      "as_of_time": "2026-05-07T11:55:49+08:00",
+      "emotion": {
+        "escalation": "no",
+        "evidence_refs": [],
+        "negative_signal": "none"
+      },
+      "expected_associations": {
+        "order": "6920979756112183613",
+        "workorder": "no_workorder"
+      },
+      "gold_version": "gold_v1",
+      "intent": {
+        "cue": "退款",
+        "major": "退款打款",
+        "minor": "退款迟迟不到账"
+      },
+      "intent_conflict": {
+        "kind": "intent_source_field_disagreement",
+        "resolution": "gold 采用文本推导标签；源字段仅登记冲突",
+        "source_field": "订单服务/退款进度查询",
+        "text_derived": "退款打款/退款迟迟不到账"
+      },
+      "intent_source_field_crosscheck": {
+        "major": "订单服务",
+        "minor": "退款进度查询"
+      },
+      "message_no": 1,
+      "required_evidence_refs": [
+        "chat:S00045:1"
+      ],
+      "risk": {
+        "evidence_refs": [],
+        "level": "P2",
+        "rule_ids": [
+          "R-NONE-001"
+        ],
+        "status": "confirmed",
+        "type": "none"
+      },
+      "sample_id": "S00045#1",
+      "session_id": "S00045",
+      "visible_gold_fields": [
+        {
+          "field": "order.placed_time",
+          "source_ref": "order:6920979756112183613",
+          "value": "2026-04-29T08:28:49+08:00"
+        },
+        {
+          "field": "order.paid_time",
+          "source_ref": "order:6920979756112183613",
+          "value": "2026-04-29T08:32:49+08:00"
+        }
+      ]
+    },
+    {
+      "as_of_time": "2026-05-07T11:59:35+08:00",
+      "emotion": {
+        "escalation": "no",
+        "evidence_refs": [],
+        "negative_signal": "none"
+      },
+      "expected_associations": {
+        "order": "6920979756112183613",
+        "workorder": "no_workorder"
+      },
+      "gold_version": "gold_v1",
+      "intent": {
+        "cue": "退款",
+        "major": "退款打款",
+        "minor": "退款迟迟不到账"
+      },
+      "intent_conflict": {
+        "kind": "intent_source_field_disagreement",
+        "resolution": "gold 采用文本推导标签；源字段仅登记冲突",
+        "source_field": "订单服务/退款进度查询",
+        "text_derived": "退款打款/退款迟迟不到账"
+      },
+      "intent_source_field_crosscheck": {
+        "major": "订单服务",
+        "minor": "退款进度查询"
+      },
+      "message_no": 4,
+      "required_evidence_refs": [
+        "chat:S00045:1",
+        "chat:S00045:4"
+      ],
+      "risk": {
+        "evidence_refs": [],
+        "level": "P2",
+        "rule_ids": [
+          "R-NONE-001"
+        ],
+        "status": "confirmed",
+        "type": "none"
+      },
+      "sample_id": "S00045#4",
+      "session_id": "S00045",
+      "visible_gold_fields": [
+        {
+          "field": "order.placed_time",
+          "source_ref": "order:6920979756112183613",
+          "value": "2026-04-29T08:28:49+08:00"
+        },
+        {
+          "field": "order.paid_time",
+          "source_ref": "order:6920979756112183613",
+          "value": "2026-04-29T08:32:49+08:00"
+        }
+      ]
+    },
+    {
+      "as_of_time": "2026-05-10T16:45:57+08:00",
+      "emotion": {
+        "escalation": "no",
+        "evidence_refs": [
+          "chat:S00134:1"
+        ],
+        "negative_signal": "present"
+      },
+      "expected_associations": {
+        "order": null,
+        "workorder": "no_workorder"
+      },
+      "gold_version": "gold_v1",
+      "intent": {
+        "cue": "孕妇",
+        "major": "产品咨询",
+        "minor": "孕妇可用咨询"
+      },
+      "intent_conflict": null,
+      "intent_source_field_crosscheck": {
+        "major": "产品咨询",
+        "minor": "孕妇可用咨询"
+      },
+      "message_no": 1,
+      "required_evidence_refs": [
+        "chat:S00134:1"
+      ],
+      "risk": {
+        "evidence_refs": [],
+        "level": "P2",
+        "rule_ids": [
+          "R-NONE-001"
+        ],
+        "status": "confirmed",
+        "type": "none"
+      },
+      "sample_id": "S00134#1",
+      "session_id": "S00134",
+      "visible_gold_fields": []
+    },
+    {
+      "as_of_time": "2026-05-10T16:48:00+08:00",
+      "emotion": {
+        "escalation": "no",
+        "evidence_refs": [
+          "chat:S00134:1"
+        ],
+        "negative_signal": "present"
+      },
+      "expected_associations": {
+        "order": null,
+        "workorder": "no_workorder"
+      },
+      "gold_version": "gold_v1",
+      "intent": {
+        "cue": "孕妇",
+        "major": "产品咨询",
+        "minor": "孕妇可用咨询"
+      },
+      "intent_conflict": null,
+      "intent_source_field_crosscheck": {
+        "major": "产品咨询",
+        "minor": "孕妇可用咨询"
+      },
+      "message_no": 3,
+      "required_evidence_refs": [
+        "chat:S00134:1"
+      ],
+      "risk": {
+        "evidence_refs": [],
+        "level": "P2",
+        "rule_ids": [
+          "R-NONE-001"
+        ],
+        "status": "confirmed",
+        "type": "none"
+      },
+      "sample_id": "S00134#3",
+      "session_id": "S00134",
+      "visible_gold_fields": []
+    },
+    {
+      "as_of_time": "2026-05-10T16:51:20+08:00",
+      "emotion": {
+        "escalation": "no",
+        "evidence_refs": [
+          "chat:S00134:1"
+        ],
+        "negative_signal": "present"
+      },
+      "expected_associations": {
+        "order": null,
+        "workorder": "no_workorder"
+      },
+      "gold_version": "gold_v1",
+      "intent": {
+        "cue": "孕妇",
+        "major": "产品咨询",
+        "minor": "孕妇可用咨询"
+      },
+      "intent_conflict": null,
+      "intent_source_field_crosscheck": {
+        "major": "产品咨询",
+        "minor": "孕妇可用咨询"
+      },
+      "message_no": 5,
+      "required_evidence_refs": [
+        "chat:S00134:1"
+      ],
+      "risk": {
+        "evidence_refs": [],
+        "level": "P2",
+        "rule_ids": [
+          "R-NONE-001"
+        ],
+        "status": "confirmed",
+        "type": "none"
+      },
+      "sample_id": "S00134#5",
+      "session_id": "S00134",
+      "visible_gold_fields": []
+    },
+    {
+      "as_of_time": "2026-05-15T13:12:43+08:00",
+      "emotion": {
+        "escalation": "no",
+        "evidence_refs": [
+          "chat:S00268:1"
+        ],
+        "negative_signal": "present"
+      },
+      "expected_associations": {
+        "order": "6920156290763740456",
+        "workorder": "no_workorder"
+      },
+      "gold_version": "gold_v1",
+      "intent": {
+        "cue": "医院",
+        "major": "不良反应",
+        "minor": "过敏就医"
+      },
+      "intent_conflict": null,
+      "intent_source_field_crosscheck": {
+        "major": "不良反应",
+        "minor": "过敏就医"
+      },
+      "message_no": 1,
+      "required_evidence_refs": [
+        "chat:S00268:1"
+      ],
+      "risk": {
+        "evidence_refs": [
+          "chat:S00268:1"
+        ],
+        "level": "P0",
+        "rule_ids": [
+          "R-AR-001"
+        ],
+        "status": "confirmed",
+        "type": "adverse_reaction"
+      },
+      "sample_id": "S00268#1",
+      "session_id": "S00268",
+      "visible_gold_fields": [
+        {
+          "field": "order.placed_time",
+          "source_ref": "order:6920156290763740456",
+          "value": "2026-05-05T05:58:43+08:00"
+        },
+        {
+          "field": "order.paid_time",
+          "source_ref": "order:6920156290763740456",
+          "value": "2026-05-05T06:15:43+08:00"
+        },
+        {
+          "field": "order.shipped_time",
+          "source_ref": "order:6920156290763740456:logistics",
+          "value": "2026-05-06T00:15:43+08:00"
+        }
+      ]
+    },
+    {
+      "as_of_time": "2026-05-15T13:13:34+08:00",
+      "emotion": {
+        "escalation": "yes",
+        "evidence_refs": [
+          "chat:S00268:1",
+          "chat:S00268:3"
+        ],
+        "negative_signal": "present"
+      },
+      "expected_associations": {
+        "order": "6920156290763740456",
+        "workorder": "no_workorder"
+      },
+      "gold_version": "gold_v1",
+      "intent": {
+        "cue": "医院",
+        "major": "不良反应",
+        "minor": "过敏就医"
+      },
+      "intent_conflict": null,
+      "intent_source_field_crosscheck": {
+        "major": "不良反应",
+        "minor": "过敏就医"
+      },
+      "message_no": 3,
+      "required_evidence_refs": [
+        "chat:S00268:1",
+        "chat:S00268:3"
+      ],
+      "risk": {
+        "evidence_refs": [
+          "chat:S00268:1",
+          "chat:S00268:3"
+        ],
+        "level": "P0",
+        "rule_ids": [
+          "R-AR-001",
+          "R-COMP-001"
+        ],
+        "status": "confirmed",
+        "type": "adverse_reaction"
+      },
+      "sample_id": "S00268#3",
+      "session_id": "S00268",
+      "visible_gold_fields": [
+        {
+          "field": "order.placed_time",
+          "source_ref": "order:6920156290763740456",
+          "value": "2026-05-05T05:58:43+08:00"
+        },
+        {
+          "field": "order.paid_time",
+          "source_ref": "order:6920156290763740456",
+          "value": "2026-05-05T06:15:43+08:00"
+        },
+        {
+          "field": "order.shipped_time",
+          "source_ref": "order:6920156290763740456:logistics",
+          "value": "2026-05-06T00:15:43+08:00"
+        }
+      ]
+    },
+    {
+      "as_of_time": "2026-05-15T13:16:42+08:00",
+      "emotion": {
+        "escalation": "no",
+        "evidence_refs": [
+          "chat:S00268:1",
+          "chat:S00268:3"
+        ],
+        "negative_signal": "present"
+      },
+      "expected_associations": {
+        "order": "6920156290763740456",
+        "workorder": "no_workorder"
+      },
+      "gold_version": "gold_v1",
+      "intent": {
+        "cue": "医院",
+        "major": "不良反应",
+        "minor": "过敏就医"
+      },
+      "intent_conflict": null,
+      "intent_source_field_crosscheck": {
+        "major": "不良反应",
+        "minor": "过敏就医"
+      },
+      "message_no": 5,
+      "required_evidence_refs": [
+        "chat:S00268:1",
+        "chat:S00268:3"
+      ],
+      "risk": {
+        "evidence_refs": [
+          "chat:S00268:1"
+        ],
+        "level": "P0",
+        "rule_ids": [
+          "R-AR-001"
+        ],
+        "status": "confirmed",
+        "type": "adverse_reaction"
+      },
+      "sample_id": "S00268#5",
+      "session_id": "S00268",
+      "visible_gold_fields": [
+        {
+          "field": "order.placed_time",
+          "source_ref": "order:6920156290763740456",
+          "value": "2026-05-05T05:58:43+08:00"
+        },
+        {
+          "field": "order.paid_time",
+          "source_ref": "order:6920156290763740456",
+          "value": "2026-05-05T06:15:43+08:00"
+        },
+        {
+          "field": "order.shipped_time",
+          "source_ref": "order:6920156290763740456:logistics",
+          "value": "2026-05-06T00:15:43+08:00"
+        }
+      ]
+    },
+    {
+      "as_of_time": "2026-05-15T13:17:42+08:00",
+      "emotion": {
+        "escalation": "no",
+        "evidence_refs": [
+          "chat:S00268:1",
+          "chat:S00268:3",
+          "chat:S00268:7"
+        ],
+        "negative_signal": "present"
+      },
+      "expected_associations": {
+        "order": "6920156290763740456",
+        "workorder": "no_workorder"
+      },
+      "gold_version": "gold_v1",
+      "intent": {
+        "cue": "医院",
+        "major": "不良反应",
+        "minor": "过敏就医"
+      },
+      "intent_conflict": null,
+      "intent_source_field_crosscheck": {
+        "major": "不良反应",
+        "minor": "过敏就医"
+      },
+      "message_no": 7,
+      "required_evidence_refs": [
+        "chat:S00268:1",
+        "chat:S00268:3",
+        "chat:S00268:7"
+      ],
+      "risk": {
+        "evidence_refs": [
+          "chat:S00268:1",
+          "chat:S00268:7"
+        ],
+        "level": "P0",
+        "rule_ids": [
+          "R-AR-001"
+        ],
+        "status": "confirmed",
+        "type": "adverse_reaction"
+      },
+      "sample_id": "S00268#7",
+      "session_id": "S00268",
+      "visible_gold_fields": [
+        {
+          "field": "order.placed_time",
+          "source_ref": "order:6920156290763740456",
+          "value": "2026-05-05T05:58:43+08:00"
+        },
+        {
+          "field": "order.paid_time",
+          "source_ref": "order:6920156290763740456",
+          "value": "2026-05-05T06:15:43+08:00"
+        },
+        {
+          "field": "order.shipped_time",
+          "source_ref": "order:6920156290763740456:logistics",
+          "value": "2026-05-06T00:15:43+08:00"
+        }
+      ]
+    },
+    {
+      "as_of_time": "2026-05-15T13:18:52+08:00",
+      "emotion": {
+        "escalation": "no",
+        "evidence_refs": [
+          "chat:S00268:1",
+          "chat:S00268:3",
+          "chat:S00268:7"
+        ],
+        "negative_signal": "present"
+      },
+      "expected_associations": {
+        "order": "6920156290763740456",
+        "workorder": "no_workorder"
+      },
+      "gold_version": "gold_v1",
+      "intent": {
+        "cue": "医院",
+        "major": "不良反应",
+        "minor": "过敏就医"
+      },
+      "intent_conflict": null,
+      "intent_source_field_crosscheck": {
+        "major": "不良反应",
+        "minor": "过敏就医"
+      },
+      "message_no": 9,
+      "required_evidence_refs": [
+        "chat:S00268:1",
+        "chat:S00268:3",
+        "chat:S00268:7"
+      ],
+      "risk": {
+        "evidence_refs": [
+          "chat:S00268:1",
+          "chat:S00268:7"
+        ],
+        "level": "P0",
+        "rule_ids": [
+          "R-AR-001"
+        ],
+        "status": "confirmed",
+        "type": "adverse_reaction"
+      },
+      "sample_id": "S00268#9",
+      "session_id": "S00268",
+      "visible_gold_fields": [
+        {
+          "field": "order.placed_time",
+          "source_ref": "order:6920156290763740456",
+          "value": "2026-05-05T05:58:43+08:00"
+        },
+        {
+          "field": "order.paid_time",
+          "source_ref": "order:6920156290763740456",
+          "value": "2026-05-05T06:15:43+08:00"
+        },
+        {
+          "field": "order.shipped_time",
+          "source_ref": "order:6920156290763740456:logistics",
+          "value": "2026-05-06T00:15:43+08:00"
+        }
+      ]
+    }
+  ],
+  "scene_fields_used_only_for_crosscheck": true,
+  "set": "frozen"
+}

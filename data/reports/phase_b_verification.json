@@ -1,11 +1,11 @@
 {
   "artifacts": {
-    "emotion_regression": "D:\\黑客松\\data\\reports\\emotion_regression.json",
-    "policy_pack_inventory": "D:\\黑客松\\data\\reports\\policy_pack_inventory.json",
-    "provider_contract_regression": "D:\\黑客松\\data\\reports\\provider_contract_regression.json",
-    "required_questions_and_forbidden_actions": "D:\\黑客松\\data\\reports\\required_questions_and_forbidden_actions.json",
-    "risk_priority_regression": "D:\\黑客松\\data\\reports\\risk_priority_regression.json",
-    "risk_rule_matrix": "D:\\黑客松\\data\\reports\\risk_rule_matrix.json"
+    "emotion_regression": "D:\\黑客松\\data-empathy-copilot\\data\\reports\\emotion_regression.json",
+    "policy_pack_inventory": "D:\\黑客松\\data-empathy-copilot\\data\\reports\\policy_pack_inventory.json",
+    "provider_contract_regression": "D:\\黑客松\\data-empathy-copilot\\data\\reports\\provider_contract_regression.json",
+    "required_questions_and_forbidden_actions": "D:\\黑客松\\data-empathy-copilot\\data\\reports\\required_questions_and_forbidden_actions.json",
+    "risk_priority_regression": "D:\\黑客松\\data-empathy-copilot\\data\\reports\\risk_priority_regression.json",
+    "risk_rule_matrix": "D:\\黑客松\\data-empathy-copilot\\data\\reports\\risk_rule_matrix.json"
   },
   "checks": [
     {
@@ -122,7 +122,7 @@
           "schema_valid_before": false
         },
         "not_run": {
-          "analysis_id": "A-S00015-ab2c0c4d34ff463a9334",
+          "analysis_id": "A-S00015-2d30b4e09ad94c4791d7",
           "can_be_human_confirmation_basis": false,
           "checks": {},
           "executed": false,
@@ -135,7 +135,7 @@
               "type": "not_run"
             }
           ],
-          "run_id": "R-2aa26c0e0e80454e842056d760acd7eb",
+          "run_id": "R-2926038fb3d74baca2fcb01ec79ec1ae",
           "status": "not_run"
         },
         "repair_failed": {
@@ -158,7 +158,7 @@
           ]
         },
         "reply_boundary": {
-          "analysis_id": "A-S00015-ab2c0c4d34ff463a9334",
+          "analysis_id": "A-S00015-2d30b4e09ad94c4791d7",
           "can_be_human_confirmation_basis": false,
           "checks": {
             "fact_visibility": "pass",
@@ -184,11 +184,11 @@
               "type": "reply_boundary"
             }
           ],
-          "run_id": "R-511c55a574f94d3e84808d5dd1516adf",
+          "run_id": "R-d5c8c5abf2544cf3b12aa35306909ad8",
           "status": "fail"
         },
         "risk_downgrade": {
-          "analysis_id": "A-S00015-ab2c0c4d34ff463a9334",
+          "analysis_id": "A-S00015-2d30b4e09ad94c4791d7",
           "can_be_human_confirmation_basis": false,
           "checks": {
             "fact_visibility": "pass",
@@ -209,7 +209,7 @@
               "type": "risk_non_downgrade"
             }
           ],
-          "run_id": "R-42e3b262e75440038ec19260611b395a",
+          "run_id": "R-e42d57dea53040f3afd94504ee84068b",
           "status": "fail"
         },
         "shared_schema": {
@@ -223,19 +223,19 @@
   ],
   "fingerprint": {
     "contract_pack": "risk_contract_v1",
-    "emotion_sha256": "529534564f55328d3b8e2102a84449018a22dd4118e1b25a36646b42aba5daee",
+    "emotion_sha256": "7236f6aa3f8315c5768f335f54686904bde9691f42b43c3d7989cc5ae3f8470f",
     "emotion_version": "v1.0.0",
-    "policy_sha256": "8c4e814cb08d62ac3fe86f91a111fe0bc24579266b18a0cba0f62782390988e4",
+    "policy_sha256": "dd2754bfaa4bd48ab71f2ddfa7193236ade2f71a1d002707ec5fedbb2d3a6ba9",
     "policy_version": "v1.0.0",
     "prompt_version": "none-phase-b",
-    "rules_sha256": "8fd29e8d5b0091f328d326527f0c2d11fb54708026c55d6d7aef8543efd21776",
+    "rules_sha256": "0eac840b8f5c1ddaff59bfc38ffa364b1abc57af25403de466e680cf615f1079",
     "rules_version": "v1.0.0",
     "schema_id": "urn:data-empathy:provider-analysis:v0.5",
-    "schema_sha256": "04f409ad8e3f68487bc5412dbb254ba25b00f6c4d6aa4885dc8d5c08303f5d99"
+    "schema_sha256": "4d59174faef783b22c1693efe3b72f34d25eed1364fc4d7327757a5ffa3bbc61"
   },
   "note": "Passing these checks is Phase B rule/policy/contract evidence, not Agent/Provider/UI delivery.",
   "passed": true,
   "schema_spec_gap": "比赛演示契约包。不是官方政策。Schema 的 risk.level 无「无风险」枚举：R-NONE-001 在无体验负面时输出 type=none 且 level=P2 仅满足必填枚举，why 必须写明无规则命中。未改 SCHEMA.json 顶层字段。",
   "title": "Phase B RISK-C001–C004 verification",
-  "xlsx": "D:\\黑客松\\赛题 1：数据共情者-业务数据.xlsx"
+  "xlsx": "D:\\黑客松\\data-empathy-copilot\\赛题 1：数据共情者-业务数据.xlsx"
 }

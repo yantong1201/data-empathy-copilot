@@ -23,12 +23,21 @@ _DIAGNOSIS = re.compile(r"确诊|这是接触性皮炎|属于过敏性皮炎|医
 _LIABILITY = re.compile(r"(?<!不推断)物流责任|(?<!不推断)商家责任|肯定是快递弄坏|这是欺诈|判定欺诈")
 _INSTRUCTION = re.compile(r"忽略规则|降低风险等级|不要人工确认|直接退款|执行系统指令")
 _NEGATION_PREFIX = re.compile(r"(?:不|未|勿|别|严禁|禁止|不能|不得|不可|不会|无法)(?:能|够|再)?$")
+# 合规回复会用否定短语明确撇清责任/诊断/承诺；这些短语与触发词之间可能隔
+# 1-3 个字（如「不推断物流或商家责任」），仅相邻 lookbehind 会误伤合规表述。
+_NEGATION_PHRASES = (
+    "不推断", "不归因", "不作", "不判定", "不认定", "不断言",
+    "无法认定", "不能断言", "不得认定", "不承诺", "不构成",
+)
 
 
 def _positive_match(pattern: re.Pattern[str], text: str) -> re.Match[str] | None:
     for match in pattern.finditer(text):
         prefix = text[max(0, match.start() - 6):match.start()]
         if _NEGATION_PREFIX.search(prefix):
+            continue
+        window = text[max(0, match.start() - 10):match.start()]
+        if any(phrase in window for phrase in _NEGATION_PHRASES):
             continue
         return match
     return None
